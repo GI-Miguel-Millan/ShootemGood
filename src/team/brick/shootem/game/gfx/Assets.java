@@ -2,15 +2,27 @@ package team.brick.shootem.game.gfx;
 
 import java.awt.image.BufferedImage;
 
+/**
+ *	Assets stores all the assets for the game.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class Assets {
 	
+	//Dimensions of tiles in the SpriteSheet
 	private static final int width = 32, height = 32;
 	
+	// Images that will be loaded into the game.
 	public static BufferedImage dirt, grass, stone, tree, rock;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
 
+	/**
+	 *  Loads all assets into the game. This should only be called once.
+	 */
 	public static void init(){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
 		

@@ -12,6 +12,15 @@ import team.brick.shootem.game.states.GameState;
 import team.brick.shootem.game.states.MenuState;
 import team.brick.shootem.game.states.State;
 
+/**
+ *	The Game class runs the game: 
+ *  It initializes the display and renders the game. 
+ *  It also contains the main game loop.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class Game implements Runnable {
 
 	private Display display;
@@ -46,6 +55,9 @@ public class Game implements Runnable {
 		mouseManager = new MouseManager();
 	}
 	
+	/**
+	 *  Initializes everything.
+	 */
 	private void init(){
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -63,6 +75,9 @@ public class Game implements Runnable {
 		State.setState(menuState);
 	}
 	
+	/**
+	 *  Updates the game every tick.
+	 */
 	private void tick(){
 		keyManager.tick();
 		
@@ -70,6 +85,9 @@ public class Game implements Runnable {
 			State.getState().tick();
 	}
 	
+	/**
+	 *  Renders all the graphics in the game to the screen.
+	 */
 	private void render(){
 		bs = display.getCanvas().getBufferStrategy();
 		if(bs == null){
@@ -89,11 +107,16 @@ public class Game implements Runnable {
 		g.dispose();
 	}
 	
+	/**
+	 *  The main game loop which ticks and renders every loop 
+	 *  as long as the game is running.
+	 */
 	public void run(){
 		
 		init();
 		
-		int fps = 60;
+		
+		int fps = 60;  // How many times every second we want to run tick() and render()
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;
 		long now;
@@ -114,6 +137,7 @@ public class Game implements Runnable {
 				delta--;
 			}
 			
+			// Temporary FPS counter
 			if(timer >= 1000000000){
 				System.out.println("Ticks and Frames: " + ticks);
 				ticks = 0;
@@ -125,26 +149,45 @@ public class Game implements Runnable {
 		
 	}
 	
+	/**
+	 * @return keyManager
+	 */
 	public KeyManager getKeyManager(){
 		return keyManager;
 	}
 	
+	/**
+	 * @return mouseManager
+	 */
 	public MouseManager getMouseManager(){
 		return mouseManager;
 	}
 	
+	/**
+	 * @return gameCamera
+	 */
 	public GameCamera getGameCamera(){
 		return gameCamera;
 	}
 	
+	/**
+	 * @return width of the game
+	 */
 	public int getWidth(){
 		return width;
 	}
 	
+	/**
+	 * @return height of the game
+	 */
 	public int getHeight(){
 		return height;
 	}
 	
+	/**
+	 *  Starts the thread which runs the game,
+	 *  if it is not already running
+	 */
 	public synchronized void start(){
 		if(running)
 			return;
@@ -153,6 +196,10 @@ public class Game implements Runnable {
 		thread.start();
 	}
 	
+	/**
+	 *  Joins the game thread, stopping the game,
+	 *  if it is already running.
+	 */
 	public synchronized void stop(){
 		if(!running)
 			return;

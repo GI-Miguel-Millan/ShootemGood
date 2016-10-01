@@ -4,6 +4,13 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
 import team.brick.shootem.game.tiles.Tile;
 
+/**
+ *	Creatures are entities which move and have health.
+ * 	
+ *	@author Miguel Millan
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public abstract class Creature extends Entity {
 	
 	public static final int DEFAULT_HEALTH = 10;
@@ -23,6 +30,9 @@ public abstract class Creature extends Entity {
 		yMove = 0;
 	}
 	
+	/**
+	 *	Calls the Creatures Move methods if there are no Entity collisions.
+	 */
 	public void move(){
 		if(!checkEntityCollisions(xMove, 0f))
 			moveX();
@@ -30,6 +40,9 @@ public abstract class Creature extends Entity {
 			moveY();
 	}
 	
+	/**
+	 * Moves the Creature in the x direction.
+	 */
 	public void moveX(){
 		if(xMove > 0){//Moving right
 			int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
@@ -54,6 +67,9 @@ public abstract class Creature extends Entity {
 		}
 	}
 	
+	/**
+	 * Moves the Creature in the y direction.
+	 */
 	public void moveY(){
 		if(yMove < 0){//Up
 			int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
@@ -78,40 +94,72 @@ public abstract class Creature extends Entity {
 		}
 	}
 	
+	/**
+	 * Checks if the creature is colliding with a solid Tile.
+	 * 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @return true if the Tile is not solid
+	 * @return false if the Tile is is solid
+	 */
 	protected boolean collisionWithTile(int x, int y){
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
 	
 	//GETTERS SETTERS
 
+	/**
+	 * @return xMove 
+	 */
 	public float getxMove() {
 		return xMove;
 	}
 
+	/**
+	 * @param xMove how far the creature will move in the x-direction
+	 */
 	public void setxMove(float xMove) {
 		this.xMove = xMove;
 	}
 
+	/**
+	 * @return yMove
+	 */
 	public float getyMove() {
 		return yMove;
 	}
 
+	/**
+	 * @param yMove how far the Creature will move in the y-direction
+	 */
 	public void setyMove(float yMove) {
 		this.yMove = yMove;
 	}
 
+	/**
+	 * @return health the current health of the Creature
+	 */
 	public int getHealth() {
 		return health;
 	}
 
+	/**
+	 * @param health the new health of the Creature
+	 */
 	public void setHealth(int health) {
 		this.health = health;
 	}
 
+	/**
+	 * @return speed the current speed of the Creature
+	 */
 	public float getSpeed() {
 		return speed;
 	}
 
+	/**
+	 * @param speed the new speed of the Creature
+	 */
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}

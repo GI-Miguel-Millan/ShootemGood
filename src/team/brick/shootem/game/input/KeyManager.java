@@ -3,6 +3,13 @@ package team.brick.shootem.game.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ *	The KeyManager keeps track of key presses.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class KeyManager implements KeyListener {
 	
 	private boolean[] keys;
@@ -12,6 +19,10 @@ public class KeyManager implements KeyListener {
 		keys = new boolean[256];
 	}
 	
+	/**
+	 *  Sets the movement keys to true or false based on
+	 *  whether or not its key is pressed.
+	 */
 	public void tick(){
 		up = keys[KeyEvent.VK_W];
 		down = keys[KeyEvent.VK_S];
@@ -19,12 +30,26 @@ public class KeyManager implements KeyListener {
 		right = keys[KeyEvent.VK_D];
 	}
 
-	@Override
+	
+	
+	/**
+	 * Sets the key with the given key code to true if 
+	 * it has been pressed.
+	 * 
+	 * @param e
+	 * @Override
+	 */
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
 	}
 
-	@Override
+	/**
+	 * Sets the key with the given key code to false if 
+	 * it has been released.
+	 * 
+	 * @param e
+	 * @Override
+	 */
 	public void keyReleased(KeyEvent e) {
 		keys[e.getKeyCode()] = false;
 	}

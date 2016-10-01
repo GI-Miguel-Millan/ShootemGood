@@ -4,15 +4,29 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 
-
+/**
+ *  A State is any given phase of the game. It determines what will
+ *  tick and render during that phase. The State class also acts as
+ *  a state manager.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public abstract class State {
 
 	private static State currentState = null;
 	
+	/**
+	 * @param state the current state of the game.
+	 */
 	public static void setState(State state){
 		currentState = state;
 	}
 	
+	/**
+	 * @return currentState the current state of the game.
+	 */
 	public static State getState(){
 		return currentState;
 	}

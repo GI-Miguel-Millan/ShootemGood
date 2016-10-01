@@ -7,6 +7,14 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 
+/**
+ *	Player is a Creature controlled by the user. This class takes input from the user
+ *	for movement, and is able to shoot projectiles.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class Player extends Creature {
 	
 	//Animations
@@ -40,6 +48,10 @@ public class Player extends Creature {
 		handler.getGameCamera().centerOnEntity(this);
 	}
 	
+	/**
+	 *  Gets input from the user and sets the players yMove and
+	 *  xMove according to which key is pressed.
+	 */
 	private void getInput(){
 		xMove = 0;
 		yMove = 0;
@@ -64,6 +76,9 @@ public class Player extends Creature {
 //				bounds.width, bounds.height);
 	}
 	
+	/**
+	 *  @return the current animation frame based on which direction the player moves.
+	 */
 	private BufferedImage getCurrentAnimationFrame(){
 		if(xMove < 0){
 			return animLeft.getCurrentFrame();

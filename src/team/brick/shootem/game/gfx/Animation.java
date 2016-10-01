@@ -2,6 +2,14 @@ package team.brick.shootem.game.gfx;
 
 import java.awt.image.BufferedImage;
 
+/**
+ *	An Animation is an array of Buffered images which loop on
+ *	a specified time interval.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class Animation {
 	
 	private int speed, index;
@@ -16,6 +24,10 @@ public class Animation {
 		lastTime = System.currentTimeMillis();
 	}
 	
+	/**
+	 *  Increments the index used to change which image is 
+	 *  the current frame of the animation.
+	 */
 	public void tick(){
 		timer += System.currentTimeMillis() - lastTime;
 		lastTime = System.currentTimeMillis();
@@ -28,6 +40,9 @@ public class Animation {
 		}
 	}
 	
+	/**
+	 * @return the current frame at index.
+	 */
 	public BufferedImage getCurrentFrame(){
 		return frames[index];
 	}
