@@ -11,6 +11,7 @@ import team.brick.shootem.game.input.MouseManager;
 import team.brick.shootem.game.states.GameState;
 import team.brick.shootem.game.states.MenuState;
 import team.brick.shootem.game.states.State;
+import team.brick.shootem.game.tiles.Tile;
 
 /**
  *	The Game class runs the game: 
@@ -68,10 +69,12 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		handler = new Handler(this);
-		gameCamera = new GameCamera(handler, 0, 0);
-		
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
+		
+		gameCamera = new GameCamera(handler, 0, handler.getWorld().getHeight() * Tile.TILEHEIGHT);
+		
+		
 		State.setState(menuState);
 	}
 	

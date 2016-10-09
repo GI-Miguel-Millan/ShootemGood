@@ -51,6 +51,12 @@ public class GameCamera {
 		checkBlankSpace();
 	}
 	
+	public void staticCamera(Entity e){
+		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		yOffset -=2;
+		checkBlankSpace();
+	}
+	
 	/**
 	 * Moves the GameCamera.
 	 * 

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.EntityManager;
+import team.brick.shootem.game.entities.creatures.Interceptor;
+import team.brick.shootem.game.entities.creatures.Enemy;
 import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.entities.statics.Tree;
 import team.brick.shootem.game.tiles.Tile;
@@ -30,7 +32,7 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		// Temporary entity code!
-		entityManager.addEntity(new Tree(handler, 100, 250));
+		//entityManager.addEntity(new Drone(handler, 100, 250));
 		
 		loadWorld(path);
 		
@@ -104,9 +106,23 @@ public class World {
 		for(int y = 0;y < height;y++){
 			for(int x = 0;x < width;x++){
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
+				
+				if(getTile(x,y).isPSpawn()){
+					System.out.println("Hi");
+					spawnX = x * Tile.TILEWIDTH;
+					spawnY = (y-1) * Tile.TILEHEIGHT;
+				}else if(getTile(x,y).isESpawn()){
+					int randomSpawn = Utils.randomNum(1,3);
+					System.out.println(randomSpawn);
+					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);
+				}
+						
 			}
 		}
+		
 	}
+	
+	
 	
 	/**
 	 * @return width the width of the world

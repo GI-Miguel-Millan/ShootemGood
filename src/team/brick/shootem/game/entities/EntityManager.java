@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import team.brick.shootem.game.Handler;
-import team.brick.shootem.game.entities.creatures.Player;
+import team.brick.shootem.game.entities.creatures.*;
 
 /**
  *	The EntityManager manages all entities, rendering each entity
@@ -56,6 +56,18 @@ public class EntityManager {
 	public void render(Graphics g){
 		for(Entity e : entities){
 			e.render(g);
+		}
+	}
+	
+	public void spawnEnemy(Handler handler, int x, int y, int type){
+		if(type == 1){
+			this.addEntity(new Interceptor(handler, x, y));
+		}else if(type == 2){
+			this.addEntity(new AssaultFigher(handler, x, y));
+		}else if(type == 3){
+			this.addEntity(new StealthFighter(handler, x, y));
+		}else{
+			this.addEntity(new Interceptor(handler, x, y));
 		}
 	}
 	
