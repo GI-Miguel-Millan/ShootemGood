@@ -37,7 +37,7 @@ public class GameState extends State {
 		g.fillRect(0, 720, 500, 30);
 		g.setColor(Color.black);
 		g.drawString("SCORE", 240, 740);	//Score placeholder
-		g.drawString("LIFES", 450, 740);	//Lifes placeholder
+		g.drawString("LIVES", 450, 740);	//Lives placeholder
 		g.drawString("LEVEL", 25, 740);		//Level number placeholder
 	}
 
