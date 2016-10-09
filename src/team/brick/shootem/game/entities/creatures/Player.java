@@ -32,7 +32,6 @@ public class Player extends Creature {
 		bounds.height = 19;
 		counter = 0;
 		readyFire = true;
-		//speed = 2;
 		
 		//Animatons
 		animDown = new Animation(500, Assets.player_down);
@@ -93,7 +92,9 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		posX = (int)(x - handler.getGameCamera().getxOffset());
+		posY = (int) (y - handler.getGameCamera().getyOffset());
+		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
 //		g.setColor(Color.red);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),

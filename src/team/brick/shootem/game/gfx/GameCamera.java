@@ -16,7 +16,7 @@ public class GameCamera {
 	private Handler handler;
 	private float xOffset, yOffset;
 	private boolean cameraStop = false;
-	private int camSpeed = 2;
+	private int camSpeed = 1;
 	
 	public GameCamera(Handler handler, float xOffset, float yOffset){
 		this.handler = handler;

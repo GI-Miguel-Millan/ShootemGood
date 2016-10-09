@@ -110,7 +110,8 @@ public class World {
 				if(getTile(x,y).isPSpawn()){
 					System.out.println("Hi");
 					spawnX = x * Tile.TILEWIDTH;
-					spawnY = (y-1) * Tile.TILEHEIGHT;
+					spawnY = (y) * Tile.TILEHEIGHT;
+					
 				}else if(getTile(x,y).isESpawn()){
 					int randomSpawn = Utils.randomNum(1,3);
 					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);
