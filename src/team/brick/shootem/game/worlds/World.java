@@ -107,11 +107,13 @@ public class World {
 			for(int x = 0;x < width;x++){
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 				
+					//Sets the player's spawn point
 				if(getTile(x,y).isPSpawn()){
 					System.out.println("Hi");
 					spawnX = x * Tile.TILEWIDTH;
 					spawnY = (y) * Tile.TILEHEIGHT;
-					
+				
+					//Spawns an enemy on an enemy spawn tile
 				}else if(getTile(x,y).isESpawn()){
 					int randomSpawn = Utils.randomNum(1,3);
 					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);

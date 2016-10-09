@@ -47,6 +47,7 @@ public class Player extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+		
 		//Movement
 		getInput();
 		move();
