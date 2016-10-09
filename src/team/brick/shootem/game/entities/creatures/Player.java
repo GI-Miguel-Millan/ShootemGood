@@ -1,6 +1,7 @@
 package team.brick.shootem.game.entities.creatures;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
@@ -19,6 +20,8 @@ public class Player extends Creature {
 	
 	//Animations
 	private Animation animDown, animUp, animLeft, animRight;
+	private boolean readyFire;
+	private int counter;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -27,7 +30,8 @@ public class Player extends Creature {
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
-		
+		counter = 0;
+		readyFire = true;
 		//Animatons
 		animDown = new Animation(500, Assets.player_down);
 		animUp = new Animation(500, Assets.player_up);
@@ -45,8 +49,17 @@ public class Player extends Creature {
 		//Movement
 		getInput();
 		move();
-		handler.getGameCamera().centerOnEntity(this);
-		//handler.getGameCamera().staticCamera(this);
+		if(!readyFire)
+			counter++;
+		
+		if(counter == 20){
+			readyFire = true;
+			counter = 0;
+		}
+			
+		
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
 	}
 	
 	/**
@@ -65,6 +78,14 @@ public class Player extends Creature {
 			xMove = -speed;
 		if(handler.getKeyManager().right)
 			xMove = speed;
+		
+		if(handler.getKeyManager().fire && readyFire){
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
+					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
+					(int) (y - 25), 0));
+			readyFire = false;
+			System.out.println("fire");
+		}
 	}
 
 	@Override
@@ -90,6 +111,16 @@ public class Player extends Creature {
 		}else{
 			return animDown.getCurrentFrame();
 		}
+	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Rectangle getBounds(){
+		return bounds;
 	}
 
 }

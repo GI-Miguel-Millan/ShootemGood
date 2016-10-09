@@ -32,7 +32,7 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		// Temporary entity code!
-		//entityManager.addEntity(new Drone(handler, 100, 250));
+		//entityManager.addEntity(new Interceptor(handler, 100, 750));
 		
 		loadWorld(path);
 		
@@ -113,12 +113,12 @@ public class World {
 					spawnY = (y-1) * Tile.TILEHEIGHT;
 				}else if(getTile(x,y).isESpawn()){
 					int randomSpawn = Utils.randomNum(1,3);
-					System.out.println(randomSpawn);
 					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);
 				}
 						
 			}
 		}
+		
 		
 	}
 	

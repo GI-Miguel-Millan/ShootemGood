@@ -46,13 +46,15 @@ public class GameCamera {
 	 * @param e
 	 */
 	public void centerOnEntity(Entity e){
-		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		//xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		xOffset = Tile.TILEWIDTH/2 + 5;
 		yOffset = e.getY() - handler.getHeight() / 2 + e.getHeight() / 2;
 		checkBlankSpace();
 	}
 	
 	public void staticCamera(Entity e){
-		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		//xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		xOffset = Tile.TILEWIDTH/2 + 5;
 		yOffset -=2;
 		checkBlankSpace();
 	}
