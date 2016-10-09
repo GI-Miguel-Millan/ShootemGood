@@ -32,6 +32,8 @@ public class Player extends Creature {
 		bounds.height = 19;
 		counter = 0;
 		readyFire = true;
+		//speed = 2;
+		
 		//Animatons
 		animDown = new Animation(500, Assets.player_down);
 		animUp = new Animation(500, Assets.player_up);
@@ -68,12 +70,13 @@ public class Player extends Creature {
 	 */
 	private void getInput(){
 		xMove = 0;
-		yMove = 0;
+		//yMove = -2;
+		yMove = -(handler.getGameCamera().getCamSpeed());
 		
 		if(handler.getKeyManager().up)
-			yMove = -speed;
+			yMove += -speed;
 		if(handler.getKeyManager().down)
-			yMove = speed;
+			yMove += speed;
 		if(handler.getKeyManager().left)
 			xMove = -speed;
 		if(handler.getKeyManager().right)
