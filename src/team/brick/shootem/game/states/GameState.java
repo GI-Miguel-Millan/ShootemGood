@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.worlds.World;
+import team.brick.shootem.game.ui.ScoreCounter;
 
 /**
  *	All game-play is done in the chosen world, during the GameState.
@@ -16,6 +17,7 @@ import team.brick.shootem.game.worlds.World;
 public class GameState extends State {
 	
 	private World world;
+	private ScoreCounter scoreCounter; //Creates a variable using the s
 	
 	public GameState(Handler handler){
 		super(handler);
@@ -36,7 +38,9 @@ public class GameState extends State {
 		g.setColor(Color.green);
 		g.fillRect(0, 720, 500, 30);
 		g.setColor(Color.black);
-		g.drawString("SCORE", 240, 740);	//Score placeholder
+		scoreCounter.addToScore(50);
+		String score = String.valueOf(scoreCounter.getScore());
+		g.drawString(score, 240, 740);
 		g.drawString("LIVES", 450, 740);	//Lives placeholder
 		g.drawString("LEVEL", 25, 740);		//Level number placeholder
 	}
