@@ -8,8 +8,9 @@ import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
-import team.brick.shootem.game.states.*;
-import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.states.GameState;
+import team.brick.shootem.game.states.MenuState;
+import team.brick.shootem.game.states.State;
 
 /**
  *	The Game class runs the game: 
@@ -35,7 +36,6 @@ public class Game implements Runnable {
 	//States
 	public State gameState;
 	public State menuState;
-	public State victoryState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -68,14 +68,10 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		handler = new Handler(this);
+		gameCamera = new GameCamera(handler, 0, 0);
+		
 		gameState = new GameState(handler);
-		victoryState = new VictoryState(handler);
 		menuState = new MenuState(handler);
-		
-		
-		gameCamera = new GameCamera(handler, 0, handler.getWorld().getHeight() * Tile.TILEHEIGHT);
-		
-		
 		State.setState(menuState);
 	}
 	
@@ -141,12 +137,12 @@ public class Game implements Runnable {
 				delta--;
 			}
 			
-//			// Temporary FPS counter
-//			if(timer >= 1000000000){
-//				System.out.println("Ticks and Frames: " + ticks);
-//				ticks = 0;
-//				timer = 0;
-//			}
+			// Temporary FPS counter
+			if(timer >= 1000000000){
+				System.out.println("Ticks and Frames: " + ticks);
+				ticks = 0;
+				timer = 0;
+			}
 		}
 		
 		stop();

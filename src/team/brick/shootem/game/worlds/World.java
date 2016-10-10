@@ -4,11 +4,10 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.EntityManager;
-import team.brick.shootem.game.entities.creatures.Interceptor;
-import team.brick.shootem.game.entities.creatures.Enemy;
 import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.entities.statics.Tree;
 import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.ui.ScoreCounter;
 import team.brick.shootem.game.utils.Utils;
 
 /**
@@ -32,7 +31,7 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		// Temporary entity code!
-		//entityManager.addEntity(new Interceptor(handler, 100, 750));
+		entityManager.addEntity(new Tree(handler, 100, 250));
 		
 		loadWorld(path);
 		
@@ -66,6 +65,8 @@ public class World {
 				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
 						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
+		
+		
 		}
 		//Entities
 		entityManager.render(g);
@@ -84,10 +85,8 @@ public class World {
 			return Tile.grassTile;
 		
 		Tile t = Tile.tiles[tiles[x][y]];
-		
 		if(t == null)
 			return Tile.dirtTile;
-		
 		return t;
 	}
 	
@@ -108,25 +107,11 @@ public class World {
 		for(int y = 0;y < height;y++){
 			for(int x = 0;x < width;x++){
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
-				
-					//Sets the player's spawn point
-				if(getTile(x,y).isPSpawn()){
-					spawnX = x * Tile.TILEWIDTH;
-					spawnY = (y) * Tile.TILEHEIGHT;
-				
-					//Spawns an enemy on an enemy spawn tile
-				}else if(getTile(x,y).isESpawn()){
-					int randomSpawn = Utils.randomNum(1,3);
-					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);
-				}
-						
 			}
 		}
 		
 		
 	}
-	
-	
 	
 	/**
 	 * @return width the width of the world

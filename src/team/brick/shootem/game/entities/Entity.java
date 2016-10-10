@@ -16,16 +16,10 @@ import team.brick.shootem.game.Handler;
  */
 public abstract class Entity {
 
-	public static final int DEFAULT_HEALTH = 3;
-	
-	protected int health;
 	protected Handler handler;
 	protected float x, y;
-	protected int posX, posY;
 	protected int width, height;
 	protected Rectangle bounds;
-	protected boolean active = true;
-	protected int collidedWith;
 	
 	public Entity(Handler handler, float x, float y, int width, int height){
 		this.handler = handler;
@@ -33,7 +27,6 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		health = DEFAULT_HEALTH;
 		
 		bounds = new Rectangle(0, 0, width, height);
 	}
@@ -41,16 +34,6 @@ public abstract class Entity {
 	public abstract void tick();
 	
 	public abstract void render(Graphics g);
-	
-	public abstract void die();
-	
-	public void hurt(int amt){
-		health -= amt;
-		if(health <= 0){
-			active = false;
-			die();
-		}
-	}
 	
 	/**
 	 * Checks for collision between entities by checking for an intersection
@@ -65,11 +48,8 @@ public abstract class Entity {
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 			if(e.equals(this))
 				continue;
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))){
-				collidedWith = handler.getWorld().getEntityManager().getIndex(e);
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
 				return true;
-			}
-				
 		}
 		return false;
 	}
@@ -85,10 +65,6 @@ public abstract class Entity {
 		return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
 	}
 
-	public boolean isActive(){
-		return active;
-	}
-	
 	/**
 	 * @return x the x position of the entity
 	 */
@@ -151,20 +127,6 @@ public abstract class Entity {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
-	}
-	
-	/**
-	 * @return health the current health of the Creature
-	 */
-	public int getHealth() {
-		return health;
-	}
-
-	/**
-	 * @param health the new health of the Creature
-	 */
-	public void setHealth(int health) {
-		this.health = health;
 	}
 	
 }

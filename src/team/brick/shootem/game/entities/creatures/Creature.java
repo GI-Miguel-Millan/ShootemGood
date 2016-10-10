@@ -12,16 +12,19 @@ import team.brick.shootem.game.tiles.Tile;
  *	@since version 1.0
  */
 public abstract class Creature extends Entity {
-
+	
+	public static final int DEFAULT_HEALTH = 10;
 	public static final float DEFAULT_SPEED = 3.0f;
 	public static final int DEFAULT_CREATURE_WIDTH = 64,
 							DEFAULT_CREATURE_HEIGHT = 64;
-
+	
+	protected int health;
 	protected float speed;
 	protected float xMove, yMove;
 
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
+		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
 		xMove = 0;
 		yMove = 0;
@@ -131,6 +134,20 @@ public abstract class Creature extends Entity {
 	 */
 	public void setyMove(float yMove) {
 		this.yMove = yMove;
+	}
+
+	/**
+	 * @return health the current health of the Creature
+	 */
+	public int getHealth() {
+		return health;
+	}
+
+	/**
+	 * @param health the new health of the Creature
+	 */
+	public void setHealth(int health) {
+		this.health = health;
 	}
 
 	/**
