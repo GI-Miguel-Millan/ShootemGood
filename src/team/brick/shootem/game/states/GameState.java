@@ -17,7 +17,7 @@ import team.brick.shootem.game.ui.ScoreCounter;
 public class GameState extends State {
 	
 	private World world;
-	private ScoreCounter scoreCounter; //Creates a variable using the s
+	private ScoreCounter scoreCounter = new ScoreCounter(0); //Creates a variable using the s
 	
 	public GameState(Handler handler){
 		super(handler);
@@ -38,7 +38,6 @@ public class GameState extends State {
 		g.setColor(Color.green);
 		g.fillRect(0, 720, 500, 30);
 		g.setColor(Color.black);
-		scoreCounter.addToScore(50);
 		String score = String.valueOf(scoreCounter.getScore());
 		g.drawString(score, 240, 740);
 		g.drawString("LIVES", 450, 740);	//Lives placeholder
