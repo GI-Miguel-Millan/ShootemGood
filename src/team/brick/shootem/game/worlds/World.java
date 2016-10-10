@@ -7,6 +7,7 @@ import team.brick.shootem.game.entities.EntityManager;
 import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.entities.statics.Tree;
 import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.ui.ScoreCounter;
 import team.brick.shootem.game.utils.Utils;
 
 /**
@@ -64,6 +65,8 @@ public class World {
 				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
 						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
+		
+		
 		}
 		//Entities
 		entityManager.render(g);
@@ -106,6 +109,8 @@ public class World {
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 			}
 		}
+		
+		
 	}
 	
 	/**
