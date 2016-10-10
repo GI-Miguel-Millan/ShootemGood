@@ -18,8 +18,9 @@ public class Tile {
 	public static Tile grassTile = new GrassTile(0);
 	public static Tile dirtTile = new DirtTile(1);
 	public static Tile rockTile = new RockTile(2);
-	public static Tile playerSpawnTile = new pSpawnTile(3);
-	public static Tile enemySpawnTile = new eSpawnTile(4);
+	public static Tile playerSpawnTile = new PSpawnTile(3);
+	public static Tile enemySpawnTile = new ESpawnTile(4);
+	public static Tile goalTile = new GoalTile(5);
 	
 	//CLASS
 	
@@ -47,7 +48,8 @@ public class Tile {
 	}
 	
 	/**
-	 * @return false indicating a solid tile.
+	 * Override this method and return true for a solid tile.
+	 * @return false means it is not solid
 	 */
 	public boolean isSolid(){
 		return false;
@@ -74,6 +76,19 @@ public class Tile {
 		if(this.getId() == enemySpawnTile.getId())
 			return true;
 		else
+			return false;
+	}
+	
+	/**
+	 * Checks if this Tile is a Goal Tile
+	 * @return true if it Is
+	 * @return false if not
+	 */
+	public boolean isGoal(){
+		
+		if(this.getId() == goalTile.getId())
+			return true;
+		else 
 			return false;
 	}
 	

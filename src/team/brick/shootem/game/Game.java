@@ -8,9 +8,7 @@ import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
-import team.brick.shootem.game.states.GameState;
-import team.brick.shootem.game.states.MenuState;
-import team.brick.shootem.game.states.State;
+import team.brick.shootem.game.states.*;
 import team.brick.shootem.game.tiles.Tile;
 
 /**
@@ -37,6 +35,7 @@ public class Game implements Runnable {
 	//States
 	public State gameState;
 	public State menuState;
+	public State victoryState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -70,7 +69,9 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 		gameState = new GameState(handler);
+		victoryState = new VictoryState(handler);
 		menuState = new MenuState(handler);
+		
 		
 		gameCamera = new GameCamera(handler, 0, handler.getWorld().getHeight() * Tile.TILEHEIGHT);
 		

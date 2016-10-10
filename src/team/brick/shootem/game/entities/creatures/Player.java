@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.states.State;
+import team.brick.shootem.game.tiles.Tile;
 
 /**
  *	Player is a Creature controlled by the user. This class takes input from the user
@@ -22,6 +24,7 @@ public class Player extends Creature {
 	private Animation animDown, animUp, animLeft, animRight;
 	private boolean readyFire;
 	private int counter;
+	private int score = 1000;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -58,7 +61,8 @@ public class Player extends Creature {
 			readyFire = true;
 			counter = 0;
 		}
-			
+		
+		collisionWithGoal((int)x,(int)y);
 		
 		//handler.getGameCamera().centerOnEntity(this);
 		handler.getGameCamera().staticCamera(this);
@@ -86,10 +90,30 @@ public class Player extends Creature {
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
 					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
 					(int) (y - 25), 0));
+			score -=10;
 			readyFire = false;
 			System.out.println("fire");
+			System.out.println("Score: " + score);
 		}
 	}
+	
+	/**
+	 * Checks if the player is colliding with a Goal Tile.
+	 * 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @return true if the Tile is not solid
+	 * @return false if the Tile is is solid
+	 */
+	protected void collisionWithGoal(int x, int y){
+		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
+		if(handler.getWorld().getTile(tx, ty).isGoal()){
+			handler.setPlayerScore(score);
+			State.setState(handler.getGame().victoryState);
+		}
+	}
+	
 
 	@Override
 	public void render(Graphics g) {
@@ -124,8 +148,19 @@ public class Player extends Creature {
 		
 	}
 	
-	public Rectangle getBounds(){
-		return bounds;
+	/**
+	 * Add integer to the players score.
+	 * @param score
+	 */
+	public void addScore(int score){
+		this.score += score;
 	}
-
+	
+	/**
+	 * 
+	 * @return player score
+	 */
+	public int getScore(){
+		return score;
+	}
 }

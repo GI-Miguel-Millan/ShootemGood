@@ -66,7 +66,6 @@ public abstract class Entity {
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))){
-				System.out.println("There was a Collision");
 				collidedWith = handler.getWorld().getEntityManager().getIndex(e);
 				return true;
 			}

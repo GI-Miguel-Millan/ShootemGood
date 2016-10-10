@@ -84,8 +84,10 @@ public class World {
 			return Tile.grassTile;
 		
 		Tile t = Tile.tiles[tiles[x][y]];
+		
 		if(t == null)
 			return Tile.dirtTile;
+		
 		return t;
 	}
 	
@@ -109,7 +111,6 @@ public class World {
 				
 					//Sets the player's spawn point
 				if(getTile(x,y).isPSpawn()){
-					System.out.println("Hi");
 					spawnX = x * Tile.TILEWIDTH;
 					spawnY = (y) * Tile.TILEHEIGHT;
 				

@@ -16,7 +16,6 @@ import team.brick.shootem.game.worlds.World;
 public class GameState extends State {
 	
 	private World world;
-	
 	public GameState(Handler handler){
 		super(handler);
 		world = new World(handler, "res/worlds/world1.txt");
@@ -40,5 +39,4 @@ public class GameState extends State {
 		g.drawString("LIVES", 450, 740);	//Lives placeholder
 		g.drawString("LEVEL", 25, 740);		//Level number placeholder
 	}
-
 }

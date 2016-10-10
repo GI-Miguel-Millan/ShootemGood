@@ -17,6 +17,7 @@ public class Handler {
 	
 	private Game game;
 	private World world;
+	private int playerScore;
 	
 	public Handler(Game game){
 		this.game = game;
@@ -83,6 +84,17 @@ public class Handler {
 	 */
 	public void setWorld(World world) {
 		this.world = world;
+	}
+	
+	/**
+	 * @param score the new score
+	 */
+	public void setPlayerScore(int score){
+		playerScore = score;
+	}
+	
+	public int getPlayerScore(){
+		return playerScore;
 	}
 
 }
