@@ -3,7 +3,6 @@ package team.brick.shootem.game;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
-import team.brick.shootem.game.ui.ScoreCounter;
 import team.brick.shootem.game.worlds.World;
 
 /**
@@ -18,7 +17,7 @@ public class Handler {
 	
 	private Game game;
 	private World world;
-	private ScoreCounter score;
+	private int playerScore;
 	
 	public Handler(Game game){
 		this.game = game;
@@ -87,17 +86,15 @@ public class Handler {
 		this.world = world;
 	}
 	
-	//Return score
-	public ScoreCounter getScore()
-	{
-		return score;
+	/**
+	 * @param score the new score
+	 */
+	public void setPlayerScore(int score){
+		playerScore = score;
 	}
 	
-	
-	//param world
-	public void setScore(ScoreCounter score)
-	{
-		this.score = score;
+	public int getPlayerScore(){
+		return playerScore;
 	}
 
 }

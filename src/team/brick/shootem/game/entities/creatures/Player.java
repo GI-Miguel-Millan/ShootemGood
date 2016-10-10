@@ -1,11 +1,14 @@
 package team.brick.shootem.game.entities.creatures;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.states.State;
+import team.brick.shootem.game.tiles.Tile;
 
 /**
  *	Player is a Creature controlled by the user. This class takes input from the user
@@ -19,6 +22,9 @@ public class Player extends Creature {
 	
 	//Animations
 	private Animation animDown, animUp, animLeft, animRight;
+	private boolean readyFire;
+	private int counter;
+	private int score = 1000;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -27,6 +33,8 @@ public class Player extends Creature {
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
+		counter = 0;
+		readyFire = true;
 		
 		//Animatons
 		animDown = new Animation(500, Assets.player_down);
@@ -42,10 +50,22 @@ public class Player extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+		
 		//Movement
 		getInput();
 		move();
-		handler.getGameCamera().centerOnEntity(this);
+		if(!readyFire)
+			counter++;
+		
+		if(counter == 20){
+			readyFire = true;
+			counter = 0;
+		}
+		
+		collisionWithGoal((int)x,(int)y);
+		
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
 	}
 	
 	/**
@@ -54,21 +74,52 @@ public class Player extends Creature {
 	 */
 	private void getInput(){
 		xMove = 0;
-		yMove = 0;
+		//yMove = -2;
+		yMove = -(handler.getGameCamera().getCamSpeed());
 		
 		if(handler.getKeyManager().up)
-			yMove = -speed;
+			yMove += -speed;
 		if(handler.getKeyManager().down)
-			yMove = speed;
+			yMove += speed;
 		if(handler.getKeyManager().left)
 			xMove = -speed;
 		if(handler.getKeyManager().right)
 			xMove = speed;
+		
+		if(handler.getKeyManager().fire && readyFire){
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
+					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
+					(int) (y - 25), 0));
+			score -=10;
+			readyFire = false;
+			System.out.println("fire");
+			System.out.println("Score: " + score);
+		}
 	}
+	
+	/**
+	 * Checks if the player is colliding with a Goal Tile.
+	 * 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @return true if the Tile is not solid
+	 * @return false if the Tile is is solid
+	 */
+	protected void collisionWithGoal(int x, int y){
+		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
+		if(handler.getWorld().getTile(tx, ty).isGoal()){
+			handler.setPlayerScore(score);
+			State.setState(handler.getGame().victoryState);
+		}
+	}
+	
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		posX = (int)(x - handler.getGameCamera().getxOffset());
+		posY = (int) (y - handler.getGameCamera().getyOffset());
+		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
 //		g.setColor(Color.red);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
@@ -91,4 +142,25 @@ public class Player extends Creature {
 		}
 	}
 
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Add integer to the players score.
+	 * @param score
+	 */
+	public void addScore(int score){
+		this.score += score;
+	}
+	
+	/**
+	 * 
+	 * @return player score
+	 */
+	public int getScore(){
+		return score;
+	}
 }

@@ -2,34 +2,34 @@ package team.brick.shootem.game.ui;
 
 import java.awt.Graphics;
 
-public class UILabel extends UIObject
-{
+public class UILabel extends UIObject {
 
-	private String label;
+	private ClickListener clicker;
+	private String text;
 	
-	public UILabel(float x, float y, int width, int height, String label)
-	{
+	public UILabel(float x, float y, int width, int height, String text, ClickListener clicker) {
 		super(x, y, width, height);
-		this.label = label;
+		this.clicker = clicker;
+		this.text = text;
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void render(Graphics g)
-	{
-		g.drawString(label, (int) x, (int) y); 
-		
+	public void render(Graphics g) {
+		g.drawString(text, (int)x, (int)y);
 	}
 
 	@Override
 	public void onClick() {
-		// TODO Auto-generated method stub
-		
+		clicker.onClick();
 	}
 	
+	public void setText(String txt){
+		text = txt;
+	}
+
 }
