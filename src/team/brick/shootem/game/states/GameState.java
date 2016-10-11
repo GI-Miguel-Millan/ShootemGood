@@ -30,13 +30,14 @@ public class GameState extends State {
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
-		
+		String tmpScore = "SCORE: " + handler.getPlayerScore();
+		String tmpHealth = "Health: " + handler.getPlayerHealth();
 		//UI placeholders
 		g.setColor(Color.green);
 		g.fillRect(0, 720, 500, 30);
 		g.setColor(Color.black);
-		g.drawString("SCORE", 240, 740);	//Score placeholder
-		g.drawString("LIVES", 450, 740);	//Lives placeholder
-		g.drawString("LEVEL", 25, 740);		//Level number placeholder
+		g.drawString(tmpScore , 240, 740);	//Score placeholder
+		g.drawString(tmpHealth, 450, 740);	//Lives placeholder
+		g.drawString("LEVEL: 1", 25, 740);		//Level number placeholder
 	}
 }

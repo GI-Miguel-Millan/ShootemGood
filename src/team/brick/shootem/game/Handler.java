@@ -18,6 +18,7 @@ public class Handler {
 	private Game game;
 	private World world;
 	private int playerScore;
+	private int playerHealth;
 	
 	public Handler(Game game){
 		this.game = game;
@@ -97,4 +98,11 @@ public class Handler {
 		return playerScore;
 	}
 
+	public void setPlayerHealth(int hp){
+		playerHealth = hp;
+	}
+	
+	public int getPlayerHealth(){
+		return playerHealth;
+	}
 }

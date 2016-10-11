@@ -36,6 +36,9 @@ public class Player extends Creature {
 		counter = 0;
 		readyFire = true;
 		
+		handler.setPlayerHealth(health);
+		handler.setPlayerScore(score);
+		
 		//Animatons
 		animDown = new Animation(500, Assets.player_down);
 		animUp = new Animation(500, Assets.player_up);
@@ -93,6 +96,7 @@ public class Player extends Creature {
 			score -=10;
 			readyFire = false;
 			System.out.println("fire");
+			handler.setPlayerScore(score);
 			System.out.println("Score: " + score);
 		}
 	}
@@ -147,6 +151,17 @@ public class Player extends Creature {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void hurt(int amt){
+		health -= amt;
+		handler.setPlayerHealth(health);
+		if(health <= 0){
+			active = false;
+			die();
+		}
+	}
+
 	
 	/**
 	 * Add integer to the players score.
