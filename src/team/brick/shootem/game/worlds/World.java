@@ -26,6 +26,8 @@ public class World {
 	private int[][] tiles;
 	//Entities
 	private EntityManager entityManager;
+	//Score
+	private ScoreCounter scoreCounter = new ScoreCounter(0);
 	
 	public World(Handler handler, String path){
 		this.handler = handler;
@@ -70,6 +72,9 @@ public class World {
 		}
 		//Entities
 		entityManager.render(g);
+		
+		//Score
+		scoreCounter.render(g);
 	}
 	
 	/**

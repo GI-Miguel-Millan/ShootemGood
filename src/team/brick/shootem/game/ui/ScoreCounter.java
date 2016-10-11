@@ -1,5 +1,6 @@
 package team.brick.shootem.game.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class ScoreCounter
@@ -28,6 +29,11 @@ public class ScoreCounter
 	
 	public void render(Graphics g)
 	{
-		
+				g.setColor(Color.green);
+				g.fillRect(0, 720, 500, 30);
+				g.setColor(Color.black);
+				g.drawString(String.valueOf(scoreCount), 240, 740); //Displays the score
+				g.drawString("LIVES", 450, 740);	//Lives placeholder
+				g.drawString("LEVEL", 25, 740);		//Level number placeholder
 	}
 }

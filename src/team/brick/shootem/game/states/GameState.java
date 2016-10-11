@@ -1,11 +1,9 @@
 package team.brick.shootem.game.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.worlds.World;
-import team.brick.shootem.game.ui.ScoreCounter;
 
 /**
  *	All game-play is done in the chosen world, during the GameState.
@@ -17,8 +15,6 @@ import team.brick.shootem.game.ui.ScoreCounter;
 public class GameState extends State {
 	
 	private World world;
-	private ScoreCounter score = new ScoreCounter(0); //Initializes Score Counter
-	
 	public GameState(Handler handler){
 		super(handler);
 		world = new World(handler, "res/worlds/world1.txt");
@@ -33,14 +29,6 @@ public class GameState extends State {
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
-		
-		//UI placeholders
-		g.setColor(Color.green);
-		g.fillRect(0, 720, 500, 30);
-		g.setColor(Color.black);
-		g.drawString(String.valueOf(score.getScore()), 240, 740); //Displays the score
-		g.drawString("LIVES", 450, 740);	//Lives placeholder
-		g.drawString("LEVEL", 25, 740);		//Level number placeholder
 	}
 
 }
