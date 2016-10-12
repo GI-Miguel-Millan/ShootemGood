@@ -1,7 +1,6 @@
 package team.brick.shootem.game.entities.creatures;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
@@ -29,6 +28,7 @@ public class Player extends Creature {
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
+		//These bounds will need to be fine tuned to better fit the Tumor-Rang dimensions
 		bounds.x = 22;
 		bounds.y = 44;
 		bounds.width = 19;
@@ -89,15 +89,17 @@ public class Player extends Creature {
 		if(handler.getKeyManager().right)
 			xMove = speed;
 		
+		// A player is only allowed to fire a projectile whenever readyFire is true 
+		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
+			// Spawns a projectile above the player moving upwards
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
 					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
 					(int) (y - 25), 0));
+			// Every time a player fires a projectile they lose 10 score (accuracy is important)
+			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
 			readyFire = false;
-			System.out.println("fire");
-			handler.setPlayerScore(score);
-			System.out.println("Score: " + score);
 		}
 	}
 	
@@ -148,11 +150,17 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
+		//This method will most likely just call the game over state/function.
 		
 	}
 	
-	@Override
+	
+	/**
+	 * The hurt method of the Player must be overridden so that 
+	 * every time the player takes damage, the handler can update 
+	 * the player health.
+	 * @Override
+	 */
 	public void hurt(int amt){
 		health -= amt;
 		handler.setPlayerHealth(health);

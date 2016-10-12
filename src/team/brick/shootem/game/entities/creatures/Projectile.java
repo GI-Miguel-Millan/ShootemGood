@@ -5,7 +5,6 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
-import team.brick.shootem.game.tiles.Tile;
 
 /**
  *	A Projectile is a moving Entity which deals damage to creatures. 
@@ -26,6 +25,7 @@ public class Projectile extends Creature{
 		orientation = orient;
 		speed = 6.0f;
 		health = 1;
+		
 		if(orientation == 0)
 			yMove = speed;
 		else
@@ -51,22 +51,31 @@ public class Projectile extends Creature{
 		
 	}
 	
+	/**
+	 *  A projectile must be able to check if it is going to collide 
+	 *  with another entity, and act accordingly.
+	 */
 	public void checkAttack(){
 		for(Entity e: handler.getWorld().getEntityManager().getEntities()){
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
 			
+				// This might need to be revamped:
+				// Currently if the projectile is firing downward (orientation =1)
+				// it will only deal damage to the player
 				if(orientation == 1 && e.equals(handler.getWorld().getEntityManager().getPlayer())){
 					e.hurt(1);
-				}else if(orientation == 1){
-					this.hurt(1);
-					return;
 				}
 					
-				
+				// If the projectile is firing upward (orientation = 1) 
+				// then It will deal damage to any entity
 				if(orientation == 0)
 					e.hurt(1);
+				
+				// Regardless of whether or not the projectile deals damage,
+				// if it has collided with an entity it must kill itself.
+				this.hurt(1);
 			}
 		}
 		this.hurt(1);

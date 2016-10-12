@@ -25,6 +25,7 @@ public class AssaultFigher extends Enemy{
 
 	@Override
 	public void die() {
+		// Add 150 to the players score whenever an AssaultFighter dies.
 		handler.getWorld().getEntityManager().getPlayer().addScore(150);
 		
 	}

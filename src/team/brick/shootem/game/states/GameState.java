@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.worlds.World;
 
 /**
@@ -18,7 +19,7 @@ public class GameState extends State {
 	private World world;
 	public GameState(Handler handler){
 		super(handler);
-		world = new World(handler, "res/worlds/world1.txt");
+		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
 		handler.setWorld(world);
 	}
 	
@@ -32,6 +33,7 @@ public class GameState extends State {
 		world.render(g);
 		String tmpScore = "SCORE: " + handler.getPlayerScore();
 		String tmpHealth = "Health: " + handler.getPlayerHealth();
+		
 		//UI placeholders
 		g.setColor(Color.green);
 		g.fillRect(0, 720, 500, 30);

@@ -2,6 +2,8 @@ package team.brick.shootem.game.gfx;
 
 import java.awt.image.BufferedImage;
 
+import resources.ResourceLoader;
+
 /**
  *	Assets stores all the assets for the game.
  * 	
@@ -19,12 +21,22 @@ public class Assets {
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
+	
+	//Array of names stored in the Paths.txt of the files we want to load
+	public static String[] fileNames; // [0] = "sheets.png" 
+								      // [1] = "world1.txt"
 
 	/**
 	 *  Loads all assets into the game. This should only be called once.
 	 */
 	public static void init(){
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
+		
+		String regex = "\\s+";
+		String pathsFile = ResourceLoader.loadFileAsString("Paths.txt");
+		//Splits up each file name into the fileNames array
+		fileNames = pathsFile.split(regex);
+		
+		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
 		
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);

@@ -20,7 +20,6 @@ public class EntityManager {
 	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
-	private int entityCollisions;
 	private Comparator<Entity> renderSorter = new Comparator<Entity>(){
 		@Override
 		public int compare(Entity a, Entity b) {
@@ -35,7 +34,6 @@ public class EntityManager {
 		this.player = player;
 		entities = new ArrayList<Entity>();
 		addEntity(player);
-		entityCollisions = -1;
 	}
 	
 	/**
@@ -46,6 +44,8 @@ public class EntityManager {
 		for(int i = 0;i < entities.size();i++){
 			Entity e = entities.get(i);
 			e.tick();
+			
+			// If an Entity has died since the last tick(), remove it from entities.
 			if(!e.isActive())
 				entities.remove(e);
 		}
@@ -63,6 +63,14 @@ public class EntityManager {
 		}
 	}
 	
+	/**
+	 * Method used to create a new enemy of a given type and position.
+	 * 
+	 * @param handler 
+	 * @param x the x position of the enemy being spawned
+	 * @param y the y position of the enemy being spawned
+	 * @param type what type of enemy it is depends on the integer assigned to each.
+	 */
 	public void spawnEnemy(Handler handler, int x, int y, int type){
 		if(type == 1){
 			this.addEntity(new Interceptor(handler, x, y));

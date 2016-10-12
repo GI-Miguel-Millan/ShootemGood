@@ -94,14 +94,23 @@ public class Handler {
 		playerScore = score;
 	}
 	
+	/**
+	 * @return player Score
+	 */
 	public int getPlayerScore(){
 		return playerScore;
 	}
 
+	/**
+	 * @param hp the new health value to set to the playerHealth.
+	 */
 	public void setPlayerHealth(int hp){
 		playerHealth = hp;
 	}
 	
+	/**
+	 * @return playerHealth
+	 */
 	public int getPlayerHealth(){
 		return playerHealth;
 	}

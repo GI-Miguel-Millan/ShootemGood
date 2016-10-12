@@ -141,12 +141,12 @@ public class Game implements Runnable {
 				delta--;
 			}
 			
-//			// Temporary FPS counter
-//			if(timer >= 1000000000){
-//				System.out.println("Ticks and Frames: " + ticks);
-//				ticks = 0;
-//				timer = 0;
-//			}
+			// Temporary FPS counter
+			if(timer >= 1000000000){
+				System.out.println("Ticks and Frames: " + ticks);
+				ticks = 0;
+				timer = 0;
+			}
 		}
 		
 		stop();

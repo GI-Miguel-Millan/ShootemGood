@@ -9,6 +9,8 @@ import team.brick.shootem.game.ui.UIImageButton;
 import team.brick.shootem.game.ui.UILabel;
 import team.brick.shootem.game.ui.UIManager;
 
+// THIS CLASS WILL REMOVED
+
 public class VictoryState extends State {
 
 	private UIManager uiManager;

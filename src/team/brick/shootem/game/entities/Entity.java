@@ -44,6 +44,13 @@ public abstract class Entity {
 	
 	public abstract void die();
 	
+	/**
+	 * By default, any entity which calls its hurt method will lose health
+	 * based on the amount of damage it received. If the health of the entity
+	 * ever reaches 0, then it will become inactive and its die method is called.
+	 * 
+	 * @param amt the amount of damage an Entity takes
+	 */
 	public void hurt(int amt){
 		health -= amt;
 		if(health <= 0){
@@ -85,6 +92,13 @@ public abstract class Entity {
 		return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
 	}
 
+	/**
+	 * Any Entity that is not active is removed from the entity manager 
+	 * upon the next tick of the clock.
+	 * 
+	 * @return true if an Entity is active
+	 * @return false if an Entity is inactive
+	 */
 	public boolean isActive(){
 		return active;
 	}

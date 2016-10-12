@@ -24,6 +24,7 @@ public class StealthFighter extends Enemy{
 
 	@Override
 	public void die() {
+		// A StealthFighter awards 150 score to the player upon death.
 		handler.getWorld().getEntityManager().getPlayer().addScore(150);
 		
 	}

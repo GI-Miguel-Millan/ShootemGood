@@ -17,6 +17,7 @@ public class MenuState extends State {
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
 
+		// adds a button that switches the current state to the gamestate when pressed.
 		uiManager.addObject(new UIImageButton(200, 200, 128, 64, Assets.btn_start, new ClickListener() {
 			@Override
 			public void onClick() {

@@ -32,6 +32,7 @@ public abstract class Enemy extends Creature{
 	}
 	
 	// This method should be overwritten in child classes
+	// Default is movement from left to right in random time intervals.
 	public void AIMove(){
 		if(counter <50){
 			xMove = 5;
@@ -42,6 +43,7 @@ public abstract class Enemy extends Creature{
 		}
 		counter += Utils.randomNum(0, 3);
 	}
+	
 	// This method should be overwritten in child classes
 	// Default is a random projectile spawn.
 	public void attack(){

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
-import team.brick.shootem.game.utils.Utils;
 
 public class Interceptor extends Enemy{
 
@@ -27,6 +26,7 @@ public class Interceptor extends Enemy{
 
 	@Override
 	public void die() {
+		// An Interceptor death adds 100 to the player score
 		handler.getWorld().getEntityManager().getPlayer().addScore(100);
 		
 	}

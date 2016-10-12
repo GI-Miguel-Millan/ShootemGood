@@ -2,12 +2,10 @@ package team.brick.shootem.game.worlds;
 
 import java.awt.Graphics;
 
+import resources.ResourceLoader;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.EntityManager;
-import team.brick.shootem.game.entities.creatures.Interceptor;
-import team.brick.shootem.game.entities.creatures.Enemy;
 import team.brick.shootem.game.entities.creatures.Player;
-import team.brick.shootem.game.entities.statics.Tree;
 import team.brick.shootem.game.tiles.Tile;
 import team.brick.shootem.game.utils.Utils;
 
@@ -31,11 +29,9 @@ public class World {
 	public World(Handler handler, String path){
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
-		// Temporary entity code!
-		//entityManager.addEntity(new Interceptor(handler, 100, 750));
-		
 		loadWorld(path);
 		
+		//set player spawn point
 		entityManager.getPlayer().setX(spawnX);
 		entityManager.getPlayer().setY(spawnY);
 	}
@@ -55,7 +51,7 @@ public class World {
 	 */
 	public void render(Graphics g){
 		//Ensures efficient rendering of the world by only rendering
-		//what is currently visible.
+		//what is currently visible in the game camera
 		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
 		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
 		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
@@ -97,8 +93,11 @@ public class World {
 	 * @param path the location of the world file.
 	 */
 	private void loadWorld(String path){
-		String file = Utils.loadFileAsString(path);
+		String file = ResourceLoader.loadWorldFile(path);
 		String[] tokens = file.split("\\s+");
+		
+		// In the world text file, the first four tokens (integers divided by a space or end line)
+		// determine the width, height, and (x,y) coordinates of the player spawn.
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
 		spawnX = Utils.parseInt(tokens[2]);
@@ -107,6 +106,8 @@ public class World {
 		tiles = new int[width][height];
 		for(int y = 0;y < height;y++){
 			for(int x = 0;x < width;x++){
+					//gets the id of the tile corresponding to the world*.txt 
+					//this will be used to render the appropriate tiles later.
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 				
 					//Sets the player's spawn point

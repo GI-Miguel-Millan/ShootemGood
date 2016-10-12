@@ -1,9 +1,14 @@
 package team.brick.shootem.game.tiles;
 
-import java.awt.image.BufferedImage;
-
 import team.brick.shootem.game.gfx.Assets;
 
+/**
+ *	A GoalTile is a destination for the player. 
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class GoalTile extends Tile {
 
 	public GoalTile(int id) {
@@ -11,8 +16,5 @@ public class GoalTile extends Tile {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String toString(){
-		return "Ima goal";
-	}
 
 }
