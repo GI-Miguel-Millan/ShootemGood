@@ -93,8 +93,8 @@ public class Player extends Creature {
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
-					(int) (y - 25), 0));
+					(int) (x + width/2 - 4), 
+					(int) (y - height/6), 0));
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;

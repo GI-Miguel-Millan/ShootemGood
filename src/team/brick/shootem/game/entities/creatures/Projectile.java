@@ -18,7 +18,7 @@ public class Projectile extends Creature{
 	public static final int DEFAULT_PROJECTILE_WIDTH = 5,
 							DEFAULT_PROJECTILE_HEIGHT = 20;
 	private int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
-	private int counter = 0;
+	private int counter = 0; 
 	
 	public Projectile(Handler handler, float x, float y, int orient) {
 		super(handler, x, y, DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
