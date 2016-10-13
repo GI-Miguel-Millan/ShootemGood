@@ -28,11 +28,10 @@ public class Player extends Creature {
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		//These bounds will need to be fine tuned to better fit the Tumor-Rang dimensions
-		bounds.x = 22;
-		bounds.y = 44;
-		bounds.width = 19;
-		bounds.height = 19;
+		bounds.x = 16;
+		bounds.y = 22;
+		bounds.width = 32;
+		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
 		
@@ -127,10 +126,12 @@ public class Player extends Creature {
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
-//		g.setColor(Color.red);
-//		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
-//				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
-//				bounds.width, bounds.height);
+		g.drawRect(posX, posY, width, height);
+		
+		
+		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
+				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
+				bounds.width, bounds.height);
 	}
 	
 	/**
