@@ -17,7 +17,7 @@ public class Projectile extends Creature{
 
 	public static final int DEFAULT_PROJECTILE_WIDTH = 5,
 							DEFAULT_PROJECTILE_HEIGHT = 20;
-	private int orientation; // 0 = up, 1 = down
+	private int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
 	private int counter = 0;
 	
 	public Projectile(Handler handler, float x, float y, int orient) {
@@ -26,10 +26,19 @@ public class Projectile extends Creature{
 		speed = 6.0f;
 		health = 1;
 		
-		if(orientation == 0)
+		if(orientation == 0){
 			yMove = speed;
-		else
+		}else if(orientation == 1){
 			yMove = -speed;
+		}else if(orientation == 2){
+			xMove = speed;
+			width = DEFAULT_PROJECTILE_HEIGHT;
+			height =DEFAULT_PROJECTILE_WIDTH;
+		}else{
+			xMove = -speed;
+			width = DEFAULT_PROJECTILE_HEIGHT;
+			height =DEFAULT_PROJECTILE_WIDTH;
+		}
 		
 		
 		
@@ -41,8 +50,19 @@ public class Projectile extends Creature{
 		if(counter == 100)
 			this.hurt(1);
 		
-		if(!checkEntityCollisions(0f, yMove)){
+		if(orientation == 0)
+			yMove = speed;
+		else if(orientation == 1)
+			yMove = -speed;
+		else if(orientation == 2)
+			xMove = speed;
+		else if(orientation == 3)
+			xMove = -speed;
+			
+		
+		if(!checkEntityCollisions(xMove, yMove)){
 			y -= yMove;
+			x += xMove;
 		}else{
 			checkAttack();
 		}
@@ -61,16 +81,14 @@ public class Projectile extends Creature{
 				continue;
 			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
 			
-				// This might need to be revamped:
-				// Currently if the projectile is firing downward (orientation =1)
-				// it will only deal damage to the player
-				if(orientation == 1 && e.equals(handler.getWorld().getEntityManager().getPlayer())){
+				// If this projectile collides with the player hurt it.
+				if(e.equals(handler.getWorld().getEntityManager().getPlayer())){
 					e.hurt(1);
 				}
 					
-				// If the projectile is firing upward (orientation = 1) 
-				// then It will deal damage to any entity
-				if(orientation == 0)
+				// If the projectile is firing upward (orientation = 0) 
+				// then It will deal damage to an Enemy
+				if(orientation == 0 && !e.equals(handler.getWorld().getEntityManager().getPlayer()))
 					e.hurt(1);
 				
 				// Regardless of whether or not the projectile deals damage,
@@ -78,7 +96,6 @@ public class Projectile extends Creature{
 				this.hurt(1);
 			}
 		}
-		this.hurt(1);
 	}
 
 	@Override
