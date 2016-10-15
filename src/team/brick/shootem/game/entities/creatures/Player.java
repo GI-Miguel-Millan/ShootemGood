@@ -28,11 +28,10 @@ public class Player extends Creature {
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		//These bounds will need to be fine tuned to better fit the Tumor-Rang dimensions
-		bounds.x = 22;
-		bounds.y = 44;
-		bounds.width = 19;
-		bounds.height = 19;
+		bounds.x = 16;
+		bounds.y = 22;
+		bounds.width = 32;
+		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
 		
@@ -107,15 +106,14 @@ public class Player extends Creature {
 			if(handler.getKeyManager().right)
 			{
 				xMove = speed;
-			}
-				
+			}		
 		// A player is only allowed to fire a projectile whenever readyFire is true 
 		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
-					(int) (y - 25), 0));
+					(int) (x + width/2 - 4), 
+					(int) (y - height/6), 0));
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
@@ -147,10 +145,12 @@ public class Player extends Creature {
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
-//		g.setColor(Color.red);
-//		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
-//				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
-//				bounds.width, bounds.height);
+		g.drawRect(posX, posY, width, height);
+		
+		
+		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
+				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
+				bounds.width, bounds.height);
 	}
 	
 	/**

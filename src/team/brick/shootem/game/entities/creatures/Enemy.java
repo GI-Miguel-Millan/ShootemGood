@@ -22,7 +22,7 @@ public abstract class Enemy extends Creature{
 	@Override
 	public void tick(){
 		//Set x and y movement values
-		AIMove();
+		//AIMove();
 		
 		//Movement of the enemy
 		move();
@@ -48,10 +48,11 @@ public abstract class Enemy extends Creature{
 	// Default is a random projectile spawn.
 	public void attack(){
 		int randAttack = Utils.randomNum(0, 50);
+		System.out.println(width);
 		if(randAttack == 0){
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) ((x + 64) - handler.getGameCamera().getxOffset()), 
-					(int) (y - 25), 1));
+					(int) ((x) + width/2), 
+					(int) (y + height + 6), 1));
 		}
 	}
 	
