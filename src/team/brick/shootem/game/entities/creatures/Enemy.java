@@ -22,7 +22,7 @@ public abstract class Enemy extends Creature{
 	@Override
 	public void tick(){
 		//Set x and y movement values
-		//AIMove();
+		AIMove();
 		
 		//Movement of the enemy
 		move();

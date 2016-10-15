@@ -145,12 +145,10 @@ public class Player extends Creature {
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
-		g.drawRect(posX, posY, width, height);
-		
-		
-		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
-				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
-				bounds.width, bounds.height);
+//		g.drawRect(posX, posY, width, height);
+//		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
+//				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
+//				bounds.width, bounds.height);
 	}
 	
 	/**
