@@ -5,15 +5,17 @@ import team.brick.shootem.game.utils.Utils;
 
 /**
  *	Enemies are creatures controlled by the system and not the user. There are 
- *	different types of Enemies, denoted by an integer.
+ *	different types of Enemies.
  * 	
  *	@author Miguel Millan
  *	@version 1.0
  *	@since version 1.0
  */
 public abstract class Enemy extends Creature{
+	protected int counter =0;
+	protected int readyCount = 0;
+	protected boolean ready = true;
 	
-	private int counter =0;
 	public Enemy(Handler handler, float x, float y) {
 		super(handler, x, y, 30, 50);
 		
@@ -21,14 +23,17 @@ public abstract class Enemy extends Creature{
 	
 	@Override
 	public void tick(){
-		//Set x and y movement values
-		AIMove();
+		if (isOnScreen()){
+			//Set x and y movement values
+			AIMove();
+			
+			//Movement of the enemy
+			move();
+			
+			//Attack of the enemy
+			attack();
+		}
 		
-		//Movement of the enemy
-		move();
-		
-		//Attack of the enemy
-		attack();
 	}
 	
 	// This method should be overwritten in child classes
@@ -48,12 +53,45 @@ public abstract class Enemy extends Creature{
 	// Default is a random projectile spawn.
 	public void attack(){
 		int randAttack = Utils.randomNum(0, 50);
-		System.out.println(width);
 		if(randAttack == 0){
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
 					(int) ((x) + width/2), 
 					(int) (y + height + 6), 1));
 		}
+		
+		//Deals damage to the player if they intersect this Enemy
+		if(intersectWithPlayer() && ready){
+			handler.getWorld().getEntityManager().getPlayer().hurt(1);
+			ready = false;
+		}
+		
+		if (!ready){
+			readyCount++;
+		}
+		
+		if(readyCount >= 5){
+			ready = true;
+			readyCount =0;
+		}
 	}
 	
+	public boolean isOnScreen(){
+		if (y >= (((handler.getGameCamera().getyOffset() - height))) 
+				&& y < (((handler.getGameCamera().getyOffset() + handler.getGame().getHeight())))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * @return true if this enemy intersects with the player.
+	 */
+	public boolean intersectWithPlayer(){
+		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xMove, yMove))){
+			return true;
+		}
+		
+		return false;
+	}
 }

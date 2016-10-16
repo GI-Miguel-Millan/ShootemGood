@@ -8,7 +8,7 @@ import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.worlds.World;
 
 /**
- *	All game-play is done in the chosen world, during the GameState.
+ *	All gameplay is done in the chosen world, during the GameState.
  * 	
  *	@author 
  *	@version 1.0

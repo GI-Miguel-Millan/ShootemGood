@@ -68,6 +68,9 @@ public class Player extends Creature {
 		
 		//handler.getGameCamera().centerOnEntity(this);
 		handler.getGameCamera().staticCamera(this);
+		
+		handler.setPlayerScore(this.score);
+		handler.setPlayerHealth(health);
 	}
 	
 	/**
@@ -181,7 +184,6 @@ public class Player extends Creature {
 	 */
 	public void hurt(int amt){
 		health -= amt;
-		handler.setPlayerHealth(health);
 		if(health <= 0){
 			active = false;
 			die();
@@ -204,4 +206,5 @@ public class Player extends Creature {
 	public int getScore(){
 		return score;
 	}
+	
 }

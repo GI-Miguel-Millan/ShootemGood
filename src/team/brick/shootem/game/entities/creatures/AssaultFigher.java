@@ -5,6 +5,13 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 
+/**
+ *	An Assault Fighter is a standard space fighter which shoots projectiles at the player.
+ * 	
+ *	@author Miguel Millan
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class AssaultFigher extends Enemy{
 
 	public AssaultFigher(Handler handler, float x, float y) {

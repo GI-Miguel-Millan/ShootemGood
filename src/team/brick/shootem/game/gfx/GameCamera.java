@@ -55,6 +55,11 @@ public class GameCamera {
 		checkBlankSpace();
 	}
 	
+	/**
+	 * Moves the GameCamera at a constant speed.
+	 * 
+	 * @param e
+	 */
 	public void staticCamera(Entity e){
 		//xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
 		if(cameraStop)

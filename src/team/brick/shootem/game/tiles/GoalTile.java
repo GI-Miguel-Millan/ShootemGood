@@ -3,7 +3,7 @@ package team.brick.shootem.game.tiles;
 import team.brick.shootem.game.gfx.Assets;
 
 /**
- *	A GoalTile is a destination for the player. 
+ *	 A player must reach the GoalTile to end the level.
  * 	
  *	@author 
  *	@version 1.0

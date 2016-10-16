@@ -8,6 +8,13 @@ import team.brick.shootem.game.ui.ClickListener;
 import team.brick.shootem.game.ui.UIImageButton;
 import team.brick.shootem.game.ui.UIManager;
 
+/**
+ *	The MenuState is the pre-game state, giving the option to start the game.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class MenuState extends State {
 
 	private UIManager uiManager;

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import resources.ResourceLoader;
 
 /**
- *	Assets stores all the assets for the game.
+ *	Assets loads in and stores all the assets for the game.
  * 	
  *	@author 
  *	@version 1.0

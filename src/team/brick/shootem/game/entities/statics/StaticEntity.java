@@ -4,7 +4,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
 
 /**
- *	A StaticEntity is simply an Entity which does not move or have health.
+ *	A StaticEntity is simply an Entity which does not move.
  * 	
  *	@author Miguel Millan
  *	@version 1.0
