@@ -12,7 +12,7 @@ import team.brick.shootem.game.gfx.Assets;
 public class GoalTile extends Tile {
 
 	public GoalTile(int id) {
-		super(Assets.rock, id);
+		super(Assets.spaceBound, id);
 		// TODO Auto-generated constructor stub
 	}
 	

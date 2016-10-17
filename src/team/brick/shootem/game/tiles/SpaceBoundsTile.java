@@ -2,9 +2,9 @@ package team.brick.shootem.game.tiles;
 
 import team.brick.shootem.game.gfx.Assets;
 
-public class RockTile extends Tile {
+public class SpaceBoundsTile extends Tile {
 
-	public RockTile(int id) {
+	public SpaceBoundsTile(int id) {
 		super(Assets.stone, id);
 	}
 	
