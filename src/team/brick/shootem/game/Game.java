@@ -35,7 +35,7 @@ public class Game implements Runnable {
 	//States
 	public State gameState;
 	public State menuState;
-	public State victoryState;
+	public State GameOverState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -69,7 +69,7 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 		gameState = new GameState(handler);
-		victoryState = new VictoryState(handler);
+		GameOverState = new GameOverState(handler);
 		menuState = new MenuState(handler);
 		
 		

@@ -137,7 +137,7 @@ public class Player extends Creature {
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
 		if(handler.getWorld().getTile(tx, ty).isGoal()){
 			handler.setPlayerScore(score);
-			State.setState(handler.getGame().victoryState);
+			State.setState(handler.getGame().GameOverState);
 		}
 	}
 	
