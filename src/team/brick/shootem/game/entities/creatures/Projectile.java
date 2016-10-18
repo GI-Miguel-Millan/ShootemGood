@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
+import team.brick.shootem.game.gfx.Assets;
 
 /**
  *	A Projectile is a moving Entity which deals damage to creatures. 
@@ -102,8 +103,9 @@ public class Projectile extends Creature{
 	public void render(Graphics g) {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
-		g.setColor(Color.green);
-		g.drawRect(posX, posY, width, height);
+		/*g.setColor(Color.blue);
+		g.drawRect(posX, posY, width, height);*/
+		g.drawImage(Assets.projectile, posX, posY, width, height, null);
 		
 	}
 

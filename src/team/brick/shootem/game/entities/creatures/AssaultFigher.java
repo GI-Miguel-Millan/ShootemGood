@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.gfx.Assets;
 
 /**
  *	An Assault Fighter is a standard space fighter which shoots projectiles at the player.
@@ -25,8 +26,9 @@ public class AssaultFigher extends Enemy{
 	public void render(Graphics g) {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
-		g.setColor(Color.blue);
-		g.drawRect(posX, posY, width, height);
+		/*g.setColor(Color.blue);
+		g.drawRect(posX, posY, width, height);*/
+		g.drawImage(Assets.assault, posX, posY, width, height, null);
 		
 	}
 

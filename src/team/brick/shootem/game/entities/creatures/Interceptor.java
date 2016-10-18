@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.gfx.Assets;
 
 /**
  *	An Interceptor is an Enemy which tracks down the player
@@ -68,8 +69,9 @@ public class Interceptor extends Enemy{
 	public void render(Graphics g) {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
-		g.setColor(Color.yellow);
-		g.drawRect(posX, posY, width, height);
+		/*g.setColor(Color.blue);
+		g.drawRect(posX, posY, width, height);*/
+		g.drawImage(Assets.assault, posX, posY, width, height, null);
 		
 	}
 
