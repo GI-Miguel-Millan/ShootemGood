@@ -71,7 +71,7 @@ public class Interceptor extends Enemy{
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		/*g.setColor(Color.blue);
 		g.drawRect(posX, posY, width, height);*/
-		g.drawImage(Assets.assault, posX, posY, width, height, null);
+		g.drawImage(Assets.interceptor, posX, posY, width, height, null);
 		
 	}
 
