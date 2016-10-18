@@ -34,7 +34,7 @@ public class Player extends Creature {
 		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
-		
+		health = 100000;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		

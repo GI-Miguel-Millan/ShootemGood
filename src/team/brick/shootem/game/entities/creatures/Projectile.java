@@ -78,6 +78,7 @@ public class Projectile extends Creature{
 	 */
 	public void checkAttack(){
 		for(Entity e: handler.getWorld().getEntityManager().getEntities()){
+			//No Need to check for collision if e is this projectile.
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
