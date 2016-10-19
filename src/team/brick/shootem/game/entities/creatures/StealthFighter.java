@@ -20,8 +20,6 @@ public class StealthFighter extends Enemy{
 	private boolean isAttacking = false;
 	private int stealthBreakDistance = 250;
 	private int holdDistance = 100;
-	private int playerY;
-	private int playerX;
 	
 	public StealthFighter(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -46,6 +44,17 @@ public class StealthFighter extends Enemy{
 		
 	}
 
+	/**
+	 * In order for a StealthFighter to move, the player must be between its hold position 
+	 * and its stealth break location. If the player is outside the stealth break bounds
+	 * then the StealthFighter will become stealthed in which case it should not move, 
+	 * and if the player is within the hold position bounds the StealthFighter will
+	 * hold its position and shoot the player. This method checks whether or not the player is
+	 * between these two bounds.
+	 * 
+	 * @return true if the StealthFighter can move
+	 * @return false if the StealthFighter cannot/should not move
+	 */
 	private boolean canMove(){
 		int holdX1 = (int)x + holdDistance;
 		int sBreakX1 = (int)x + stealthBreakDistance;
@@ -65,11 +74,8 @@ public class StealthFighter extends Enemy{
 		if((playerY > holdY1) && (playerY < sBreakY1)){
 			return true;
 		}
-		
 		if((playerY < holdY2) && (playerY > sBreakY2)){
-			System.out.println(true);
 			return true;
-			
 		}
 		
 		return false;
@@ -86,7 +92,6 @@ public class StealthFighter extends Enemy{
 			isStealthed = false;
 			isAttacking = true;
 		}
-		//System.out.println("X: " + x + ", Px: " + playerX + ", Px + Dis: " + (playerX + holdDistance));
 		
 		if(isStealthed || !canMove()){
 			xMove = 0;
@@ -121,8 +126,7 @@ public class StealthFighter extends Enemy{
 		int randAttack = Utils.randomNum(0, 50);
 		if(randAttack == 0){
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) ((x) + width/2), 
-					(int) (y + height + 6), 1));
+					this, getProjectileOrientation()));
 		}
 		
 		if(intersectWithPlayer() && ready){

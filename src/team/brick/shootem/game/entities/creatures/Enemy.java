@@ -15,6 +15,8 @@ public abstract class Enemy extends Creature{
 	protected int counter =0;
 	protected int readyCount = 0;
 	protected boolean ready = true;
+	protected int playerY = 0; //must actively set this variable in the tick method whenever it is used.
+	protected int playerX = 0; //must actively set this variable in the tick method whenever it is used.
 	
 	public Enemy(Handler handler, float x, float y) {
 		super(handler, x, y, 30, 50);
@@ -24,6 +26,8 @@ public abstract class Enemy extends Creature{
 	@Override
 	public void tick(){
 		if (isOnScreen()){
+			playerX = (int)handler.getWorld().getEntityManager().getPlayer().getX();
+			playerY = (int)handler.getWorld().getEntityManager().getPlayer().getY();
 			//Set x and y movement values
 			AIMove();
 			
@@ -54,9 +58,7 @@ public abstract class Enemy extends Creature{
 	public void attack(){
 		int randAttack = Utils.randomNum(0, 50);
 		if(randAttack == 0){
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) ((x) + width/2), 
-					(int) (y + height + 6), 1));
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, getProjectileOrientation()));
 		}
 		
 		//Deals damage to the player if they intersect this Enemy
@@ -93,5 +95,37 @@ public abstract class Enemy extends Creature{
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public int getProjectileOrientation(){
+		playerX = playerX + Creature.DEFAULT_CREATURE_WIDTH /2;
+		playerY = playerY + Creature.DEFAULT_CREATURE_HEIGHT /2;
+		float relX = width/2;
+		float relY = height/2;
+		float relPx = playerX - (x + relX);
+		float relPy = (y + relY) - playerY; // This is because y gets bigger going down the screen.
+		if(relX -relPx == 0)
+			relX += 1;
+		float playerSlope = ((relY - relPy)/(relX - relPx));
+		System.out.println("relX " + relX + ", relY: " + relY);
+		System.out.println("Slope: " + playerSlope + ", relPx: " + relPx + ", relPy: " + relPy);
+		if(playerSlope <= 1 && playerSlope >= -1){
+			if(relPx < 0)
+				return 3; // Shoot Projectiles left
+			else
+				return 2; // Shoot Projectiles right
+		}else if (playerSlope >= 1 || playerSlope <= -1){
+			if(relPy < 0)
+				return 1; // Shoot Projectiles down
+			else 
+				return 0; // Shoot Projectiles up
+		}
+		
+		return 1;
 	}
 }

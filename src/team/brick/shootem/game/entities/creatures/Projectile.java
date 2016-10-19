@@ -20,22 +20,32 @@ public class Projectile extends Creature{
 							DEFAULT_PROJECTILE_HEIGHT = 20;
 	private int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
 	private int counter = 0; 
+	private Entity creator;
 	
-	public Projectile(Handler handler, float x, float y, int orient) {
-		super(handler, x, y, DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
+	public Projectile(Handler handler, Entity e, int orient) {
+		super(handler, e.getX(), e.getY(), DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
 		orientation = orient;
 		speed = 6.0f;
 		health = 1;
+		creator = e;
 		
 		if(orientation == 0){
+			x += e.getWidth()/2 - width/2;
+			y += -30;
 			yMove = speed;
 		}else if(orientation == 1){
+			x += e.getWidth()/2 - width/2;
+			y += e.getHeight() + 10;
 			yMove = -speed;
 		}else if(orientation == 2){
+			x += e.getWidth() + 10;
+			y += e.getHeight()/2;
 			xMove = speed;
 			width = DEFAULT_PROJECTILE_HEIGHT;
 			height =DEFAULT_PROJECTILE_WIDTH;
 		}else{
+			x += -10;
+			y += e.getHeight()/2;
 			xMove = -speed;
 			width = DEFAULT_PROJECTILE_HEIGHT;
 			height =DEFAULT_PROJECTILE_WIDTH;
@@ -78,8 +88,8 @@ public class Projectile extends Creature{
 	 */
 	public void checkAttack(){
 		for(Entity e: handler.getWorld().getEntityManager().getEntities()){
-			//No Need to check for collision if e is this projectile.
-			if(e.equals(this))
+			//No Need to check for collision if e is this projectile or its creator.
+			if(e.equals(this) || e.equals(creator))
 				continue;
 			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
 			
@@ -88,9 +98,9 @@ public class Projectile extends Creature{
 					e.hurt(1);
 				}
 					
-				// If the projectile is firing upward (orientation = 0) 
-				// then It will deal damage to an Enemy
-				if(orientation == 0 && !e.equals(handler.getWorld().getEntityManager().getPlayer()))
+				// If the creator of this projectile is the player, then it should hurt
+				// all other entities.
+				if(creator.equals(handler.getWorld().getEntityManager().getPlayer()))
 					e.hurt(1);
 				
 				// Regardless of whether or not the projectile deals damage,

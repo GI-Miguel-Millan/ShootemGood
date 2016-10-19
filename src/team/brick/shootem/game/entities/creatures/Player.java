@@ -66,8 +66,8 @@ public class Player extends Creature {
 		
 		collisionWithGoal((int)x,(int)y);
 		
-		//handler.getGameCamera().centerOnEntity(this);
-		handler.getGameCamera().staticCamera(this);
+		handler.getGameCamera().centerOnEntity(this);
+		//handler.getGameCamera().staticCamera(this);
 		
 		handler.setPlayerScore(this.score);
 		handler.setPlayerHealth(health);
@@ -114,9 +114,7 @@ public class Player extends Creature {
 		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) (x + width/2 - 4), 
-					(int) (y - height/6), 0));
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0));
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
