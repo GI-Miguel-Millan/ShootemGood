@@ -215,6 +215,22 @@ public class Game implements Runnable {
 		}
 	}
 	
+	public Display getDisplay(){
+		return display;
+	}
+	
+	public MenuState getMenuState(){
+		return (MenuState) menuState;
+	}
+	
+	public GameOverState getGameOverState(){
+		return (GameOverState) GameOverState;
+	}
+	
+	public GameState getGameState(){
+		return (GameState) gameState;
+	}
+	
 }
 
 

@@ -8,6 +8,7 @@ import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.states.State;
 import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.worlds.World;
 
 /**
  *	Player is a Creature controlled by the user. This class takes input from the user
@@ -24,6 +25,8 @@ public class Player extends Creature {
 	private boolean readyFire;
 	private int counter;
 	private int score = 1000;
+	private int lvlCounter = 1;
+	private static int numLevels = 2;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -135,7 +138,13 @@ public class Player extends Creature {
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
 		if(handler.getWorld().getTile(tx, ty).isGoal()){
 			handler.setPlayerScore(score);
-			State.setState(handler.getGame().GameOverState);
+			lvlCounter++;
+			if (lvlCounter > numLevels){
+				//State.setState(handler.getGame().GameOverState);
+				handler.getGame().getGameOverState().displayState();
+			}
+			else
+				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
 		}
 	}
 	
