@@ -21,6 +21,7 @@ public class GameState extends State {
 		super(handler);
 		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
 		handler.setWorld(world);
+		
 	}
 	
 	@Override
