@@ -33,9 +33,9 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	//States
-	public State gameState;
-	public State menuState;
-	public State GameOverState;
+	private State gameState;
+	private State menuState;
+	private State GameOverState;
 	
 	//Input
 	private KeyManager keyManager;

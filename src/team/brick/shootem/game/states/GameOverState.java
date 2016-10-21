@@ -18,14 +18,9 @@ public class GameOverState extends State
 	public GameOverState(Handler handler)
 	{
 		super(handler);
-		/*MouseManager mouseManager = new MouseManager();
-		handler.getGame().getDisplay().getFrame().addMouseListener(mouseManager);
-		handler.getGame().getDisplay().getFrame().addMouseMotionListener(mouseManager);
-		handler.getGame().getDisplay().getCanvas().addMouseListener(mouseManager);
-		handler.getGame().getDisplay().getCanvas().addMouseMotionListener(mouseManager);*/
+
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
-		//mouseManager.setUIManager(uiManager);
 		
 		UILabel lblGameOver = new UILabel(150, 150, 1, 1, "GAME OVER", null);
 		UILabel lblScore = new UILabel(150, 200, 10, 20, "SCORE: " + String.valueOf(handler.getPlayerScore()), null);
@@ -35,7 +30,6 @@ public class GameOverState extends State
 					public void onClick()
 					{
 						handler.getMouseManager().setUIManager(null);
-						//mouseManager.setUIManager(null);
 						handler.getGame().getMenuState().displayState();
 					}
 				});
@@ -56,8 +50,14 @@ public class GameOverState extends State
 		uiManager.render(g);
 	}
 	
+	/**
+	 * Sets the state to the game over state and sets
+	 * the ui manager from null to uiManager
+	 * @Override
+	 */
+	 
 	public void displayState(){
-		State.setState(handler.getGame().GameOverState);
+		State.setState(handler.getGame().getGameOverState());
 		handler.getMouseManager().setUIManager(uiManager);
 	}
 }

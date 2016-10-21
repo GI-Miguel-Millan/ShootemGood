@@ -29,8 +29,7 @@ public class MenuState extends State {
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				//State.setState(handler.getGame().gameState);
-				handler.getGame().gameState.displayState();
+				handler.getGame().getGameState().displayState();
 			}
 		}));
 	}
@@ -45,8 +44,13 @@ public class MenuState extends State {
 		uiManager.render(g);
 	}
 	
+	/**
+	 * Sets the state to the menu state and sets
+	 * the ui manager from null to uiManager
+	 * @Override
+	 */
 	public void displayState() {
-		State.setState(handler.getGame().menuState);
+		State.setState(handler.getGame().getMenuState());
 		handler.getMouseManager().setUIManager(uiManager);
 
 	}
