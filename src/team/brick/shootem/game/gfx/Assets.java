@@ -25,6 +25,7 @@ public class Assets {
 	//Array of names stored in the Paths.txt of the files we want to load
 	public static String[] fileNames; // [0] = "sheets.png" 
 								      // [1] = "world1.txt"
+									  // [2] = "world2.txt"
 
 	/**
 	 *  Loads all assets into the game. This should only be called once.

@@ -1,5 +1,6 @@
 package team.brick.shootem.game;
 
+import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
@@ -19,6 +20,7 @@ public class Handler {
 	private World world;
 	private int playerScore;
 	private int playerHealth;
+	private Player player;
 	
 	public Handler(Game game){
 		this.game = game;
@@ -114,4 +116,14 @@ public class Handler {
 	public int getPlayerHealth(){
 		return playerHealth;
 	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	
 }

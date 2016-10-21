@@ -1,7 +1,6 @@
 package team.brick.shootem.game.worlds;
 
 import java.awt.Graphics;
-
 import resources.ResourceLoader;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.EntityManager;
@@ -28,7 +27,7 @@ public class World {
 	
 	public World(Handler handler, String path){
 		this.handler = handler;
-		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		entityManager = new EntityManager(handler, handler.getPlayer());
 		loadWorld(path);
 		
 		//set player spawn point
@@ -50,20 +49,23 @@ public class World {
 	 * @param g
 	 */
 	public void render(Graphics g){
-		//Ensures efficient rendering of the world by only rendering
-		//what is currently visible in the game camera
+		// Since we only want to render what is currently visible on the screen, 
+		// we set start and end points for the x and y coordinates which will determine 
+		// which tiles to render. This is based off the GameCameras position, as found 
+		// by its xOffset and yOffset.
 		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
 		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
 		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
 		int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
 		
+		// Render each tile which is currently visible
 		for(int y = yStart;y < yEnd;y++){
 			for(int x = xStart;x < xEnd;x++){
 				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
 						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
 		}
-		//Entities
+		// Render all Entities
 		entityManager.render(g);
 	}
 	
@@ -110,12 +112,12 @@ public class World {
 					//this will be used to render the appropriate tiles later.
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 				
-					//Sets the player's spawn point
+					//Sets the player's spawn point if the tile at (x,y) is a player spawn tile
 				if(getTile(x,y).isPSpawn()){
 					spawnX = x * Tile.TILEWIDTH;
 					spawnY = (y) * Tile.TILEHEIGHT;
 				
-					//Spawns an enemy on an enemy spawn tile
+					//Spawns a random enemy on an enemy spawn tile
 				}else if(getTile(x,y).isESpawn()){
 					int randomSpawn = Utils.randomNum(1,3);
 					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);
@@ -123,8 +125,6 @@ public class World {
 						
 			}
 		}
-		
-		
 	}
 	
 	

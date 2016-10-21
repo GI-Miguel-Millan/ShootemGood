@@ -3,7 +3,9 @@ package team.brick.shootem.game.states;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.display.Display;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.input.MouseManager;
 import team.brick.shootem.game.ui.ClickListener;
 import team.brick.shootem.game.ui.UIImageButton;
 import team.brick.shootem.game.ui.UILabel;
@@ -16,6 +18,7 @@ public class GameOverState extends State
 	public GameOverState(Handler handler)
 	{
 		super(handler);
+
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
 		
@@ -27,7 +30,7 @@ public class GameOverState extends State
 					public void onClick()
 					{
 						handler.getMouseManager().setUIManager(null);
-						State.setState(handler.getGame().menuState);
+						handler.getGame().getMenuState().displayState();
 					}
 				});
 		
@@ -45,5 +48,16 @@ public class GameOverState extends State
 	@Override
 	public void render(Graphics g) {
 		uiManager.render(g);
+	}
+	
+	/**
+	 * Sets the state to the game over state and sets
+	 * the ui manager from null to uiManager
+	 * @Override
+	 */
+	 
+	public void displayState(){
+		State.setState(handler.getGame().getGameOverState());
+		handler.getMouseManager().setUIManager(uiManager);
 	}
 }

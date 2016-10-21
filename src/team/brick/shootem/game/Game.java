@@ -33,9 +33,9 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	//States
-	public State gameState;
-	public State menuState;
-	public State GameOverState;
+	private State gameState;
+	private State menuState;
+	private State GameOverState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -213,6 +213,22 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Display getDisplay(){
+		return display;
+	}
+	
+	public MenuState getMenuState(){
+		return (MenuState) menuState;
+	}
+	
+	public GameOverState getGameOverState(){
+		return (GameOverState) GameOverState;
+	}
+	
+	public GameState getGameState(){
+		return (GameState) gameState;
 	}
 	
 }

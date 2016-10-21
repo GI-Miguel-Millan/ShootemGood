@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.worlds.World;
 
@@ -19,13 +20,13 @@ public class GameState extends State {
 	private World world;
 	public GameState(Handler handler){
 		super(handler);
-		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
-		handler.setWorld(world);
-		
+		displayState();
 	}
 	
 	@Override
 	public void tick() {
+		if (world != handler.getWorld())
+			world = handler.getWorld();
 		world.tick();
 	}
 
@@ -42,5 +43,16 @@ public class GameState extends State {
 		g.drawString(tmpScore , 240, 740);	//Score placeholder
 		g.drawString(tmpHealth, 450, 740);	//Lives placeholder
 		g.drawString("LEVEL: 1", 25, 740);		//Level number placeholder
+	}
+	/**
+	 * Sets the state to the game state 
+	 * and starts the game over at level 1
+	 */
+	public void displayState(){
+		State.setState(handler.getGame().getGameState());
+		handler.setPlayer(new Player(handler, 100, 100));
+		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
+		
+		handler.setWorld(world);
 	}
 }

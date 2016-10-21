@@ -63,15 +63,20 @@ public abstract class Entity {
 	 * Checks for collision between entities by checking for an intersection
 	 * between boundaries of each entity.
 	 * 
-	 * @param xOffset
-	 * @param yOffset
+	 * @param xOffset - how far away from the entity in the x direction to check for intersections
+	 * @param yOffset - how far away from the entity in the y direction to check for intersections
 	 * @return true there is a collision
 	 * @return false if there is no collision
 	 */
 	public boolean checkEntityCollisions(float xOffset, float yOffset){
+		// Loop through each entity that exist in a world.
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+			
+			// Skip this entity, no need to check for self collision
 			if(e.equals(this))
 				continue;
+			
+			// Compare the collision bounds of the other entity, with the collision bounds of this entity.
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))){
 				collidedWith = handler.getWorld().getEntityManager().getIndex(e);
 				return true;
