@@ -152,8 +152,9 @@ public class StealthFighter extends Enemy{
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.DARK_GRAY);
 		
-		if(isStealthed)
-			g.drawRect(posX, posY, width, height);
+		if(isStealthed){
+			//g.drawRect(posX, posY, width, height);
+			g.drawImage(Assets.stealthed, posX, posY, width, height, null);		}
 		else
 			g.drawImage(Assets.stealth, posX, posY, width, height, null);
 		
