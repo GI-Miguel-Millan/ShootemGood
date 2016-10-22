@@ -14,7 +14,7 @@ import resources.ResourceLoader;
 public class Assets {
 	
 	//Dimensions of tiles in the SpriteSheet
-	private static final int width = 64, height = 64;
+	private static final int width = 32, height = 32;
 	
 	// Images that will be loaded into the game.
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, projectile, interceptor, assault;

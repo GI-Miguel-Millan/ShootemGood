@@ -157,4 +157,11 @@ public class EntityManager {
 		this.entities = entities;
 	}
 
+	public void spawnBoss(Handler handler, int x, int y, int type) {
+		if(type == 0){
+			this.addEntity(new EagleBoss(handler, x, y));
+		}
+		
+	}
+
 }

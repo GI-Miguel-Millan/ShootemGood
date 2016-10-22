@@ -56,6 +56,8 @@ public class Player extends Creature {
 		animRight.tick();
 		animLeft.tick();
 		
+		//System.out.println("px: " + x + ", py: "+ y);
+		
 		//Movement
 		getInput();
 		move();

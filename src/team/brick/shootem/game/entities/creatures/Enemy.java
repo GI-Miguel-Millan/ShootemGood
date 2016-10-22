@@ -17,9 +17,11 @@ public abstract class Enemy extends Creature{
 	protected boolean ready = true;
 	protected int playerY = 0; //must actively set this variable in the tick method whenever it is used.
 	protected int playerX = 0; //must actively set this variable in the tick method whenever it is used.
+	protected static final int DEFAULT_ENEMY_WIDTH = 30;
+	protected static final int DEFAULT_ENEMY_HEIGhT = 50;
 	
 	public Enemy(Handler handler, float x, float y) {
-		super(handler, x, y, 30, 50);
+		super(handler, x, y, DEFAULT_ENEMY_WIDTH, DEFAULT_ENEMY_HEIGhT);
 		
 	}
 	
@@ -112,8 +114,8 @@ public abstract class Enemy extends Creature{
 		if(relX -relPx == 0)
 			relX += 1;
 		float playerSlope = ((relY - relPy)/(relX - relPx));
-		System.out.println("relX " + relX + ", relY: " + relY);
-		System.out.println("Slope: " + playerSlope + ", relPx: " + relPx + ", relPy: " + relPy);
+//		System.out.println("relX " + relX + ", relY: " + relY);
+//		System.out.println("Slope: " + playerSlope + ", relPx: " + relPx + ", relPy: " + relPy);
 		if(playerSlope <= 1 && playerSlope >= -1){
 			if(relPx < 0)
 				return 3; // Shoot Projectiles left
