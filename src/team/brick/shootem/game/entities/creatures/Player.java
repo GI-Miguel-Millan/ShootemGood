@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.states.State;

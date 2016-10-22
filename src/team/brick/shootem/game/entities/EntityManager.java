@@ -6,6 +6,10 @@ import java.util.Comparator;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.*;
+import team.brick.shootem.game.entities.creatures.enemies.AssaultFigher;
+import team.brick.shootem.game.entities.creatures.enemies.Interceptor;
+import team.brick.shootem.game.entities.creatures.enemies.StealthFighter;
+import team.brick.shootem.game.entities.creatures.enemies.bosses.EagleBoss;
 
 /**
  *	The EntityManager manages all entities, rendering each entity
