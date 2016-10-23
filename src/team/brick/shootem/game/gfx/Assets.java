@@ -81,6 +81,8 @@ public class Assets {
 		interceptor = sheet.crop(width * 2, height, width, height * 2);
 		assault = sheet.crop(width * 3, height, width, height);
 		stealthed = sheet.crop(width * 3, height * 2, width, height);
+		//test comment
+		
 	}
 	
 }
