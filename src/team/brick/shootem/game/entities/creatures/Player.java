@@ -73,8 +73,8 @@ public class Player extends Creature {
 		
 		collisionWithGoal((int)x,(int)y);
 		
-		handler.getGameCamera().centerOnEntity(this);
-		//handler.getGameCamera().staticCamera(this);
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
 		
 		handler.setPlayerScore(this.score);
 		handler.setPlayerHealth(health);
