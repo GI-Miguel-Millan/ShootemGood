@@ -28,6 +28,7 @@ public class Player extends Creature {
 	private int score = 1000;
 	private int lvlCounter = 1;
 	private static int numLevels = 2;
+	private boolean isBossDead = false;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -121,8 +122,6 @@ public class Player extends Creature {
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -3));
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, 25));
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -25));
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
@@ -141,7 +140,7 @@ public class Player extends Creature {
 	protected void collisionWithGoal(int x, int y){
 		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
-		if(handler.getWorld().getTile(tx, ty).isGoal()){
+		if(handler.getWorld().getTile(tx, ty).isGoal() && isBossDead){
 			handler.setPlayerScore(score);
 			lvlCounter++;
 			if (lvlCounter > numLevels){
@@ -217,6 +216,14 @@ public class Player extends Creature {
 	 */
 	public int getScore(){
 		return score;
+	}
+	
+	public void setIsBossDead(boolean bool){
+		isBossDead = bool;
+	}
+	
+	public boolean isBossDead(){
+		return isBossDead;
 	}
 	
 }

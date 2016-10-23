@@ -98,6 +98,8 @@ public class World {
 		String file = ResourceLoader.loadWorldFile(path);
 		String[] tokens = file.split("\\s+");
 		
+		handler.getPlayer().setIsBossDead(false);
+		
 		// In the world text file, the first four tokens (integers divided by a space or end line)
 		// determine the width, height, and (x,y) coordinates of the player spawn.
 		width = Utils.parseInt(tokens[0]);
