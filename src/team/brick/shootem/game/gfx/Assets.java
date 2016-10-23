@@ -17,7 +17,7 @@ public class Assets {
 	private static final int width = 64, height = 64;
 	
 	// Images that will be loaded into the game.
-	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, projectile, interceptor, assault;
+	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, projectile, interceptor, assault, stealthed;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
@@ -79,7 +79,10 @@ public class Assets {
 		stealth = sheet.crop(width, height, width, height);
 		projectile = sheet.crop(width, height * 2, width, height);
 		interceptor = sheet.crop(width * 2, height, width, height * 2);
-		assault = sheet.crop(0, height * 3, width * 2, height * 3);
+		assault = sheet.crop(width * 3, height, width, height);
+		stealthed = sheet.crop(width * 3, height * 2, width, height);
+		//test comment
+		
 	}
 	
 }
