@@ -6,10 +6,8 @@ import java.util.Comparator;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.*;
-import team.brick.shootem.game.entities.creatures.enemies.AssaultFigher;
-import team.brick.shootem.game.entities.creatures.enemies.Interceptor;
-import team.brick.shootem.game.entities.creatures.enemies.StealthFighter;
-import team.brick.shootem.game.entities.creatures.enemies.bosses.EagleBoss;
+import team.brick.shootem.game.entities.creatures.enemies.*;
+import team.brick.shootem.game.entities.creatures.enemies.bosses.*;
 
 /**
  *	The EntityManager manages all entities, rendering each entity
@@ -69,6 +67,8 @@ public class EntityManager {
 	
 	/**
 	 * Method used to create a new enemy of a given type and position.
+	 * Type 1 = Interceptor, Type 2 = AssaultFighter, Type 3 = StealthFigher,
+	 * Default = Interceptor
 	 * 
 	 * @param handler 
 	 * @param x the x position of the enemy being spawned
@@ -161,8 +161,26 @@ public class EntityManager {
 		this.entities = entities;
 	}
 
+	/**
+	 * Method used to create a Boss of a given type and position.
+	 * Type 0 = EagleBoss, Type 1 = GiantHeadBoss, Type 2 = Mothership,
+	 * Type 3 = DarkTumorRang, Default = EagleBoss
+	 * 
+	 * @param handler 
+	 * @param x the x position of the boss being spawned
+	 * @param y the y position of the boss being spawned
+	 * @param type what type of boss it is depends on the integer assigned to each.
+	 */
 	public void spawnBoss(Handler handler, int x, int y, int type) {
 		if(type == 0){
+			this.addEntity(new EagleBoss(handler, x, y));
+		}else if(type == 1){
+			this.addEntity(new GiantHeadBoss(handler, x, y));
+		}else if(type == 2){
+			this.addEntity(new MothershipBoss(handler, x, y));
+		}else if(type == 3){
+			this.addEntity(new DarkTumorRang(handler, x, y));
+		}else{
 			this.addEntity(new EagleBoss(handler, x, y));
 		}
 		
