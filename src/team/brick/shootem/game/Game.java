@@ -33,10 +33,9 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	//States
-	public State gameState;
-	public State menuState;
-	public State victoryState;
-	public State gameOverState;
+	private State gameState;
+	private State menuState;
+	private State GameOverState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -68,15 +67,16 @@ public class Game implements Runnable {
 		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
 		
+		
 		handler = new Handler(this);
+		handler.loadHighScore();	//Loads high score from file. Throws exception if file does not exist
 		gameState = new GameState(handler);
-		victoryState = new VictoryState(handler);
-		gameOverState = new GameOverState(handler);
+		GameOverState = new GameOverState(handler);
 		menuState = new MenuState(handler);
-		//gameOverState = new GameOverState(handler);
+		
+		
 		
 		gameCamera = new GameCamera(handler, 0, handler.getWorld().getHeight() * Tile.TILEHEIGHT);
-		
 		
 		State.setState(menuState);
 	}
@@ -215,6 +215,22 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Display getDisplay(){
+		return display;
+	}
+	
+	public MenuState getMenuState(){
+		return (MenuState) menuState;
+	}
+	
+	public GameOverState getGameOverState(){
+		return (GameOverState) GameOverState;
+	}
+	
+	public GameState getGameState(){
+		return (GameState) gameState;
 	}
 	
 }
