@@ -56,6 +56,16 @@ public class GameCamera {
 	}
 	
 	/**
+	 * Resets the camera's location to the bottom of the screen, and sets 
+	 * the cameraStop to false so the camera will resume scrolling.
+	 */
+	public void resetCamera(){
+		cameraStop= false;
+		yOffset = handler.getWorld().getHeight() * Tile.TILEHEIGHT;
+		xOffset = 0;
+	}
+	
+	/**
 	 * Moves the GameCamera at a constant speed.
 	 * 
 	 * @param e
