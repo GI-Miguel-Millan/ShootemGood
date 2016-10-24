@@ -39,7 +39,7 @@ public class Player extends Creature {
 		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
-		health = 100000;
+		health = 25;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		
@@ -73,8 +73,8 @@ public class Player extends Creature {
 		
 		collisionWithGoal((int)x,(int)y);
 		
-		handler.getGameCamera().centerOnEntity(this);
-		//handler.getGameCamera().staticCamera(this);
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
 		
 		handler.setPlayerScore(this.score);
 		handler.setPlayerHealth(health);
@@ -143,6 +143,7 @@ public class Player extends Creature {
 		if(handler.getWorld().getTile(tx, ty).isGoal() && isBossDead){
 			handler.setPlayerScore(score);
 			lvlCounter++;
+			handler.getGameCamera().resetCamera();
 			if (lvlCounter > numLevels){
 				//State.setState(handler.getGame().GameOverState);
 				handler.getGame().getGameOverState().displayState();
