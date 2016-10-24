@@ -10,6 +10,7 @@ import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
 import team.brick.shootem.game.states.*;
 import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.sound.Sound;//New jon edit
 
 /**
  *	The Game class runs the game: 
@@ -59,6 +60,7 @@ public class Game implements Runnable {
 	 *  Initializes everything.
 	 */
 	private void init(){
+		Sound.background.play();//New jon edit
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);

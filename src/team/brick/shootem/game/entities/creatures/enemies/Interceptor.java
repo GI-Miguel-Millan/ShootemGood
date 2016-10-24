@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
 
 /**
  *	An Interceptor is an Enemy which tracks down the player
@@ -79,6 +80,7 @@ public class Interceptor extends Enemy{
 	public void die() {
 		// An Interceptor death adds 100 to the player score
 		handler.getWorld().getEntityManager().getPlayer().addScore(50);
+		Sound.explosion.execute();//New jon edit
 		
 	}
 

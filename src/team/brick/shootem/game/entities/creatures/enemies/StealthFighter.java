@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.utils.Utils;
 
 /**
@@ -163,6 +164,7 @@ public class StealthFighter extends Enemy{
 	public void die() {
 		// A StealthFighter awards 150 score to the player upon death.
 		handler.getWorld().getEntityManager().getPlayer().addScore(150);
+		Sound.explosion.execute();//New jon edit
 		
 	}
 }

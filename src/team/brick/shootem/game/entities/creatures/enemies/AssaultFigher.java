@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.utils.Utils;
 
 /**
@@ -49,6 +50,7 @@ public class AssaultFigher extends Enemy{
 	public void die() {
 		// Add 150 to the players score whenever an AssaultFighter dies.
 		handler.getWorld().getEntityManager().getPlayer().addScore(150);
+		Sound.explosion.execute();//New jon edit
 		
 	}
 }
