@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
-import team.brick.shootem.game.states.State;
 import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.worlds.World;
 
 /**
  *	Player is a Creature controlled by the user. This class takes input from the user
@@ -24,6 +24,8 @@ public class Player extends Creature {
 	private boolean readyFire;
 	private int counter;
 	private int score = 1000;
+	private int lvlCounter = 1;
+	private static int numLevels = 2;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -34,7 +36,7 @@ public class Player extends Creature {
 		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
-		
+		health = 4000;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		
@@ -66,8 +68,11 @@ public class Player extends Creature {
 		
 		collisionWithGoal((int)x,(int)y);
 		
-		//handler.getGameCamera().centerOnEntity(this);
-		handler.getGameCamera().staticCamera(this);
+		handler.getGameCamera().centerOnEntity(this);
+		//handler.getGameCamera().staticCamera(this);
+		
+		handler.setPlayerScore(this.score);
+		handler.setPlayerHealth(health);
 	}
 	
 	/**
@@ -111,9 +116,7 @@ public class Player extends Creature {
 		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					(int) (x + width/2 - 4), 
-					(int) (y - height/6), 0));
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0));
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
@@ -134,7 +137,14 @@ public class Player extends Creature {
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
 		if(handler.getWorld().getTile(tx, ty).isGoal()){
 			handler.setPlayerScore(score);
-			State.setState(handler.getGame().victoryState);
+			lvlCounter++;
+			if (lvlCounter > numLevels){
+				//State.setState(handler.getGame().GameOverState);
+				handler.checkAndSetHighScore(score);	//Check for new high score
+				handler.getGame().getGameOverState().displayState();	//Switch to GameOverState
+			}
+			else
+				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
 		}
 	}
 	
@@ -169,8 +179,8 @@ public class Player extends Creature {
 	@Override
 	public void die() 
 	{
-		//This method will most likely just call the game over state/function.
-		State.setState(handler.getGame().gameOverState);
+		handler.checkAndSetHighScore(score);
+		handler.writeHighScore();
 	}
 	
 	
@@ -182,7 +192,6 @@ public class Player extends Creature {
 	 */
 	public void hurt(int amt){
 		health -= amt;
-		handler.setPlayerHealth(health);
 		if(health <= 0){
 			active = false;
 			die();
@@ -205,4 +214,5 @@ public class Player extends Creature {
 	public int getScore(){
 		return score;
 	}
+	
 }
