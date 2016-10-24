@@ -6,6 +6,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.display.Display;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.input.MouseManager;
+import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.ui.ClickListener;
 import team.brick.shootem.game.ui.UIImageButton;
 import team.brick.shootem.game.ui.UILabel;
@@ -59,5 +60,6 @@ public class GameOverState extends State
 	public void displayState(){
 		State.setState(handler.getGame().getGameOverState());
 		handler.getMouseManager().setUIManager(uiManager);
+		Sound.victory.execute();//New jon edit
 	}
 }
