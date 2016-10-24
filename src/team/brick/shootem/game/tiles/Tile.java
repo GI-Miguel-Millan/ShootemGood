@@ -21,6 +21,7 @@ public class Tile {
 	public static Tile playerSpawnTile = new PSpawnTile(3);
 	public static Tile enemySpawnTile = new ESpawnTile(4);
 	public static Tile goalTile = new GoalTile(5);
+	public static Tile bossSpawnTile = new BossSpawnTile(6);
 	
 	//CLASS
 	
@@ -97,6 +98,18 @@ public class Tile {
 	 */
 	public int getId(){
 		return id;
+	}
+
+	/**
+	 * Checks if this Tile is a boss spawn Tile
+	 * @return true if it Is
+	 * @return false if not
+	 */
+	public boolean isBossSpawn() {
+		if(this.getId() == bossSpawnTile.getId())
+			return true;
+		else
+			return false;
 	}
 	
 }

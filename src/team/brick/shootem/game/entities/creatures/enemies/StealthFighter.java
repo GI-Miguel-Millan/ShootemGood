@@ -1,9 +1,10 @@
-package team.brick.shootem.game.entities.creatures;
+package team.brick.shootem.game.entities.creatures.enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.utils.Utils;
 
@@ -126,7 +127,7 @@ public class StealthFighter extends Enemy{
 		int randAttack = Utils.randomNum(0, 50);
 		if(randAttack == 0){
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
-					this, getProjectileOrientation()));
+					this, getProjectileOrientation(),0));
 		}
 		
 		if(intersectWithPlayer() && ready){
@@ -142,8 +143,6 @@ public class StealthFighter extends Enemy{
 			ready = true;
 			readyCount =0;
 		}
-		
-		
 	}
 	
 	@Override
@@ -152,8 +151,9 @@ public class StealthFighter extends Enemy{
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.DARK_GRAY);
 		
-		if(isStealthed)
-			g.drawRect(posX, posY, width, height);
+		if(isStealthed){
+			//g.drawRect(posX, posY, width, height);
+			g.drawImage(Assets.stealthed, posX, posY, width, height, null);		}
 		else
 			g.drawImage(Assets.stealth, posX, posY, width, height, null);
 		

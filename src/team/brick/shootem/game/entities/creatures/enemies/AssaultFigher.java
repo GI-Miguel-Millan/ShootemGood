@@ -1,10 +1,11 @@
-package team.brick.shootem.game.entities.creatures;
+package team.brick.shootem.game.entities.creatures.enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.utils.Utils;
 
 /**
  *	An Assault Fighter is a standard space fighter which shoots projectiles at the player.
@@ -30,6 +31,18 @@ public class AssaultFigher extends Enemy{
 		g.drawRect(posX, posY, width, height);*/
 		g.drawImage(Assets.assault, posX, posY, width, height, null);
 		
+	}
+	
+	@Override
+	public void AIMove(){
+		if(counter <100){
+			xMove = 4;
+		}else if(counter < 200){
+			xMove = -4;
+		}else{
+			counter = 0;
+		}
+		counter += Utils.randomNum(1, 2);
 	}
 
 	@Override

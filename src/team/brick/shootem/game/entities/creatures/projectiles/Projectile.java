@@ -1,14 +1,15 @@
-package team.brick.shootem.game.entities.creatures;
+package team.brick.shootem.game.entities.creatures.projectiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
+import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.gfx.Assets;
 
 /**
- *	A Projectile is a moving Entity which deals damage to creatures. 
+ *	A Projectile is a moving Entity which deals damage to creatures.
  * 
  *	@author Miguel Millan
  *	@version 1.0
@@ -18,34 +19,34 @@ public class Projectile extends Creature{
 
 	public static final int DEFAULT_PROJECTILE_WIDTH = 5,
 							DEFAULT_PROJECTILE_HEIGHT = 20;
-	private int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
-	private int counter = 0; 
-	private Entity creator;
+	protected int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
+	protected int counter = 0; 
+	protected Entity creator;
 	
-	public Projectile(Handler handler, Entity e, int orient) {
+	public Projectile(Handler handler, Entity e, int orient, int offset) {
 		super(handler, e.getX(), e.getY(), DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
 		orientation = orient;
-		speed = 6.0f;
+		speed = 4.0f;
 		health = 1;
 		creator = e;
 		
 		if(orientation == 0){
-			x += e.getWidth()/2 - width/2;
+			x += e.getWidth()/2 - width/2 + offset;
 			y += -30;
 			yMove = speed;
 		}else if(orientation == 1){
-			x += e.getWidth()/2 - width/2;
+			x += e.getWidth()/2 - width/2 + offset;
 			y += e.getHeight() + 10;
 			yMove = -speed;
 		}else if(orientation == 2){
 			x += e.getWidth() + 10;
-			y += e.getHeight()/2;
+			y += e.getHeight()/2 + offset;
 			xMove = speed;
 			width = DEFAULT_PROJECTILE_HEIGHT;
 			height =DEFAULT_PROJECTILE_WIDTH;
 		}else{
 			x += -10;
-			y += e.getHeight()/2;
+			y += e.getHeight()/2 + offset;
 			xMove = -speed;
 			width = DEFAULT_PROJECTILE_HEIGHT;
 			height =DEFAULT_PROJECTILE_WIDTH;
@@ -99,8 +100,8 @@ public class Projectile extends Creature{
 				}
 					
 				// If the creator of this projectile is the player, then it should hurt
-				// all other entities.
-				if(creator.equals(handler.getWorld().getEntityManager().getPlayer()))
+				// all other entities (except FireBalls).
+				if(creator.equals(handler.getWorld().getEntityManager().getPlayer()) && !e.getClass().equals(FireBall.class))
 					e.hurt(1);
 				
 				// Regardless of whether or not the projectile deals damage,

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.projectiles.*;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.states.State;
@@ -26,7 +27,8 @@ public class Player extends Creature {
 	private int counter;
 	private int score = 1000;
 	private int lvlCounter = 1;
-	private static int numLevels = 2;
+	private static int numLevels = 5;
+	private boolean isBossDead = false;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -37,7 +39,7 @@ public class Player extends Creature {
 		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
-		health = 100000;
+		health = 25;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		
@@ -55,6 +57,8 @@ public class Player extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+		
+		//System.out.println("px: " + x + ", py: "+ y);
 		
 		//Movement
 		getInput();
@@ -117,7 +121,7 @@ public class Player extends Creature {
 		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0));
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -3));
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
@@ -139,11 +143,12 @@ public class Player extends Creature {
 		if(handler.getWorld().getTile(tx, ty).isGoal()){
 			handler.setPlayerScore(score);
 			lvlCounter++;
+			handler.getGameCamera().resetCamera();
+			System.out.println(isBossDead);
 			if (lvlCounter > numLevels){
 				//State.setState(handler.getGame().GameOverState);
 				handler.getGame().getGameOverState().displayState();
-			}
-			else
+			}else
 				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
 		}
 	}
@@ -212,6 +217,14 @@ public class Player extends Creature {
 	 */
 	public int getScore(){
 		return score;
+	}
+	
+	public void setIsBossDead(boolean bool){
+		isBossDead = bool;
+	}
+	
+	public boolean isBossDead(){
+		return isBossDead;
 	}
 	
 }

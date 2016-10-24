@@ -19,7 +19,7 @@ import team.brick.shootem.game.utils.Utils;
 public class World {
 
 	private Handler handler;
-	private int width, height;
+	private int width, height, bossType;
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	//Entities
@@ -98,19 +98,22 @@ public class World {
 		String file = ResourceLoader.loadWorldFile(path);
 		String[] tokens = file.split("\\s+");
 		
+		handler.getPlayer().setIsBossDead(false);
+		
 		// In the world text file, the first four tokens (integers divided by a space or end line)
 		// determine the width, height, and (x,y) coordinates of the player spawn.
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
 		spawnX = Utils.parseInt(tokens[2]);
 		spawnY = Utils.parseInt(tokens[3]);
+		bossType = Utils.parseInt(tokens[4]);
 		
 		tiles = new int[width][height];
 		for(int y = 0;y < height;y++){
 			for(int x = 0;x < width;x++){
 					//gets the id of the tile corresponding to the world*.txt 
 					//this will be used to render the appropriate tiles later.
-				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
+				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 5]);
 				
 					//Sets the player's spawn point if the tile at (x,y) is a player spawn tile
 				if(getTile(x,y).isPSpawn()){
@@ -121,8 +124,13 @@ public class World {
 				}else if(getTile(x,y).isESpawn()){
 					int randomSpawn = Utils.randomNum(1,3);
 					entityManager.spawnEnemy(handler, x * Tile.TILEWIDTH, (y) * Tile.TILEHEIGHT, randomSpawn);
+					
+					//Spawns the boss on a boss spawn tile
+				}else if(getTile(x,y).isBossSpawn()){
+					System.out.println(bossType + ", x: " + x * Tile.TILEWIDTH + ", y: "+ Tile.TILEHEIGHT);
+					entityManager.spawnBoss(handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, bossType);
+					
 				}
-						
 			}
 		}
 	}

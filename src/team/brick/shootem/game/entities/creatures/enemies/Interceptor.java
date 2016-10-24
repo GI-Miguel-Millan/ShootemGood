@@ -1,4 +1,4 @@
-package team.brick.shootem.game.entities.creatures;
+package team.brick.shootem.game.entities.creatures.enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -78,7 +78,7 @@ public class Interceptor extends Enemy{
 	@Override
 	public void die() {
 		// An Interceptor death adds 100 to the player score
-		handler.getWorld().getEntityManager().getPlayer().addScore(100);
+		handler.getWorld().getEntityManager().getPlayer().addScore(50);
 		
 	}
 
