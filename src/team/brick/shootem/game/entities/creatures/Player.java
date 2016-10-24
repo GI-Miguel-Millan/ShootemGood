@@ -74,8 +74,8 @@ public class Player extends Creature {
 		
 		collisionWithGoal((int)x,(int)y);
 		
-		handler.getGameCamera().centerOnEntity(this);
-		//handler.getGameCamera().staticCamera(this);
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
 		
 		handler.setPlayerScore(this.score);
 		handler.setPlayerHealth(health);
@@ -143,7 +143,7 @@ public class Player extends Creature {
 	protected void collisionWithGoal(int x, int y){
 		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
-		if(handler.getWorld().getTile(tx, ty).isGoal()){
+		if(handler.getWorld().getTile(tx, ty).isGoal() && isBossDead){
 			handler.setPlayerScore(score);
 			lvlCounter++;
 			handler.getGameCamera().resetCamera();
