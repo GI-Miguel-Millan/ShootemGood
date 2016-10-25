@@ -4,8 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.projectiles.*;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
+import team.brick.shootem.game.states.State;
+import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.worlds.World;
 
 /**
  *	Player is a Creature controlled by the user. This class takes input from the user
@@ -19,14 +24,25 @@ public class Player extends Creature {
 	
 	//Animations
 	private Animation animDown, animUp, animLeft, animRight;
+	private boolean readyFire;
+	private int counter;
+	private int score = 1000;
+	private int lvlCounter = 1;
+	private static int numLevels = 5;
+	private boolean isBossDead = false;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		bounds.x = 22;
-		bounds.y = 44;
-		bounds.width = 19;
-		bounds.height = 19;
+		bounds.x = 16;
+		bounds.y = 22;
+		bounds.width = 32;
+		bounds.height = 12;
+		counter = 0;
+		readyFire = true;
+		health = 25;
+		handler.setPlayerHealth(health);
+		handler.setPlayerScore(score);
 		
 		//Animatons
 		animDown = new Animation(500, Assets.player_down);
@@ -42,10 +58,27 @@ public class Player extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+		
+		//System.out.println("px: " + x + ", py: "+ y);
+		
 		//Movement
 		getInput();
 		move();
-		handler.getGameCamera().centerOnEntity(this);
+		if(!readyFire)
+			counter++;
+		
+		if(counter == 20){
+			readyFire = true;
+			counter = 0;
+		}
+		
+		collisionWithGoal((int)x,(int)y);
+		
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
+		
+		handler.setPlayerScore(this.score);
+		handler.setPlayerHealth(health);
 	}
 	
 	/**
@@ -54,23 +87,84 @@ public class Player extends Creature {
 	 */
 	private void getInput(){
 		xMove = 0;
-		yMove = 0;
+		//yMove = -2;
+		yMove = -(handler.getGameCamera().getCamSpeed());
 		
 		if(handler.getKeyManager().up)
-			yMove = -speed;
+		{
+			if (y >= (((handler.getGameCamera().getyOffset() + 1))))
+			{
+				yMove += -speed;
+			}
+			else
+				yMove += 0;
+		}
+		
 		if(handler.getKeyManager().down)
-			yMove = speed;
+		{
+			if (y < (((handler.getGameCamera().getyOffset() + 650))))
+			{	
+			yMove += speed;
+			}
+			else
+				yMove += 0;
+		}
+		
 		if(handler.getKeyManager().left)
+		{
 			xMove = -speed;
-		if(handler.getKeyManager().right)
-			xMove = speed;
+		}
+			if(handler.getKeyManager().right)
+			{
+				xMove = speed;
+			}		
+		// A player is only allowed to fire a projectile whenever readyFire is true 
+		// and they hit the fire key.
+		if(handler.getKeyManager().fire && readyFire){
+			// Spawns a projectile above the player moving upwards
+			Sound.lazer.execute();//New jon edit
+			//makes lazer sound while shooting
+			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -3));
+			// Every time a player fires a projectile they lose 10 score (accuracy is important)
+			// and their guns go on cooldown (they are not ready to fire).
+			score -=10;
+			readyFire = false;
+		}
 	}
+	
+	/**
+	 * Checks if the player is colliding with a Goal Tile.
+	 * 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @return true if the Tile is not solid
+	 * @return false if the Tile is is solid
+	 */
+	protected void collisionWithGoal(int x, int y){
+		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
+		if(handler.getWorld().getTile(tx, ty).isGoal() && isBossDead){
+			handler.setPlayerScore(score);
+			lvlCounter++;
+			handler.getGameCamera().resetCamera();
+			System.out.println(isBossDead);
+			if (lvlCounter > numLevels){
+				//State.setState(handler.getGame().GameOverState);
+				handler.checkAndSetHighScore(score);
+				handler.getGame().getGameOverState().displayState();
+			}else
+				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
+		}
+	}
+	
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		posX = (int)(x - handler.getGameCamera().getxOffset());
+		posY = (int) (y - handler.getGameCamera().getyOffset());
+		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
-//		g.setColor(Color.red);
+//		g.drawRect(posX, posY, width, height);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
 //				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
 //				bounds.width, bounds.height);
@@ -91,4 +185,51 @@ public class Player extends Creature {
 		}
 	}
 
+	@Override
+	public void die() {
+		handler.checkAndSetHighScore(score);
+		handler.getGame().getGameOverState().displayState();
+		
+	}
+	
+	
+	/**
+	 * The hurt method of the Player must be overridden so that 
+	 * every time the player takes damage, the handler can update 
+	 * the player health.
+	 * @Override
+	 */
+	public void hurt(int amt){
+		health -= amt;
+		if(health <= 0){
+			active = false;
+			die();
+		}
+	}
+
+	
+	/**
+	 * Add integer to the players score.
+	 * @param score
+	 */
+	public void addScore(int score){
+		this.score += score;
+	}
+	
+	/**
+	 * 
+	 * @return player score
+	 */
+	public int getScore(){
+		return score;
+	}
+	
+	public void setIsBossDead(boolean bool){
+		isBossDead = bool;
+	}
+	
+	public boolean isBossDead(){
+		return isBossDead;
+	}
+	
 }

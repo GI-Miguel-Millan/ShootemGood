@@ -3,7 +3,8 @@ package team.brick.shootem.game.gfx;
 import java.awt.image.BufferedImage;
 
 /**
- *	Stores a buffered image.
+ *	Stores a buffered image of the sprite sheet from which 
+ *	we can crop out the individual textures.
  * 	
  *	@author 
  *	@version 1.0

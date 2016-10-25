@@ -8,9 +8,9 @@ import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
-import team.brick.shootem.game.states.GameState;
-import team.brick.shootem.game.states.MenuState;
-import team.brick.shootem.game.states.State;
+import team.brick.shootem.game.states.*;
+import team.brick.shootem.game.tiles.Tile;
+import team.brick.shootem.game.sound.Sound;//New jon edit
 
 /**
  *	The Game class runs the game: 
@@ -34,8 +34,9 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	//States
-	public State gameState;
-	public State menuState;
+	private State gameState;
+	private State menuState;
+	private State GameOverState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -59,6 +60,7 @@ public class Game implements Runnable {
 	 *  Initializes everything.
 	 */
 	private void init(){
+		Sound.background.play();//New jon edit
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
@@ -68,10 +70,15 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		handler = new Handler(this);
-		gameCamera = new GameCamera(handler, 0, 0);
-		
+		handler.loadHighScore();
 		gameState = new GameState(handler);
+		GameOverState = new GameOverState(handler);
 		menuState = new MenuState(handler);
+		
+		
+		gameCamera = new GameCamera(handler, 0, handler.getWorld().getHeight() * Tile.TILEHEIGHT);
+		
+		
 		State.setState(menuState);
 	}
 	
@@ -209,6 +216,22 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Display getDisplay(){
+		return display;
+	}
+	
+	public MenuState getMenuState(){
+		return (MenuState) menuState;
+	}
+	
+	public GameOverState getGameOverState(){
+		return (GameOverState) GameOverState;
+	}
+	
+	public GameState getGameState(){
+		return (GameState) gameState;
 	}
 	
 }

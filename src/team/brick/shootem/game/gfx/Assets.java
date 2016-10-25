@@ -2,8 +2,10 @@ package team.brick.shootem.game.gfx;
 
 import java.awt.image.BufferedImage;
 
+import resources.ResourceLoader;
+
 /**
- *	Assets stores all the assets for the game.
+ *	Assets loads in and stores all the assets for the game.
  * 	
  *	@author 
  *	@version 1.0
@@ -12,19 +14,30 @@ import java.awt.image.BufferedImage;
 public class Assets {
 	
 	//Dimensions of tiles in the SpriteSheet
-	private static final int width = 32, height = 32;
+	private static final int width = 64, height = 64;
 	
 	// Images that will be loaded into the game.
-	public static BufferedImage dirt, grass, stone, tree, rock;
+	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, projectile, interceptor, assault, stealthed;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
+	
+	//Array of names stored in the Paths.txt of the files we want to load
+	public static String[] fileNames; // [0] = "sheets.png" 
+								      // [1] = "world1.txt"
+									  // [2] = "world2.txt"
 
 	/**
 	 *  Loads all assets into the game. This should only be called once.
 	 */
 	public static void init(){
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
+		
+		String regex = "\\s+";
+		String pathsFile = ResourceLoader.loadFileAsString("Paths.txt");
+		//Splits up each file name into the fileNames array
+		fileNames = pathsFile.split(regex);
+		
+		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
 		
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
@@ -58,11 +71,18 @@ public class Assets {
 		zombie_left[0] = sheet.crop(width * 6, height * 3, width, height);
 		zombie_left[1] = sheet.crop(width * 7, height * 3, width, height);
 		
-		dirt = sheet.crop(width, 0, width, height);
-		grass = sheet.crop(width * 2, 0, width, height);
+		space = sheet.crop(width, 0, width, height);
+		space2 = sheet.crop(width * 2, 0, width, height);
 		stone = sheet.crop(width * 3, 0, width, height);
 		tree = sheet.crop(0, 0, width, height * 2);
-		rock = sheet.crop(0, height * 2, width, height);
+		spaceBound = sheet.crop(0, height * 2, width, height);
+		stealth = sheet.crop(width, height, width, height);
+		projectile = sheet.crop(width, height * 2, width, height);
+		interceptor = sheet.crop(width * 2, height, width, height * 2);
+		assault = sheet.crop(width * 3, height, width, height);
+		stealthed = sheet.crop(width * 3, height * 2, width, height);
+		//test comment
+		
 	}
 	
 }

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import team.brick.shootem.game.Handler;
-import team.brick.shootem.game.entities.creatures.Player;
+import team.brick.shootem.game.entities.creatures.*;
+import team.brick.shootem.game.entities.creatures.enemies.*;
+import team.brick.shootem.game.entities.creatures.enemies.bosses.*;
 
 /**
  *	The EntityManager manages all entities, rendering each entity
@@ -44,6 +46,10 @@ public class EntityManager {
 		for(int i = 0;i < entities.size();i++){
 			Entity e = entities.get(i);
 			e.tick();
+			
+			// If an Entity has died since the last tick(), remove it from entities.
+			if(!e.isActive())
+				entities.remove(e);
 		}
 		entities.sort(renderSorter);
 	}
@@ -60,6 +66,28 @@ public class EntityManager {
 	}
 	
 	/**
+	 * Method used to create a new enemy of a given type and position.
+	 * Type 1 = Interceptor, Type 2 = AssaultFighter, Type 3 = StealthFigher,
+	 * Default = Interceptor
+	 * 
+	 * @param handler 
+	 * @param x the x position of the enemy being spawned
+	 * @param y the y position of the enemy being spawned
+	 * @param type what type of enemy it is depends on the integer assigned to each.
+	 */
+	public void spawnEnemy(Handler handler, int x, int y, int type){
+		if(type == 1){
+			this.addEntity(new Interceptor(handler, x, y));
+		}else if(type == 2){
+			this.addEntity(new AssaultFigher(handler, x, y));
+		}else if(type == 3){
+			this.addEntity(new StealthFighter(handler, x, y));
+		}else{
+			this.addEntity(new Interceptor(handler, x, y));
+		}
+	}
+	
+	/**
 	 * Adds an Entity to the entities ArrayList.
 	 * 
 	 * @param e the Entity to add to entities.
@@ -68,6 +96,26 @@ public class EntityManager {
 		entities.add(e);
 	}
 	
+	/**
+	 * Removes an Entity from the entities ArrayList.
+	 * 
+	 * @param e the Entity to remove from entities.
+	 */
+	public void removeEntity(Entity e){
+		entities.remove(e);
+	}
+	
+	public Entity getEntity(int index){
+		return entities.get(index);
+	}
+	
+	/**
+	 * @param e an Entity contained in the entities ArrayList
+	 * @return the index of e in the entities ArrayList
+	 */
+	public int getIndex(Entity e){
+		return entities.indexOf(e);
+	}
 	/**
 	 * @return handler
 	 */
@@ -111,6 +159,31 @@ public class EntityManager {
 	 */
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
+	}
+
+	/**
+	 * Method used to create a Boss of a given type and position.
+	 * Type 0 = EagleBoss, Type 1 = GiantHeadBoss, Type 2 = Mothership,
+	 * Type 3 = DarkTumorRang, Default = EagleBoss
+	 * 
+	 * @param handler 
+	 * @param x the x position of the boss being spawned
+	 * @param y the y position of the boss being spawned
+	 * @param type what type of boss it is depends on the integer assigned to each.
+	 */
+	public void spawnBoss(Handler handler, int x, int y, int type) {
+		if(type == 0){
+			this.addEntity(new EagleBoss(handler, x, y));
+		}else if(type == 1){
+			this.addEntity(new GiantHeadBoss(handler, x, y));
+		}else if(type == 2){
+			this.addEntity(new MothershipBoss(handler, x, y));
+		}else if(type == 3){
+			this.addEntity(new DarkTumorRang(handler, x, y));
+		}else{
+			this.addEntity(new EagleBoss(handler, x, y));
+		}
+		
 	}
 
 }

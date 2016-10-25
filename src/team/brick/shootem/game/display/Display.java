@@ -64,4 +64,8 @@ public class Display {
 		return frame;
 	}
 	
+	public void trueVisibility(){
+		frame.setVisible(true);
+	}
+	
 }

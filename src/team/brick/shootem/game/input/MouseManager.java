@@ -6,6 +6,13 @@ import java.awt.event.MouseMotionListener;
 
 import team.brick.shootem.game.ui.UIManager;
 
+/**
+ *	The MouseManager keeps track of the mouse position, and mouse button presses.
+ * 	
+ *	@author 
+ *	@version 1.0
+ *	@since version 1.0
+ */
 public class MouseManager implements MouseListener, MouseMotionListener {
 
 	private boolean leftPressed, rightPressed;
@@ -18,6 +25,10 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 	
 	public void setUIManager(UIManager uiManager){
 		this.uiManager = uiManager;
+	}
+	
+	public UIManager getUIManager(){
+		return uiManager;
 	}
 	
 	// Getters
