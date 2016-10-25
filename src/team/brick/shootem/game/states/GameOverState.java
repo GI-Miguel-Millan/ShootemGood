@@ -24,8 +24,8 @@ public class GameOverState extends State
 		handler.getMouseManager().setUIManager(uiManager);
 		
 		UILabel lblGameOver = new UILabel(150, 150, 1, 1, "GAME OVER", null);
-		UILabel lblScore = new UILabel(150, 200, 10, 20, "SCORE: " + String.valueOf(handler.getPlayerScore()), null);
-		UILabel lblHighScore = new UILabel(150, 250, 10, 20, "HIGH SCORE: (high score here)", null);
+		UILabel lblScore = new UILabel(150, 200, 10, 20, "SCORE: " + handler.getPlayerScore(), null);
+		UILabel lblHighScore = new UILabel(150, 250, 10, 20, "HIGH SCORE: " + handler.getHighScore(), null);
 		UIImageButton btnRestart = new UIImageButton(150, 350, 200, 100, Assets.btn_start, new ClickListener()
 				{
 					public void onClick()

@@ -1,5 +1,12 @@
 package team.brick.shootem.game;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
@@ -21,6 +28,8 @@ public class Handler {
 	private int playerScore;
 	private int playerHealth;
 	private Player player;
+
+	private int highScore;
 	
 	public Handler(Game game){
 		this.game = game;
@@ -125,5 +134,76 @@ public class Handler {
 		this.player = player;
 	}
 	
+	//Checks the current score against the high score. If higher, update the high score
+	public void  checkAndSetHighScore(int score)
+	{
+		if(score > highScore)
+		{
+			highScore = score;
+		}
+	}
+	
+	//Returns high score
+		public int getHighScore()
+		{
+			return highScore;
+		}
+		
+		//Write high score to a file
+		public void writeHighScore()
+		{
+	        try {
+	            // Assume default encoding.
+	            FileOutputStream fOut = new FileOutputStream("highscore.txt");
+	            DataOutputStream out = new DataOutputStream(fOut);
+
+	            // Note that write() does not automatically
+	            // append a newline character.
+	            out.writeInt(highScore);
+
+	            // Always close files.
+	            out.close();
+	        }
+	        catch(IOException ex) {
+	            System.out.println(
+	                "Error writing to file '"
+	                + "highscore.txt" + "'");
+	            // Or we could just do this:
+	            // ex.printStackTrace();
+	        }
+	    }
+		
+		//Load high score from a file
+		public void loadHighScore()
+		{
+			 try {
+		            // FileReader reads text files in the default encoding.
+		            FileInputStream fIn = new FileInputStream("highscore.txt");
+		            DataInputStream in = new DataInputStream(fIn);
+		            
+		            int temp; //Stores high score from file
+		            temp = in.readInt();
+		            System.out.println(temp);
+
+		            // Always close files.
+		            in.close();
+		            
+		            //Sets high score 
+		            highScore = temp;
+		            System.out.println(highScore);
+		        }
+		        catch(FileNotFoundException ex) {
+		            System.out.println(
+		                "Unable to open file '" + 
+		                "highscore.txt" + "'");                
+		        }
+		        catch(IOException ex) {
+		            System.out.println(
+		                "Error reading file '" 
+		                + "highscore.txt" + "'");                  
+		            // Or we could just do this: 
+		            // ex.printStackTrace();
+		        }
+		}
 	
 }

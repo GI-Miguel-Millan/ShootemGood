@@ -150,6 +150,7 @@ public class Player extends Creature {
 			System.out.println(isBossDead);
 			if (lvlCounter > numLevels){
 				//State.setState(handler.getGame().GameOverState);
+				handler.checkAndSetHighScore(score);
 				handler.getGame().getGameOverState().displayState();
 			}else
 				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
@@ -186,7 +187,8 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
-		//This method will most likely just call the game over state/function.
+		handler.checkAndSetHighScore(score);
+		handler.getGame().getGameOverState().displayState();
 		
 	}
 	

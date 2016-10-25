@@ -43,6 +43,7 @@ public class GameState extends State {
 		g.drawString(tmpScore , 240, 740);	//Score placeholder
 		g.drawString(tmpHealth, 450, 740);	//Lives placeholder
 		g.drawString("LEVEL: 1", 25, 740);		//Level number placeholder
+		g.drawString(String.valueOf(handler.getHighScore()), 150, 740);
 	}
 	/**
 	 * Sets the state to the game state 

@@ -70,6 +70,7 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		handler = new Handler(this);
+		handler.loadHighScore();
 		gameState = new GameState(handler);
 		GameOverState = new GameOverState(handler);
 		menuState = new MenuState(handler);
