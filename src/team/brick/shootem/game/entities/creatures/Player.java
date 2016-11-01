@@ -40,7 +40,7 @@ public class Player extends Creature {
 		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
-		health = 25000;
+		health = 50;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		
@@ -61,6 +61,13 @@ public class Player extends Creature {
 		
 		//System.out.println("px: " + x + ", py: "+ y);
 		
+		//check for slow conditions
+		if(collisionWithSlowVortex((int)x, (int)y)){
+			speed =1;
+		}else{
+			speed = Creature.DEFAULT_SPEED;
+		}
+		
 		//Movement
 		getInput();
 		move();
@@ -74,6 +81,7 @@ public class Player extends Creature {
 		}
 		
 		collisionWithGoal((int)x,(int)y);
+		collisionWithBlackHole((int)x,(int)y);
 		
 		//handler.getGameCamera().centerOnEntity(this);
 		handler.getGameCamera().staticCamera(this);
@@ -169,7 +177,42 @@ public class Player extends Creature {
 		}
 	}
 	
-
+	/**
+	 * Checks if the player is colliding with a Black Hole Tile.
+	 * 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @return true if the Tile is not solid
+	 * @return false if the Tile is is solid
+	 */
+	protected void collisionWithBlackHole(int x, int y){
+		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
+		if(handler.getWorld().getTile(tx, ty).isBlackHole()){
+			handler.getGameCamera().resetCamera();
+			handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
+		}
+	}
+	
+	/**
+	 * Checks if the player is colliding with a Slow Vortex Tile.
+	 * 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @return true if the Tile is not solid
+	 * @return false if the Tile is is solid
+	 */
+	protected boolean collisionWithSlowVortex(int x, int y){
+		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
+		if(handler.getWorld().getTile(tx, ty).isSlowVortex()){
+			return true;
+		}else
+		{
+			return false;
+		}
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
