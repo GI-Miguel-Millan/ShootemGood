@@ -82,6 +82,16 @@ public class Player extends Creature {
 	}
 	
 	/**
+	 * Sets the players y position to the bottom of the game camera 
+	 * if the player moves below the screen
+	 */
+	private void resetLowerBounds(){
+		if(y < (((handler.getGameCamera().getyOffset() + 660)))){
+			this.setY((((handler.getGameCamera().getyOffset() + 660))));
+		}
+	}
+	
+	/**
 	 *  Gets input from the user and sets the players yMove and
 	 *  xMove according to which key is pressed.
 	 */
@@ -106,8 +116,10 @@ public class Player extends Creature {
 			{	
 			yMove += speed;
 			}
-			else
+			else{
 				yMove += 0;
+			}
+				
 		}
 		
 		if(handler.getKeyManager().left)
