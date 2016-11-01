@@ -23,11 +23,14 @@ import team.brick.shootem.game.worlds.World;
 public class Player extends Creature {
 	
 	//Animations
-	private Animation animDown, animUp, animLeft, animRight;
+	private Animation animDown, animUp, animLeft, animRight,
+						hurtDown, hurtUp, hurtLeft, hurtRight;
 	private boolean readyFire;
+	private boolean isHurt = false;
 	private int counter;
 	private int score = 1000;
 	private int lvlCounter = 1;
+	private int hurtCounter = 0;
 	private static int numLevels = 4;
 	private boolean isBossDead = false;
 	
@@ -49,6 +52,10 @@ public class Player extends Creature {
 		animUp = new Animation(500, Assets.player_up);
 		animLeft = new Animation(500, Assets.player_left);
 		animRight = new Animation(500, Assets.player_right);
+		hurtDown = new Animation(50, Assets.hurt_down);
+		hurtUp = new Animation(50, Assets.hurt_up);
+		hurtLeft = new Animation(50, Assets.hurt_left);
+		hurtRight = new Animation(50, Assets.hurt_right);
 	}
 
 	@Override
@@ -58,6 +65,10 @@ public class Player extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+		hurtDown.tick();
+		hurtUp.tick();
+		hurtRight.tick();
+		hurtLeft.tick();
 		
 		//System.out.println("px: " + x + ", py: "+ y);
 		
@@ -71,6 +82,14 @@ public class Player extends Creature {
 		if(counter == 20){
 			readyFire = true;
 			counter = 0;
+		}
+		
+		if(isHurt == true)
+			hurtCounter++;
+		
+		if (hurtCounter == 50){
+			isHurt = false;
+			hurtCounter = 0;
 		}
 		
 		collisionWithGoal((int)x,(int)y);
@@ -186,14 +205,26 @@ public class Player extends Creature {
 	 *  @return the current animation frame based on which direction the player moves.
 	 */
 	private BufferedImage getCurrentAnimationFrame(){
-		if(xMove < 0){
-			return animLeft.getCurrentFrame();
-		}else if(xMove > 0){
-			return animRight.getCurrentFrame();
-		}else if(yMove < 0){
-			return animUp.getCurrentFrame();
+		if(isHurt == false){
+			if(xMove < 0){
+				return animLeft.getCurrentFrame();
+			}else if(xMove > 0){
+				return animRight.getCurrentFrame();
+			}else if(yMove < 0){
+				return animUp.getCurrentFrame();
+			}else{
+				return animDown.getCurrentFrame();
+			}
 		}else{
-			return animDown.getCurrentFrame();
+			if(xMove < 0){
+				return hurtLeft.getCurrentFrame();
+			}else if(xMove > 0){
+				return hurtRight.getCurrentFrame();
+			}else if(yMove < 0){
+				return hurtUp.getCurrentFrame();
+			}else{
+				return hurtDown.getCurrentFrame();
+			}
 		}
 	}
 
@@ -214,6 +245,7 @@ public class Player extends Creature {
 	 */
 	public void hurt(int amt){
 		health -= amt;
+		isHurt = true;
 		if(health <= 0){
 			active = false;
 			die();
