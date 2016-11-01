@@ -186,6 +186,7 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
+		handler.getGameCamera().resetCamera();
 		handler.checkAndSetHighScore(score);
 		handler.getGame().getGameOverState().displayState();
 		
