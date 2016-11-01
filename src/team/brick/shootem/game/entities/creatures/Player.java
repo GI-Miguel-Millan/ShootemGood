@@ -64,6 +64,7 @@ public class Player extends Creature {
 		//Movement
 		getInput();
 		move();
+		resetLowerBounds();
 		if(!readyFire)
 			counter++;
 		
@@ -86,8 +87,8 @@ public class Player extends Creature {
 	 * if the player moves below the screen
 	 */
 	private void resetLowerBounds(){
-		if(y < (((handler.getGameCamera().getyOffset() + 660)))){
-			this.setY((((handler.getGameCamera().getyOffset() + 660))));
+		if(y > (((handler.getGameCamera().getyOffset() + 700)))){
+			this.die();
 		}
 	}
 	
