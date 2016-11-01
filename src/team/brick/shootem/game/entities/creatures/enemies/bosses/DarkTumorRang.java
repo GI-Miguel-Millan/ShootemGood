@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.projectiles.DarkLaser;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
+import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.utils.Utils;
 
 public class DarkTumorRang extends Boss{
@@ -27,7 +28,8 @@ public class DarkTumorRang extends Boss{
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.gray);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.darkTumorRang, posX, posY, width, height, null);
 	}
 	
 	@Override

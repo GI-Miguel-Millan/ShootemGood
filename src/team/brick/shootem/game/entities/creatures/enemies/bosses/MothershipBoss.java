@@ -28,7 +28,7 @@ public class MothershipBoss extends Boss{
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.yellow);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
 		g.drawImage(Assets.motherShip, posX, posY, width, height, null);
 	}
 
@@ -89,6 +89,15 @@ public class MothershipBoss extends Boss{
 		if(intersectWithPlayer() && ready){
 			handler.getWorld().getEntityManager().getPlayer().hurt(1);
 			ready = false;
+		}
+		
+		if (!ready){
+			readyCount++;
+		}
+		
+		if(readyCount >= 5){
+			ready = true;
+			readyCount =0;
 		}
 	}
 }

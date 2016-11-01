@@ -57,11 +57,39 @@ public class FireBall extends Projectile {
 	}
 	
 	@Override
+	public void tick() {
+		//Ensures that a projectile is eventually killed
+		if(counter == 200)
+			this.hurt(1);
+		
+		if(orientation == 0)
+			yMove = speed;
+		else if(orientation == 1)
+			yMove = -speed;
+		else if(orientation == 2)
+			xMove = speed;
+		else if(orientation == 3)
+			xMove = -speed;
+			
+		
+		if(!checkEntityCollisions(xMove, yMove)){
+			y -= yMove;
+			x += xMove;
+		}else{
+			checkAttack();
+		}
+		
+		counter++;
+		
+	}
+	
+	@Override
 	public void render(Graphics g) {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.red);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.fireBall, posX, posY, width, height, null);
 		//g.drawImage(Assets.projectile, posX, posY, width, height, null);
 		
 	}

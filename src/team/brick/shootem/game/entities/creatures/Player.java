@@ -40,7 +40,7 @@ public class Player extends Creature {
 		bounds.height = 12;
 		counter = 0;
 		readyFire = true;
-		health = 25;
+		health = 25000;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		
@@ -64,7 +64,7 @@ public class Player extends Creature {
 		//Movement
 		getInput();
 		move();
-		resetLowerBounds();
+		lowerBoundCheck();
 		if(!readyFire)
 			counter++;
 		
@@ -86,7 +86,7 @@ public class Player extends Creature {
 	 * Sets the players y position to the bottom of the game camera 
 	 * if the player moves below the screen
 	 */
-	private void resetLowerBounds(){
+	private void lowerBoundCheck(){
 		if(y > (((handler.getGameCamera().getyOffset() + 700)))){
 			this.die();
 		}

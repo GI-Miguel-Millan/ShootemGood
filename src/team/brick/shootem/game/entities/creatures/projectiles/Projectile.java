@@ -94,7 +94,7 @@ public class Projectile extends Creature{
 			//No Need to check for collision if e is this projectile or its creator.
 			if(e.equals(this) || e.equals(creator))
 				continue;
-			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
+			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(xMove,yMove))){
 			
 				// If this projectile collides with the player hurt it.
 				if(e.equals(handler.getWorld().getEntityManager().getPlayer())){

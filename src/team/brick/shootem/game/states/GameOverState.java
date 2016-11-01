@@ -15,6 +15,18 @@ import team.brick.shootem.game.ui.UIManager;
 public class GameOverState extends State
 {
 	private UIManager uiManager;
+	private UILabel lblScore;
+	private UILabel lblHighScore;
+	
+	UILabel lblGameOver = new UILabel(150, 150, 1, 1, "GAME OVER", null);
+	UIImageButton btnRestart = new UIImageButton(150, 350, 200, 100, Assets.btn_start, new ClickListener()
+			{
+				public void onClick()
+				{
+					handler.getMouseManager().setUIManager(null);
+					handler.getGame().getMenuState().displayState();
+				}
+			});
 	
 	public GameOverState(Handler handler)
 	{
@@ -22,28 +34,12 @@ public class GameOverState extends State
 
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
-		
-		UILabel lblGameOver = new UILabel(150, 150, 1, 1, "GAME OVER", null);
-		UILabel lblScore = new UILabel(150, 200, 10, 20, "SCORE: " + handler.getPlayerScore(), null);
-		UILabel lblHighScore = new UILabel(150, 250, 10, 20, "HIGH SCORE: " + handler.getHighScore(), null);
-		UIImageButton btnRestart = new UIImageButton(150, 350, 200, 100, Assets.btn_start, new ClickListener()
-				{
-					public void onClick()
-					{
-						handler.getMouseManager().setUIManager(null);
-						handler.getGame().getMenuState().displayState();
-					}
-				});
-		
-		uiManager.addObject(lblScore);
-		uiManager.addObject(lblHighScore);
-		uiManager.addObject(btnRestart);
-		
 	}
 
 	@Override
 	public void tick() {
 		uiManager.tick();
+		
 	}
 
 	@Override
@@ -56,10 +52,17 @@ public class GameOverState extends State
 	 * the ui manager from null to uiManager
 	 * @Override
 	 */
-	 
 	public void displayState(){
 		State.setState(handler.getGame().getGameOverState());
 		handler.getMouseManager().setUIManager(uiManager);
 		Sound.victory.execute();//New jon edit
+		uiManager.removeObject(lblHighScore);
+		uiManager.removeObject(lblScore);
+		lblScore = new UILabel(150, 200, 10, 20, "SCORE: " + handler.getPlayerScore(), null);
+		lblHighScore = new UILabel(150, 250, 10, 20, "HIGH SCORE: " + handler.getHighScore(), null);
+		uiManager.addObject(lblGameOver);
+		uiManager.addObject(lblScore);
+		uiManager.addObject(lblHighScore);
+		uiManager.addObject(btnRestart);
 	}
 }
