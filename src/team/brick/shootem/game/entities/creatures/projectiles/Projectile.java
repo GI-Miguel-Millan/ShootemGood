@@ -22,7 +22,7 @@ public class Projectile extends Creature{
 							DEFAULT_PROJECTILE_HEIGHT = 20;
 	protected int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
 	protected int counter = 0; 
-	protected Entity creator;
+	protected Entity creator; 
 	
 	public Projectile(Handler handler, Entity e, int orient, int offset) {
 		super(handler, e.getX(), e.getY(), DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);

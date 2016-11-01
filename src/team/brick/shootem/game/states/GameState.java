@@ -35,15 +35,17 @@ public class GameState extends State {
 		world.render(g);
 		String tmpScore = "SCORE: " + handler.getPlayerScore();
 		String tmpHealth = "Health: " + handler.getPlayerHealth();
+		String tmpHighScore = "HighScore: " + handler.getHighScore();
+		String level = "Level: " + handler.getPlayer().getLvlCounter();
 		
 		//UI placeholders
 		g.setColor(Color.green);
 		g.fillRect(0, 720, 500, 30);
 		g.setColor(Color.black);
-		g.drawString(tmpScore , 240, 740);	//Score placeholder
-		g.drawString(tmpHealth, 450, 740);	//Lives placeholder
-		g.drawString("LEVEL: 1", 25, 740);		//Level number placeholder
-		g.drawString(String.valueOf(handler.getHighScore()), 150, 740);
+		g.drawString(tmpScore , 260, 740);	//Score placeholder
+		g.drawString(tmpHealth, 410, 740);	//Lives placeholder
+		g.drawString(level, 25, 740);	//Level number placeholder
+		g.drawString(tmpHighScore, 120, 740);
 	}
 	/**
 	 * Sets the state to the game state 

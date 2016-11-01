@@ -28,7 +28,7 @@ public class Player extends Creature {
 	private int counter;
 	private int score = 1000;
 	private int lvlCounter = 1;
-	private static int numLevels = 5;
+	private static int numLevels = 4;
 	private boolean isBossDead = false;
 	
 	public Player(Handler handler, float x, float y) {
@@ -221,6 +221,10 @@ public class Player extends Creature {
 	 */
 	public int getScore(){
 		return score;
+	}
+	
+	public int getLvlCounter(){
+		return lvlCounter;
 	}
 	
 	public void setIsBossDead(boolean bool){

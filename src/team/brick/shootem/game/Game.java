@@ -60,7 +60,7 @@ public class Game implements Runnable {
 	 *  Initializes everything.
 	 */
 	private void init(){
-		Sound.background.play();//New jon edit
+		//Sound.background.play();//New jon edit
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
