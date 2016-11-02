@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.projectiles.FireBall;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
+import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.utils.Utils;
 
 public class EagleBoss extends Boss{
@@ -28,7 +29,8 @@ public class EagleBoss extends Boss{
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.blue);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.eagle, posX, posY, width, height, null);
 //		g.drawLine((int)posX+width/2, (int)posY+height/2, (int)(handler.getPlayer().getX() + handler.getPlayer().getWidth()/2 - handler.getGameCamera().getxOffset())
 //				, (int)(handler.getPlayer().getY() + handler.getPlayer().getHeight()/2 - handler.getGameCamera().getyOffset()));
 	}
@@ -103,6 +105,15 @@ public class EagleBoss extends Boss{
 		if(intersectWithPlayer() && ready){
 			handler.getWorld().getEntityManager().getPlayer().hurt(1);
 			ready = false;
+		}
+		
+		if (!ready){
+			readyCount++;
+		}
+		
+		if(readyCount >= 5){
+			ready = true;
+			readyCount =0;
 		}
 		
 	}

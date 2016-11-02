@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.projectiles.FireBall;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
+import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.utils.Utils;
 
 public class GiantHeadBoss extends Boss{
@@ -25,7 +26,8 @@ public class GiantHeadBoss extends Boss{
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.red);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.giantHead, posX, posY, width, height, null);
 	}
 	
 	
@@ -49,10 +51,19 @@ public class GiantHeadBoss extends Boss{
 		}
 		
 		//Deals damage to the player if they intersect this Enemy
-		if(intersectWithPlayer() && ready){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			ready = false;
-		}
+				if(intersectWithPlayer() && ready){
+					handler.getWorld().getEntityManager().getPlayer().hurt(1);
+					ready = false;
+				}
+				
+				if (!ready){
+					readyCount++;
+				}
+				
+				if(readyCount >= 5){
+					ready = true;
+					readyCount =0;
+				}
 		
 	}
 	

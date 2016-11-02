@@ -22,6 +22,9 @@ public class Tile {
 	public static Tile enemySpawnTile = new ESpawnTile(4);
 	public static Tile goalTile = new GoalTile(5);
 	public static Tile bossSpawnTile = new BossSpawnTile(6);
+	public static Tile blackHoleTile = new BlackHoleTile(7);
+	public static Tile slowVortexTile = new SlowVortexTile(8);
+	
 	
 	//CLASS
 	
@@ -88,6 +91,32 @@ public class Tile {
 	public boolean isGoal(){
 		
 		if(this.getId() == goalTile.getId())
+			return true;
+		else 
+			return false;
+	}
+	
+	/**
+	 * Checks if this Tile is a blackHoleTile
+	 * @return true if it Is
+	 * @return false if not
+	 */
+	public boolean isBlackHole(){
+		
+		if(this.getId() == blackHoleTile.getId())
+			return true;
+		else 
+			return false;
+	}
+	
+	/**
+	 * Checks if this Tile is a SlowVortexTile
+	 * @return true if it Is
+	 * @return false if not
+	 */
+	public boolean isSlowVortex(){
+		
+		if(this.getId() == slowVortexTile.getId())
 			return true;
 		else 
 			return false;

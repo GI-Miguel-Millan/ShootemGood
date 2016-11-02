@@ -12,11 +12,6 @@ public class Sound {
 	public static final Sound explosion = new Sound(ResourceLoader.loadSounds(Assets.fileNames[7]));
 	public static final Sound victory = new Sound(ResourceLoader.loadSounds(Assets.fileNames[10]));
 	
-	
-//	public static final Sound background = new Sound("/resources/sounds/" + "background.au");
-//	public static final Sound lazer = new Sound("/resources/sounds/background.au");
-//	public static final Sound explosion = new Sound("/resources/sounds/background.au");
-//	public static final Sound victory = new Sound("/resources/sounds/background.au");
 		
 	private AudioClip clip;
 	

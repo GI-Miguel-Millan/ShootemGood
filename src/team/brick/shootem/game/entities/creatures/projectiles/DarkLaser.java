@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
+import team.brick.shootem.game.gfx.Assets;
 
 /**
  *	A DarkLaser is a faster projectile with a different texture.
@@ -25,7 +26,8 @@ public class DarkLaser extends Projectile {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.red);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.darkLaser, posX, posY, width, height, null);
 		//g.drawImage(Assets.projectile, posX, posY, width, height, null);
 		
 	}

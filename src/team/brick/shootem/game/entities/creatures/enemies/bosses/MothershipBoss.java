@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
+import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.utils.Utils;
 
 public class MothershipBoss extends Boss{
@@ -27,7 +28,8 @@ public class MothershipBoss extends Boss{
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.yellow);
-		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.motherShip, posX, posY, width, height, null);
 	}
 
 	@Override
@@ -87,6 +89,15 @@ public class MothershipBoss extends Boss{
 		if(intersectWithPlayer() && ready){
 			handler.getWorld().getEntityManager().getPlayer().hurt(1);
 			ready = false;
+		}
+		
+		if (!ready){
+			readyCount++;
+		}
+		
+		if(readyCount >= 5){
+			ready = true;
+			readyCount =0;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package team.brick.shootem.game.entities.creatures;
+ package team.brick.shootem.game.entities.creatures;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;

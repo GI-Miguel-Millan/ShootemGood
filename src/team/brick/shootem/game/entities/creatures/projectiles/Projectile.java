@@ -7,6 +7,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
 import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
 
 /**
  *	A Projectile is a moving Entity which deals damage to creatures.
@@ -21,7 +22,7 @@ public class Projectile extends Creature{
 							DEFAULT_PROJECTILE_HEIGHT = 20;
 	protected int orientation; // 0 = up, 1 = down, 2 = right, 3 = left
 	protected int counter = 0; 
-	protected Entity creator;
+	protected Entity creator; 
 	
 	public Projectile(Handler handler, Entity e, int orient, int offset) {
 		super(handler, e.getX(), e.getY(), DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
@@ -29,7 +30,8 @@ public class Projectile extends Creature{
 		speed = 4.0f;
 		health = 1;
 		creator = e;
-		
+		Sound.lazer.execute();//New jon edit
+		//makes lazer sound while shooting
 		if(orientation == 0){
 			x += e.getWidth()/2 - width/2 + offset;
 			y += -30;
@@ -92,7 +94,7 @@ public class Projectile extends Creature{
 			//No Need to check for collision if e is this projectile or its creator.
 			if(e.equals(this) || e.equals(creator))
 				continue;
-			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
+			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(xMove,yMove))){
 			
 				// If this projectile collides with the player hurt it.
 				if(e.equals(handler.getWorld().getEntityManager().getPlayer())){

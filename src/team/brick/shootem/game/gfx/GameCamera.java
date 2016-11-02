@@ -61,6 +61,7 @@ public class GameCamera {
 	 */
 	public void resetCamera(){
 		cameraStop= false;
+		camSpeed = 1;
 		yOffset = handler.getWorld().getHeight() * Tile.TILEHEIGHT;
 		xOffset = 0;
 	}
