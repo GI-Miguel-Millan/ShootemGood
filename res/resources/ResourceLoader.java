@@ -77,4 +77,9 @@ public class ResourceLoader {
 		
 		return builder.toString();
 	}
+	
+	public static String loadSounds(String fileName){
+		
+		return "/resources/sounds/" + fileName;
+	}
 }

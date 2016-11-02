@@ -4,3 +4,8 @@ world2.txt
 world3.txt
 world4.txt
 world5.txt
+background.au
+explosion.au
+hawkscreech.au
+lazer-sound.au
+victory.au

@@ -60,7 +60,7 @@ public class Game implements Runnable {
 	 *  Initializes everything.
 	 */
 	private void init(){
-		Sound.background.play();//New jon edit
+		
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
@@ -68,7 +68,7 @@ public class Game implements Runnable {
 		display.getCanvas().addMouseListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
-		
+		Sound.background.play();//New jon edit
 		handler = new Handler(this);
 		gameState = new GameState(handler);
 		GameOverState = new GameOverState(handler);

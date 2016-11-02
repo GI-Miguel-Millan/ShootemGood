@@ -37,6 +37,10 @@ public class Assets {
 		//Splits up each file name into the fileNames array
 		fileNames = pathsFile.split(regex);
 		
+		for(String i: fileNames)
+			System.out.println(i);
+		System.out.println("/resources/sounds/" + ResourceLoader.loadSounds(fileNames[6]));
+		
 		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
 		
 		btn_start = new BufferedImage[2];
