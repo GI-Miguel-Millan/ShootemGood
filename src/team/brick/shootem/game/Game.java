@@ -67,7 +67,7 @@ public class Game implements Runnable {
 		display.getCanvas().addMouseListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
-		Sound.background.play();//New jon edit
+		//Sound.background.play();//New jon edit
 		handler = new Handler(this);
 		handler.loadHighScore();
 		gameState = new GameState(handler);

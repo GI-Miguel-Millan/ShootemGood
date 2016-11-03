@@ -132,4 +132,29 @@ public abstract class Enemy extends Creature{
 		
 		return 1;
 	}
+	
+	/**
+	 * Any Enemy which calls its hurt method will lose health
+	 * based on the amount of damage it received. If the health of the Enemy
+	 * ever reaches 0, then it will become inactive and its die method is called.
+	 * Also it will cause a new PowerUp to be spawned at its location.
+	 * 
+	 * @param amt the amount of damage an Entity takes
+	 */
+	public void hurt(int amt){
+		health -= amt;
+		if(health <= 0){
+			//handler.getWorld().getEntityManager().spawnPowerUp(handler, (int)x, (int)y);
+			active = false;
+			die();
+			
+		}
+	}
+	
+	/**
+	 * @return true since this is an Enemy
+	 */
+	public boolean isEnemy(){
+		return true;
+	}
 }

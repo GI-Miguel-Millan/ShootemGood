@@ -8,6 +8,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.*;
 import team.brick.shootem.game.entities.creatures.enemies.*;
 import team.brick.shootem.game.entities.creatures.enemies.bosses.*;
+import team.brick.shootem.game.entities.statics.powerups.PowerUp;
 
 /**
  *	The EntityManager manages all entities, rendering each entity
@@ -47,9 +48,21 @@ public class EntityManager {
 			Entity e = entities.get(i);
 			e.tick();
 			
+			if(!e.isActive() && e.isEnemy()){
+				PowerUp.spawnPowerUp(handler, (int)e.getX(), (int)e.getY());
+			}
+			
 			// If an Entity has died since the last tick(), remove it from entities.
 			if(!e.isActive())
 				entities.remove(e);
+		}
+		
+		for (int i = 0; i < PowerUp.powerUps.size();i++){
+			Entity e = PowerUp.powerUps.get(i);
+			e.tick();
+			
+			if(!e.isActive())
+				PowerUp.powerUps.remove(e);
 		}
 		entities.sort(renderSorter);
 	}
@@ -60,6 +73,10 @@ public class EntityManager {
 	 * @param g
 	 */
 	public void render(Graphics g){
+		for(Entity e: PowerUp.powerUps){
+			e.render(g);
+		}
+		
 		for(Entity e : entities){
 			e.render(g);
 		}
@@ -86,6 +103,8 @@ public class EntityManager {
 			this.addEntity(new Interceptor(handler, x, y));
 		}
 	}
+	
+	
 	
 	/**
 	 * Adds an Entity to the entities ArrayList.

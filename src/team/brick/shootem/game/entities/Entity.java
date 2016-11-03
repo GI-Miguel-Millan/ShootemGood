@@ -87,6 +87,14 @@ public abstract class Entity {
 	}
 	
 	/**
+	 * Should be overwritten to return true if an Entity is an Enemy.
+	 * @return false by default.
+	 */
+	public boolean isEnemy(){
+		return false;
+	}
+	
+	/**
 	 * Returns a rectangle specifying the collision bounds for an Entity.
 	 * 
 	 * @param xOffset
