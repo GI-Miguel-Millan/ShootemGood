@@ -21,6 +21,7 @@ public class Assets {
 								projectile, interceptor, assault, stealthed, giantHead,
 								motherShip,darkTumorRang, fireBall, eagle, darkLaser;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
+	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
 	
@@ -53,6 +54,10 @@ public class Assets {
 		player_up = new BufferedImage[2];
 		player_left = new BufferedImage[2];
 		player_right = new BufferedImage[2];
+		hurt_down = new BufferedImage[2];
+		hurt_up = new BufferedImage[2];
+		hurt_left = new BufferedImage[2];
+		hurt_right = new BufferedImage[2];
 		
 		player_down[0] = sheet.crop(width * 4, 0, width, height);
 		player_down[1] = sheet.crop(width * 5, 0, width, height);
@@ -62,6 +67,15 @@ public class Assets {
 		player_right[1] = sheet.crop(width * 5, height, width, height);
 		player_left[0] = sheet.crop(width * 6, height, width, height);
 		player_left[1] = sheet.crop(width * 7, height, width, height);
+		
+		hurt_down[0] = sheet.crop(width * 4, 0, width, height);
+		hurt_down[1] = sheet.crop(0, height * 6, width, height);
+		hurt_up[0] = sheet.crop(width * 6, 0, width, height);
+		hurt_up[1] = sheet.crop(0, height * 6, width, height);
+		hurt_right[0] = sheet.crop(width * 4, height, width, height);
+		hurt_right[1] = sheet.crop(0, height * 6, width, height);
+		hurt_left[0] = sheet.crop(width * 6, height, width, height);
+		hurt_left[1] = sheet.crop(0, height * 6, width, height);
 		
 		zombie_down = new BufferedImage[2];
 		zombie_up = new BufferedImage[2];
