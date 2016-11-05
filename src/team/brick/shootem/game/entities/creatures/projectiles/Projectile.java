@@ -97,7 +97,7 @@ public class Projectile extends Creature{
 			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(xMove,yMove))){
 			
 				// If this projectile collides with the player hurt it.
-				if(e.equals(handler.getWorld().getEntityManager().getPlayer())){
+				if(e.equals(handler.getWorld().getEntityManager().getPlayer()) && !handler.getPlayer().getIsInvinc()){
 					e.hurt(1);
 				}
 					

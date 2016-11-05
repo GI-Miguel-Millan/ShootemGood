@@ -26,13 +26,18 @@ public class Player extends Creature {
 	private Animation animDown, animUp, animLeft, animRight,
 						hurtDown, hurtUp, hurtLeft, hurtRight;
 	private boolean readyFire;
-	private boolean isHurt = false;
 	private int counter;
 	private int score = 1000;
 	private int lvlCounter = 1;
 	private int hurtCounter = 0;
+	private int powerUpCounter = 0;
 	private static int numLevels = 4;
-	private boolean isBossDead = false;
+	private boolean isBossDead = false,
+					isHurt = false,
+					isInvinc = false, 
+					isSpdUp = false,
+					isSplitShot = false;
+	
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -75,6 +80,8 @@ public class Player extends Creature {
 		//check for slow conditions
 		if(collisionWithSlowVortex((int)x, (int)y)){
 			speed =1;
+		}else if(isSpdUp){
+			speed = Creature.DEFAULT_SPEED + 1;
 		}else{
 			speed = Creature.DEFAULT_SPEED;
 		}
@@ -162,8 +169,15 @@ public class Player extends Creature {
 		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
 			// Spawns a projectile above the player moving upwards
-
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -3));
+			if(!isSplitShot){
+				handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -3));
+			}else
+			{
+				handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -13));
+				handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, -3));
+				handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, 0, 7));
+			}
+				
 			// Every time a player fires a projectile they lose 10 score (accuracy is important)
 			// and their guns go on cooldown (they are not ready to fire).
 			score -=10;
@@ -322,6 +336,14 @@ public class Player extends Creature {
 	
 	public boolean isBossDead(){
 		return isBossDead;
+	}
+
+	public void setIsInvic(boolean b) {
+		isInvinc = b;
+	}
+
+	public boolean getIsInvinc() {
+		return isInvinc;
 	}
 	
 }

@@ -40,7 +40,7 @@ public class FireBall extends Projectile {
 			if(e.getCollisionBounds(0, 0).intersects(getCollisionBounds(0,yMove))){
 			
 				// If this projectile collides with the player hurt it.
-				if(e.equals(handler.getWorld().getEntityManager().getPlayer())){
+				if(e.equals(handler.getWorld().getEntityManager().getPlayer()) && !handler.getPlayer().getIsInvinc()){
 					e.hurt(2);
 				}
 					
