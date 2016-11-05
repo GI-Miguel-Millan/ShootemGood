@@ -39,13 +39,13 @@ public class GameState extends State {
 		String level = "Level: " + handler.getPlayer().getLvlCounter();
 		
 		//UI placeholders
-		g.setColor(Color.green);
-		g.fillRect(0, 720, 500, 30);
-		g.setColor(Color.black);
-		g.drawString(tmpScore , 260, 740);	//Score placeholder
-		g.drawString(tmpHealth, 410, 740);	//Lives placeholder
-		g.drawString(level, 25, 740);	//Level number placeholder
-		g.drawString(tmpHighScore, 120, 740);
+//		g.setColor(Color.black);
+//		g.drawRect(0, 0, 500, 30);
+		g.setColor(Color.red);
+		g.drawString(tmpScore , 260, 20);	//Score placeholder
+		g.drawString(tmpHealth, 410, 20);	//Lives placeholder
+		g.drawString(level, 25, 20);	//Level number placeholder
+		g.drawString(tmpHighScore, 120, 20);
 	}
 	/**
 	 * Sets the state to the game state 
