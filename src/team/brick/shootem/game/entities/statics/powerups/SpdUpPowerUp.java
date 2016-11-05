@@ -21,5 +21,9 @@ public class SpdUpPowerUp extends PowerUp{
 		
 	}
 	
-	
+	public void die() {
+		active = false;
+		handler.getPlayer().powerDown();
+		handler.getPlayer().setIsSpdUp(true);
+	}
 }

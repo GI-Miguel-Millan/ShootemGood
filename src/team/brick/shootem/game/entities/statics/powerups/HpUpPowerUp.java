@@ -21,4 +21,9 @@ public class HpUpPowerUp extends PowerUp{
 		g.drawRect(posX, posY, width, height);
 		
 	}
+	
+	public void die(){
+		active = false;
+		handler.getPlayer().setHealth(handler.getPlayerHealth() + 6);
+	}
 }

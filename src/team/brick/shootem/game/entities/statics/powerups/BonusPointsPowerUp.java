@@ -20,4 +20,10 @@ public class BonusPointsPowerUp extends PowerUp{
 		g.drawRect(posX, posY, width, height);
 		
 	}
+	
+	public void die(){
+		active = false;
+		handler.getPlayer().addScore(250);
+	}
+	
 }

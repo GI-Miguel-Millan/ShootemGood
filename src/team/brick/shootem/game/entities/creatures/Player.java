@@ -106,6 +106,14 @@ public class Player extends Creature {
 			hurtCounter = 0;
 		}
 		
+		if(isPoweredUp()){
+			powerUpCounter++;
+		}
+		
+		if(powerUpCounter >= 300){
+			powerDown();
+		}
+		
 		collisionWithGoal((int)x,(int)y);
 		collisionWithBlackHole((int)x,(int)y);
 		
@@ -301,7 +309,10 @@ public class Player extends Creature {
 	 * @Override
 	 */
 	public void hurt(int amt){
-		health -= amt;
+		if(!isInvinc){
+			health -= amt;
+		}
+		
 		isHurt = true;
 		if(health <= 0){
 			active = false;
@@ -338,10 +349,40 @@ public class Player extends Creature {
 		return isBossDead;
 	}
 
+	public void setIsSpdUp(boolean b){
+		isSpdUp = b;
+	}
+	
+	public boolean getIsSplitShot(){
+		return isSplitShot;
+	}
+	
+	public void setIsSplitShot(boolean b){
+		isSplitShot = b;
+	}
+	
+	public boolean getIsSpdUp(){
+		return isSpdUp;
+	}
+	
 	public void setIsInvic(boolean b) {
 		isInvinc = b;
 	}
 
+	public boolean isPoweredUp(){
+		if(isInvinc || isSpdUp || isSplitShot)
+			return true;
+		else 
+			return false;
+	}
+	
+	public void powerDown(){
+		isInvinc = false;
+		isSpdUp = false;
+		isSplitShot = false;
+		powerUpCounter = 0;
+	}
+	
 	public boolean getIsInvinc() {
 		return isInvinc;
 	}

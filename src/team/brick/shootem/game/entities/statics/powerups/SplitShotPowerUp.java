@@ -20,4 +20,10 @@ public class SplitShotPowerUp extends PowerUp{
 		g.drawRect(posX, posY, width, height);
 		
 	}
+	
+	public void die() {
+		active = false;
+		handler.getPlayer().powerDown();
+		handler.getPlayer().setIsSplitShot(true);
+	}
 }
