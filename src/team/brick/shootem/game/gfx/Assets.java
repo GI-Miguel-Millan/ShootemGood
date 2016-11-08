@@ -20,7 +20,9 @@ public class Assets {
 	// Images that will be loaded into the game.
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, 
 								projectile, interceptor, assault, stealthed, giantHead,
-								motherShip,darkTumorRang, fireBall, eagle, darkLaser, menu;
+								motherShip,darkTumorRang, fireBall, eagle, darkLaser,
+								boost, shield, heart, star, splitshot, menu;
+
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
@@ -119,6 +121,11 @@ public class Assets {
 		fireBall = sheet.crop(width * 3, height * 3, width, height);
 		darkLaser = sheet.crop(width, height * 3, width, height);
 		eagle = sheet.crop(width * 4, height * 4, width* 2, height* 2);
+		boost = sheet.crop(0, height * 7, width, height);
+		shield = sheet.crop(width, height * 7, width, height);
+		heart = sheet.crop(width * 2, height * 7, width, height);
+		star = sheet.crop(width * 3, height * 7, width, height);
+		splitshot = sheet.crop(width * 4, height * 7, width, height);
 		//test comment
 		
 	}

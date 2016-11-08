@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.gfx.Assets;
 
 public class SpdUpPowerUp extends PowerUp{
 
@@ -16,8 +17,9 @@ public class SpdUpPowerUp extends PowerUp{
 	public void render(Graphics g) {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
-		g.setColor(Color.yellow);
-		g.drawRect(posX, posY, width, height);
+		//g.setColor(Color.yellow);
+		//g.drawRect(posX, posY, width, height);
+		g.drawImage(Assets.boost, posX, posY, width, height, null);
 		
 	}
 	
