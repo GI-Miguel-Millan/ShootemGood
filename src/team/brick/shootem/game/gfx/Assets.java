@@ -1,5 +1,6 @@
 package team.brick.shootem.game.gfx;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import resources.ResourceLoader;
@@ -19,16 +20,26 @@ public class Assets {
 	// Images that will be loaded into the game.
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, 
 								projectile, interceptor, assault, stealthed, giantHead,
-								motherShip,darkTumorRang, fireBall, eagle, darkLaser;
+								motherShip,darkTumorRang, fireBall, eagle, darkLaser, menu;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
 	
 	//Array of names stored in the Paths.txt of the files we want to load
-	public static String[] fileNames; // [0] = "sheets.png" 
-								      // [1] = "world1.txt"
-									  // [2] = "world2.txt"
+	public static String[] fileNames; 	// [0] = "sheets.png" 
+								      	// [1] = "world1.txt"
+									  	// [2] = "world2.txt"
+									  	// [3] = "world3.txt"
+										// [4] = "world4.txt"
+										// [5] = "world5.txt"
+										// [6] = "background.au"
+	  									// [7] = "explosion.au"
+									  	// [8] = "hawkscreech.au"
+										// [9] = "lazer-sound.au"
+										// [10] = "victory.au"
+										// [11] = "world0.txt"
+										// [12] = "menu_graphic.png"
 
 	/**
 	 *  Loads all assets into the game. This should only be called once.
@@ -40,11 +51,12 @@ public class Assets {
 		//Splits up each file name into the fileNames array
 		fileNames = pathsFile.split(regex);
 		
-		for(String i: fileNames)
-			System.out.println(i);
-		System.out.println("/resources/sounds/" + ResourceLoader.loadSounds(fileNames[6]));
+//		for(String i: fileNames)
+//			System.out.println(i);
+		//System.out.println("/resources/sounds/" + ResourceLoader.loadSounds(fileNames[6]));
 		
 		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
+		menu = ResourceLoader.loadImage(fileNames[12]);
 		
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);

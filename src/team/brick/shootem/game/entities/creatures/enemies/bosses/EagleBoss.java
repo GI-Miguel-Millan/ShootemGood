@@ -14,6 +14,7 @@ public class EagleBoss extends Boss{
 	private static final int EAGLE_HEIGHT = 64;
 	private int holdDistance = 100;
 	private boolean canMove =false;
+	private int reverseCounter =0;
 	
 	public EagleBoss(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -43,6 +44,7 @@ public class EagleBoss extends Boss{
 		if(canMove){
 			playerX = (int)handler.getWorld().getEntityManager().getPlayer().getX();
 			playerY = (int)handler.getWorld().getEntityManager().getPlayer().getY();
+			
 			//Set x and y movement values
 			AIMove();
 			
@@ -63,35 +65,84 @@ public class EagleBoss extends Boss{
 		int centeredX = (int)(x + width/2);
 		int centeredY = (int)(y + height/2);
 		
-			//down right
-		if( centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
-			xMove = speed;
-			if(y < (((handler.getGameCamera().getyOffset() + 650))))
-				yMove = speed;
-			else
-				yMove =0;
+		System.out.println("xMove: " + xMove + ", yMove: " + yMove);
+//		if(reverseCounter <= 400){
+//				//down right
+//			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
+//				moveDownRight();
+//				
+//				//down left
+//			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
+//				moveDownLeft();
+//				
+//				//up left
+//			}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
+//				moveUpLeft();
+//				
+//				//up right
+//			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
+//				moveUpRight();
+//			}
+//		}else if(reverseCounter <= 800){
+//			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
+//				moveUpRight();
+//				
+//			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
+//				moveUpLeft();
+//				
+//			}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
+//				moveDownLeft();
+//				
+//			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
+//				moveDownRight();
+//			}
+//		}else{
+//			reverseCounter =0;
+//		}
+		
+		if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
+			moveDownRight();
 			
 			//down left
 		}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
-			xMove = -speed;
-			yMove = speed;
-			if(y < (((handler.getGameCamera().getyOffset() + 600))))
-				yMove = speed;
-			else
-				yMove =0;
-			
+			moveDownLeft();
 			
 			//up left
 		}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
-			xMove = -speed;
-			yMove = -speed;
+			moveUpLeft();
 			
 			//up right
 		}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
-			xMove = speed;
-			yMove = -speed;
+			moveUpRight();
 		}
-			
+		
+		reverseCounter++;
+	}
+	
+	public void moveDownRight(){
+		xMove = speed;
+		if(y < (((handler.getGameCamera().getyOffset() + 650))))
+			yMove = speed;
+		else
+			yMove =0;
+	}
+	
+	public void moveDownLeft(){
+		xMove = -speed;
+		yMove = speed;
+		if(y < (((handler.getGameCamera().getyOffset() + 600))))
+			yMove = speed;
+		else
+			yMove = 0;
+	}
+	
+	public void moveUpLeft(){
+		xMove = -speed;
+		yMove = -speed;
+	}
+	public void moveUpRight(){
+		xMove = speed;
+		yMove = -speed;
 	}
 	
 	@Override
