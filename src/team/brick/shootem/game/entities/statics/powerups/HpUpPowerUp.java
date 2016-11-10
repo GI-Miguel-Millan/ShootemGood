@@ -26,6 +26,9 @@ public class HpUpPowerUp extends PowerUp{
 	
 	public void die(){
 		active = false;
-		handler.getPlayer().setHealth(handler.getPlayerHealth() + 6);
+		if(handler.getPlayer().getHealth() + 3 < 50)
+			handler.getPlayer().setHealth(handler.getPlayerHealth() + 3);
+		else 
+			handler.getPlayer().setHealth(50);
 	}
 }
