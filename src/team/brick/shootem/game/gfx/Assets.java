@@ -28,6 +28,8 @@ public class Assets {
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] btn_start;
 	
+	
+	
 	//Array of names stored in the Paths.txt of the files we want to load
 	public static String[] fileNames; 	// [0] = "sheets.png" 
 								      	// [1] = "world1.txt"
@@ -47,7 +49,6 @@ public class Assets {
 	 *  Loads all assets into the game. This should only be called once.
 	 */
 	public static void init(){
-		
 		String regex = "\\s+";
 		String pathsFile = ResourceLoader.loadFileAsString("Paths.txt");
 		//Splits up each file name into the fileNames array

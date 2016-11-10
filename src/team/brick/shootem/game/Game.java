@@ -29,6 +29,9 @@ public class Game implements Runnable {
 	
 	private boolean running = false;
 	private Thread thread;
+	private boolean PAUSED = false;
+	private boolean ready = true;
+	private int pauseCounter=0;
 	
 	private BufferStrategy bs;
 	private Graphics g;
@@ -87,7 +90,7 @@ public class Game implements Runnable {
 	private void tick(){
 		keyManager.tick();
 		
-		if(State.getState() != null)
+		if(State.getState() != null && !getPAUSED())
 			State.getState().tick();
 	}
 	
@@ -137,8 +140,9 @@ public class Game implements Runnable {
 			lastTime = now;
 			
 			if(delta >= 1){
-				tick();
-				render();
+					tick();
+					render();
+				
 				ticks++;
 				delta--;
 			}
@@ -215,6 +219,22 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean getPAUSED(){ 
+		if(pauseCounter < 100){
+			pauseCounter++;
+			if(pauseCounter % 25 == 0)
+				ready = true;
+		}else{
+			pauseCounter =0;
+		}
+		
+		if(keyManager.paused && ready){
+			PAUSED = !PAUSED;
+			ready = false;
+		}
+		return PAUSED;
 	}
 	
 	public Display getDisplay(){
