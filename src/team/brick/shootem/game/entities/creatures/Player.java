@@ -297,6 +297,7 @@ public class Player extends Creature {
 	public void die() {
 		handler.getGameCamera().resetCamera();
 		handler.checkAndSetHighScore(score);
+		handler.writeHighScore();
 		handler.getGame().getGameOverState().displayState();
 		
 	}
