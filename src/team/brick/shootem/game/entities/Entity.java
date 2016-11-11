@@ -95,6 +95,22 @@ public abstract class Entity {
 	}
 	
 	/**
+	 * Should be overwritten to return true if an Entity is a Boss.
+	 * @return false by default.
+	 */
+	public boolean isBoss(){
+		return false;
+	}
+	
+	/**
+	 * Should be overwritten to return true if an Entity is a Projectile.
+	 * @return false by default.
+	 */
+	public boolean isProjectile(){
+		return false;
+	}
+	
+	/**
 	 * Returns a rectangle specifying the collision bounds for an Entity.
 	 * 
 	 * @param xOffset
@@ -114,6 +130,14 @@ public abstract class Entity {
 	 */
 	public boolean isActive(){
 		return active;
+	}
+	
+	/**
+	 * Set whether or not an entity is active.
+	 * @param b
+	 */
+	public void setActive(boolean b){
+		active = b;
 	}
 	
 	/**

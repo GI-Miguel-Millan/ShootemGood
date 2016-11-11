@@ -98,5 +98,23 @@ public abstract class Boss extends Enemy {
 		handler.getPlayer().setIsBossDead(true);
 		handler.getPlayer().addScore(1000);
 	}
+	
+	@Override
+	public boolean isOnScreen(){
+		if (y >= (((handler.getGameCamera().getyOffset() - height))) 
+				&& y < (((handler.getGameCamera().getyOffset() + handler.getGame().getHeight())))){
+			handler.getWorld().getEntityManager().removeLesserEnemies();
+			return true;
+		}else{
+			return false;
+		}
+	}
 
+	/**
+	 * Should be overwritten to return true if an Entity is an Enemy.
+	 * @return false by default.
+	 */
+	public boolean isBoss(){
+		return true;
+	}
 }

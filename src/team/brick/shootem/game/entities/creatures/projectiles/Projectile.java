@@ -128,5 +128,13 @@ public class Projectile extends Creature{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Should be overwritten to return true if an Entity is a Projectile.
+	 * @return false by default.
+	 */
+	public boolean isProjectile(){
+		return true;
+	}
 
 }

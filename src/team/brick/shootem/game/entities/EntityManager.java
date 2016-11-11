@@ -205,4 +205,13 @@ public class EntityManager {
 		
 	}
 
+	public void removeLesserEnemies() {
+		for(Entity e: entities){
+			if(!e.isBoss() && !e.getClass().equals(Player.class) && !e.isProjectile()){
+				e.setActive(false);
+			}
+		}
+		
+	}
+
 }
