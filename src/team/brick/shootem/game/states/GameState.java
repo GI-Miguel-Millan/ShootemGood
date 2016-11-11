@@ -44,8 +44,13 @@ public class GameState extends State {
 		g.setColor(Color.red);
 		g.drawString(tmpScore , 260, 20);	//Score placeholder
 		g.drawString(tmpHealth, 410, 20);	//Lives placeholder
-		g.drawString(level, 25, 20);	//Level number placeholder
+		g.drawString(level, 25, 20);		//Level number placeholder
 		g.drawString(tmpHighScore, 120, 20);
+		
+		if(handler.getGame().getPAUSED()){
+			g.drawImage(Assets.paused, 0, 0, null);
+		}
+		
 	}
 	/**
 	 * Sets the state to the game state 

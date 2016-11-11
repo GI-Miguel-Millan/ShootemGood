@@ -221,18 +221,11 @@ public class Game implements Runnable {
 		}
 	}
 	
+	
 	public boolean getPAUSED(){ 
-		if(pauseCounter < 100){
-			pauseCounter++;
-			if(pauseCounter % 25 == 0)
-				ready = true;
-		}else{
-			pauseCounter =0;
-		}
-		
-		if(keyManager.paused && ready){
+		if(keyManager.paused && keyManager.wasReleased){
 			PAUSED = !PAUSED;
-			ready = false;
+			keyManager.wasReleased = false;
 		}
 		return PAUSED;
 	}

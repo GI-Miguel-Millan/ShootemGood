@@ -11,3 +11,4 @@ lazer-sound.au
 victory.au
 world0.txt
 menu_graphic.png
+PAUSED.png

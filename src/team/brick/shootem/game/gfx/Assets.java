@@ -21,7 +21,7 @@ public class Assets {
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, 
 								projectile, interceptor, assault, stealthed, giantHead,
 								motherShip,darkTumorRang, fireBall, eagle, darkLaser,
-								boost, shield, heart, star, splitshot, menu;
+								boost, shield, heart, star, splitshot, menu, paused;
 
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
@@ -44,6 +44,7 @@ public class Assets {
 										// [10] = "victory.au"
 										// [11] = "world0.txt"
 										// [12] = "menu_graphic.png"
+										// [13] = "PAUSED.png"
 
 	/**
 	 *  Loads all assets into the game. This should only be called once.
@@ -60,6 +61,7 @@ public class Assets {
 		
 		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
 		menu = ResourceLoader.loadImage(fileNames[12]);
+		paused = ResourceLoader.loadImage(fileNames[13]);
 		
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
