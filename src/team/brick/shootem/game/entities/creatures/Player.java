@@ -1,6 +1,7 @@
 package team.brick.shootem.game.entities.creatures;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
@@ -31,6 +32,7 @@ public class Player extends Creature {
 	private int lvlCounter = 1;
 	private int hurtCounter = 0;
 	private int powerUpCounter = 0;
+	private Rectangle playerBounds = new Rectangle(16,22,32,12);
 	private static int numLevels = 4;
 	private boolean isBossDead = false,
 					isHurt = false,
@@ -42,10 +44,7 @@ public class Player extends Creature {
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		bounds.x = 16;
-		bounds.y = 22;
-		bounds.width = 32;
-		bounds.height = 12;
+		bounds = playerBounds;
 		counter = 0;
 		readyFire = true;
 		health = 50;
@@ -260,7 +259,7 @@ public class Player extends Creature {
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
 		
-//		g.drawRect(posX, posY, width, height);
+		//g.drawRect(posX, posY, width, height);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
 //				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
 //				bounds.width, bounds.height);
