@@ -1,5 +1,8 @@
  package team.brick.shootem.game.entities.creatures;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.Entity;
 import team.brick.shootem.game.tiles.Tile;
@@ -89,6 +92,16 @@ public abstract class Creature extends Entity {
 			}
 			
 		}
+	}
+	
+	public void drawHealthBar(int x, int y, int width, int height , int maxHealth, int health, int offset, int scale, Graphics g){
+		g.setColor(Color.red);
+//		g.fillRect(x - offset, y + height + offset, ((width + (2*offset))/maxHealth) * maxHealth, 5);
+//		g.setColor(Color.green);
+//		g.fillRect(x - offset, y + height + offset, ((width + (2*offset))/maxHealth) * health, 5);
+		g.fillRect(x - offset, y - offset, (((width + (2*offset))/maxHealth) * maxHealth)/scale, 5);
+		g.setColor(Color.green);
+		g.fillRect(x - offset, y - offset, (((width + (2*offset))/maxHealth) * health)/scale, 5);
 	}
 	
 	/**

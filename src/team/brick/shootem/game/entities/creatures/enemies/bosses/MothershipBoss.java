@@ -30,6 +30,7 @@ public class MothershipBoss extends Boss{
 		g.setColor(Color.yellow);
 		//g.drawRect(posX, posY, width, height);
 		g.drawImage(Assets.motherShip, posX, posY, width, height, null);
+		drawHealthBar(posX, posY, width, height, Boss.DEFAULT_BOSS_HEALTH, health, 10,1, g);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
@@ -156,9 +157,10 @@ public class StealthFighter extends Enemy{
 		if(isStealthed){
 			//g.drawRect(posX, posY, width, height);
 			g.drawImage(Assets.stealthed, posX, posY, width, height, null);		}
-		else
+		else{
 			g.drawImage(Assets.stealth, posX, posY, width, height, null);
-		
+			drawHealthBar(posX, posY, width, height, Creature.DEFAULT_HEALTH, health, 10,1, g);
+		}
 		//g.drawImage(explosion.getCurrentFrame(), posX-(32-width/2), posY-(32-height/2), 64, 64, null);
 		
 	}

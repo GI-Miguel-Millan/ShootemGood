@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.entities.creatures.projectiles.FireBall;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
@@ -28,6 +29,7 @@ public class GiantHeadBoss extends Boss{
 		g.setColor(Color.red);
 		//g.drawRect(posX, posY, width, height);
 		g.drawImage(Assets.giantHead, posX, posY, width, height, null);
+		drawHealthBar(posX, posY, width, height, Boss.DEFAULT_BOSS_HEALTH, health, 15,1, g);
 	}
 	
 	

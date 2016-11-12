@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.utils.Utils;
@@ -31,6 +32,7 @@ public class AssaultFigher extends Enemy{
 		/*g.setColor(Color.blue);
 		g.drawRect(posX, posY, width, height);*/
 		g.drawImage(Assets.assault, posX, posY, width, height, null);
+		drawHealthBar(posX, posY, width, height, Creature.DEFAULT_HEALTH, health, 10,1, g);
 		
 	}
 	

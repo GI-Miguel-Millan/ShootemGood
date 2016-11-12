@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.sound.Sound;
 
@@ -73,11 +74,7 @@ public class Interceptor extends Enemy{
 		/*g.setColor(Color.blue);
 		g.drawRect(posX, posY, width, height);*/
 		g.drawImage(Assets.interceptor, posX, posY, width, height, null);
-		g.setColor(Color.red);
-		g.fillRect(posX - 10, posY + height + 10, ((width + 20)/3) * 3, 5);
-		g.setColor(Color.green);
-		g.fillRect(posX - 10, posY + height + 10, ((width + 20)/3) * health, 5);
-		
+		drawHealthBar(posX, posY, width, height, Creature.DEFAULT_HEALTH, health, 10,1, g);
 	}
 
 	@Override

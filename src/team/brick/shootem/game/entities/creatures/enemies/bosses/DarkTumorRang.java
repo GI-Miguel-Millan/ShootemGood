@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.Creature;
 import team.brick.shootem.game.entities.creatures.projectiles.DarkLaser;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
@@ -31,6 +32,7 @@ public class DarkTumorRang extends Boss{
 		g.setColor(Color.gray);
 		//g.drawRect(posX, posY, width, height);
 		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
+		drawHealthBar(posX, posY, width, height, Boss.DEFAULT_BOSS_HEALTH, health, 10,1, g);
 	}
 	
 	@Override
