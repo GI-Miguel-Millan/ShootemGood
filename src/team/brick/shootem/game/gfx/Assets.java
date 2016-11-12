@@ -20,8 +20,8 @@ public class Assets {
 	// Images that will be loaded into the game.
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, 
 								projectile, interceptor, assault, stealthed, giantHead,
-								motherShip,darkTumorRang, fireBall, eagle, darkLaser,
-								boost, shield, heart, star, splitshot, menu, paused;
+								motherShip,darkTumorRang, dt_left, dt_right, fireBall, eagle, darkLaser,
+								boost, shield, heart, star, splitshot, menu, blackHole, slowVortex, paused;
 
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
@@ -118,6 +118,8 @@ public class Assets {
 		giantHead = sheet.crop(0, height*3, width, height);
 		motherShip = sheet.crop(0, height * 4, width * 2, height * 2);
 		darkTumorRang = sheet.crop(width * 2, height * 3, width, height);
+		dt_left = sheet.crop(0, 0, width, height);
+		dt_right = sheet.crop(0, height, width, height);
 		fireBall = sheet.crop(width * 3, height * 3, width, height);
 		darkLaser = sheet.crop(width, height * 3, width, height);
 		eagle = sheet.crop(width * 4, height * 4, width* 2, height* 2);
@@ -126,6 +128,8 @@ public class Assets {
 		heart = sheet.crop(width * 2, height * 7, width, height);
 		star = sheet.crop(width * 3, height * 7, width, height);
 		splitshot = sheet.crop(width * 4, height * 7, width, height);
+		blackHole = sheet.crop(width * 2, height * 4, width, height);
+		slowVortex = sheet.crop(width * 3, height * 4, width, height);
 		//test comment
 		
 	}

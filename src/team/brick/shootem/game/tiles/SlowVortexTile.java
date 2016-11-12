@@ -14,7 +14,7 @@ import team.brick.shootem.game.gfx.Assets;
 public class SlowVortexTile extends Tile{
 
 	public SlowVortexTile(int id) {
-		super(Assets.eagle, id);
+		super(Assets.slowVortex, id);
 		// TODO Auto-generated constructor stub
 	}
 
