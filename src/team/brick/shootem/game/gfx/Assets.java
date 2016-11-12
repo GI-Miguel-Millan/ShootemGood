@@ -25,7 +25,7 @@ public class Assets {
 
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
-	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
+	public static BufferedImage[] explosion;
 	public static BufferedImage[] btn_start;
 	
 	
@@ -94,19 +94,16 @@ public class Assets {
 		hurt_left[0] = sheet.crop(width * 6, height, width, height);
 		hurt_left[1] = sheet.crop(0, height * 6, width, height);
 		
-		zombie_down = new BufferedImage[2];
-		zombie_up = new BufferedImage[2];
-		zombie_left = new BufferedImage[2];
-		zombie_right = new BufferedImage[2];
+		explosion = new BufferedImage[8];
 		
-		zombie_down[0] = sheet.crop(width * 4, height * 2, width, height);
-		zombie_down[1] = sheet.crop(width * 5, height * 2, width, height);
-		zombie_up[0] = sheet.crop(width * 6, height * 2, width, height);
-		zombie_up[1] = sheet.crop(width * 7, height * 2, width, height);
-		zombie_right[0] = sheet.crop(width * 4, height * 3, width, height);
-		zombie_right[1] = sheet.crop(width * 5, height * 3, width, height);
-		zombie_left[0] = sheet.crop(width * 6, height * 3, width, height);
-		zombie_left[1] = sheet.crop(width * 7, height * 3, width, height);
+		explosion[0] = sheet.crop(width * 4, height * 2, width, height);
+		explosion[1] = sheet.crop(width * 5, height * 2, width, height);
+		explosion[2] = sheet.crop(width * 6, height * 2, width, height);
+		explosion[3] = sheet.crop(width * 7, height * 2, width, height);
+		explosion[4] = sheet.crop(width * 4, height * 3, width, height);
+		explosion[5] = sheet.crop(width * 5, height * 3, width, height);
+		explosion[6] = sheet.crop(width * 6, height * 3, width, height);
+		explosion[7] = sheet.crop(width * 7, height * 3, width, height);
 		
 		space = sheet.crop(width, 0, width, height);
 		space2 = sheet.crop(width * 2, 0, width, height);

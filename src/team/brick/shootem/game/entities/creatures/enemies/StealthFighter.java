@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
+import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.utils.Utils;
@@ -22,10 +23,12 @@ public class StealthFighter extends Enemy{
 	private boolean isAttacking = false;
 	private int stealthBreakDistance = 250;
 	private int holdDistance = 100;
+	private Animation explosion;
 	
 	public StealthFighter(Handler handler, float x, float y) {
 		super(handler, x, y);
-		// TODO Auto-generated constructor stub
+		
+		explosion = new Animation(50, Assets.explosion);
 	}
 
 	@Override
@@ -42,6 +45,8 @@ public class StealthFighter extends Enemy{
 			//Attack of the enemy
 			if(isAttacking)
 				attack();
+			
+			explosion.tick();
 		}
 		
 	}
@@ -151,12 +156,13 @@ public class StealthFighter extends Enemy{
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.setColor(Color.DARK_GRAY);
-		
 		if(isStealthed){
 			//g.drawRect(posX, posY, width, height);
 			g.drawImage(Assets.stealthed, posX, posY, width, height, null);		}
 		else
 			g.drawImage(Assets.stealth, posX, posY, width, height, null);
+		
+		//g.drawImage(explosion.getCurrentFrame(), posX-(32-width/2), posY-(32-height/2), 64, 64, null);
 		
 	}
 
