@@ -23,12 +23,10 @@ public class StealthFighter extends Enemy{
 	private boolean isAttacking = false;
 	private int stealthBreakDistance = 250;
 	private int holdDistance = 100;
-	private Animation explosion;
 	
 	public StealthFighter(Handler handler, float x, float y) {
 		super(handler, x, y);
 		
-		explosion = new Animation(50, Assets.explosion);
 	}
 
 	@Override
@@ -46,7 +44,6 @@ public class StealthFighter extends Enemy{
 			if(isAttacking)
 				attack();
 			
-			explosion.tick();
 		}
 		
 	}

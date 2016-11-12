@@ -48,7 +48,7 @@ public class Animation {
 	}
 	
 	public boolean onLastFrame(){
-		return (frames[index].equals(frames[frames.length]));
+		return (frames[index].equals(frames[frames.length-1]));
 	}
-
+	
 }
