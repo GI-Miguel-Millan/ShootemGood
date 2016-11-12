@@ -14,7 +14,7 @@ import team.brick.shootem.game.gfx.Assets;
 public class BlackHoleTile extends Tile{
 
 	public BlackHoleTile(int id) {
-		super(Assets.fireBall, id);
+		super(Assets.blackHole, id);
 		// TODO Auto-generated constructor stub
 	}
 
