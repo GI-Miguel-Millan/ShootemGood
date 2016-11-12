@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import team.brick.shootem.game.Handler;
+import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 
 /**
  *  An Entity is anything in the game which is not a Tile. 
@@ -72,8 +73,9 @@ public abstract class Entity {
 		// Loop through each entity that exist in a world.
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 			
-			// Skip this entity, no need to check for self collision
-			if(e.equals(this))
+			// Skip this entity, no need to check for self collision, also ignore Projectiles since
+			// they have their own method to check for collision with other entities.
+			if(e.equals(this) || e.getClass().equals(Projectile.class))
 				continue;
 			
 			// Compare the collision bounds of the other entity, with the collision bounds of this entity.

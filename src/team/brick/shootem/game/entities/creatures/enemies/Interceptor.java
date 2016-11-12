@@ -73,6 +73,10 @@ public class Interceptor extends Enemy{
 		/*g.setColor(Color.blue);
 		g.drawRect(posX, posY, width, height);*/
 		g.drawImage(Assets.interceptor, posX, posY, width, height, null);
+		g.setColor(Color.red);
+		g.fillRect(posX - 10, posY + height + 10, ((width + 20)/3) * 3, 5);
+		g.setColor(Color.green);
+		g.fillRect(posX - 10, posY + height + 10, ((width + 20)/3) * health, 5);
 		
 	}
 

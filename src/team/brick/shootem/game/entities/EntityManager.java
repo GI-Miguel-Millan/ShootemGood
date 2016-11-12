@@ -99,7 +99,7 @@ public class EntityManager {
 	/**
 	 * Method used to create a new enemy of a given type and position.
 	 * Type 1 = Interceptor, Type 2 = AssaultFighter, Type 3 = StealthFigher,
-	 * Default = Interceptor
+	 * Default = LesserInterceptor
 	 * 
 	 * @param handler 
 	 * @param x the x position of the enemy being spawned
@@ -114,7 +114,7 @@ public class EntityManager {
 		}else if(type == 3){
 			this.addEntity(new StealthFighter(handler, x, y));
 		}else{
-			this.addEntity(new Interceptor(handler, x, y));
+			this.addEntity(new LesserInterceptor(handler, x, y));
 		}
 	}
 	
@@ -221,7 +221,7 @@ public class EntityManager {
 
 	public void removeLesserEnemies() {
 		for(Entity e: entities){
-			if(!e.isBoss() && !e.getClass().equals(Player.class) && !e.isProjectile()){
+			if(!e.isBoss() && !e.getClass().equals(Player.class) && !e.isProjectile() && !e.getClass().equals(LesserInterceptor.class)){
 				e.setActive(false);
 			}
 		}	

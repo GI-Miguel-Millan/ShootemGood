@@ -69,10 +69,10 @@ public class MothershipBoss extends Boss{
 		}
 		
 		if(randAttack >= 50 && readySpawn){
-			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + width - 10), (int)(y + height + 10), 1);
-			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + 10), (int)(y + height + 10), 1);
-			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + width + 10), (int)(y + height/2), 1);
-			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x - 30), (int)(y + height/2), 1);
+			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + width - 10), (int)(y + height + 10), 5);
+			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + 10), (int)(y + height + 10), 5);
+			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + width + 10), (int)(y + height/2), 5);
+			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x - 30), (int)(y + height/2), 5);
 			readySpawn = false;
 		}
 		
