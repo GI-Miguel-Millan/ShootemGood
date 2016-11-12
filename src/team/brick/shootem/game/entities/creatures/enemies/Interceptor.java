@@ -81,7 +81,6 @@ public class Interceptor extends Enemy{
 		// An Interceptor death adds 100 to the player score
 		handler.getWorld().getEntityManager().getPlayer().addScore(50);
 		Sound.explosion.execute();//New jon edit
-		//handler.getWorld().getEntityManager().spawnPowerUp(handler, (int)x, (int)y);
 	}
 
 }

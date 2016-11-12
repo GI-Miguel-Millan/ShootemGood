@@ -46,5 +46,9 @@ public class Animation {
 	public BufferedImage getCurrentFrame(){
 		return frames[index];
 	}
+	
+	public boolean onLastFrame(){
+		return (frames[index].equals(frames[frames.length]));
+	}
 
 }

@@ -8,6 +8,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.*;
 import team.brick.shootem.game.entities.creatures.enemies.*;
 import team.brick.shootem.game.entities.creatures.enemies.bosses.*;
+import team.brick.shootem.game.entities.statics.DeadEntity;
 import team.brick.shootem.game.entities.statics.powerups.PowerUp;
 
 /**
@@ -50,6 +51,7 @@ public class EntityManager {
 			
 			if(!e.isActive() && e.isEnemy()){
 				PowerUp.spawnPowerUp(handler, (int)e.getX(), (int)e.getY());
+				DeadEntity.addDeadEntity(handler, e);
 			}
 			
 			// If an Entity has died since the last tick(), remove it from entities.
@@ -63,6 +65,14 @@ public class EntityManager {
 			
 			if(!e.isActive())
 				PowerUp.powerUps.remove(e);
+		}
+		
+		for (int i = 0; i < DeadEntity.deadEntities.size();i++){
+			Entity e = DeadEntity.deadEntities.get(i);
+			e.tick();
+			
+			if(!e.isActive())
+				DeadEntity.deadEntities.remove(e);
 		}
 		entities.sort(renderSorter);
 	}
@@ -78,6 +88,10 @@ public class EntityManager {
 		}
 		
 		for(Entity e : entities){
+			e.render(g);
+		}
+		
+		for(Entity e : DeadEntity.deadEntities){
 			e.render(g);
 		}
 	}
@@ -210,8 +224,6 @@ public class EntityManager {
 			if(!e.isBoss() && !e.getClass().equals(Player.class) && !e.isProjectile()){
 				e.setActive(false);
 			}
-		}
-		
+		}	
 	}
-
 }
