@@ -57,7 +57,7 @@ public class PowerUp extends StaticEntity{
 			powerUps.add(new InvincibilityPowerUp(handler, x ,y));
 		}else if(rndInt >= 45 && rndInt < 60){
 			powerUps.add(new SpdUpPowerUp(handler, x, y));
-		}else if(rndInt >= 60 && rndInt < 80){
+		}else if(rndInt >= 60 && rndInt < 70){
 			powerUps.add(new HpUpPowerUp(handler, x, y));
 		}
 	}

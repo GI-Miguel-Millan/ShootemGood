@@ -61,7 +61,7 @@ public class Projectile extends Creature{
 	@Override
 	public void tick() {
 		//Ensures that a projectile is eventually killed
-		if(counter == 100)
+		if(counter == 80)
 			this.hurt(1);
 		
 		if(orientation == 0)
