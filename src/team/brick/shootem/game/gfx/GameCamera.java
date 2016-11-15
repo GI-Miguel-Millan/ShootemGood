@@ -16,7 +16,8 @@ public class GameCamera {
 	private Handler handler;
 	private float xOffset, yOffset;
 	private boolean cameraStop = false;
-	private int camSpeed = 1;
+	public static final int DEFAULT_CAMSPEED = 3;
+	private int camSpeed = DEFAULT_CAMSPEED;
 	
 	public GameCamera(Handler handler, float xOffset, float yOffset){
 		this.handler = handler;
@@ -61,7 +62,7 @@ public class GameCamera {
 	 */
 	public void resetCamera(){
 		cameraStop= false;
-		camSpeed = 1;
+		camSpeed = DEFAULT_CAMSPEED;
 		yOffset = handler.getWorld().getHeight() * Tile.TILEHEIGHT;
 		xOffset = 0;
 	}

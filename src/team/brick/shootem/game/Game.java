@@ -30,8 +30,6 @@ public class Game implements Runnable {
 	private boolean running = false;
 	private Thread thread;
 	private boolean PAUSED = false;
-	private boolean ready = true;
-	private int pauseCounter=0;
 	
 	private BufferStrategy bs;
 	private Graphics g;

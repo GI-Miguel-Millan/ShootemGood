@@ -102,7 +102,8 @@ public abstract class Boss extends Enemy {
 	@Override
 	public boolean isOnScreen(){
 		if (y >= (((handler.getGameCamera().getyOffset() - height))) 
-				&& y < (((handler.getGameCamera().getyOffset() + handler.getGame().getHeight())))){
+				&& y < (((handler.getGameCamera().getyOffset() + handler.getGame().getHeight())))
+				&& handler.getPlayer().getFightingBoss()){
 			handler.getWorld().getEntityManager().removeLesserEnemies();
 			return true;
 		}else{

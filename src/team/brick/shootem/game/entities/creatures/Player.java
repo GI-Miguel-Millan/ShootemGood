@@ -8,6 +8,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.projectiles.*;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.states.State;
 import team.brick.shootem.game.tiles.Tile;
@@ -32,13 +33,17 @@ public class Player extends Creature {
 	private int lvlCounter = 1;
 	private int hurtCounter = 0;
 	private int powerUpCounter = 0;
+	private int speedUp =0;
 	private Rectangle playerBounds = new Rectangle(16,22,32,12);
-	private static int numLevels = 1;
+	private static int numLevels = 4;
 	private boolean isBossDead = false,
 					isHurt = false,
 					isInvinc = false, 
 					isSpdUp = false,
-					isSplitShot = false;
+					isSplitShot = false,
+					fightingBoss = false,
+					isBeingMoved =false,
+					underSlowEffect = false;
 	
 	
 	public Player(Handler handler, float x, float y) {
@@ -48,6 +53,7 @@ public class Player extends Creature {
 		counter = 0;
 		readyFire = true;
 		health = 50;
+		speed = 3;
 		handler.setPlayerHealth(health);
 		handler.setPlayerScore(score);
 		
@@ -75,20 +81,28 @@ public class Player extends Creature {
 		hurtLeft.tick();
 		
 		//System.out.println("px: " + x + ", py: "+ y);
-		
-		//check for slow conditions
-		if(collisionWithSlowVortex((int)x, (int)y)){
-			speed =1;
-		}else if(isSpdUp){
-			speed = Creature.DEFAULT_SPEED + 1;
-		}else{
-			speed = Creature.DEFAULT_SPEED;
-		}
-		
-		//Movement
-		getInput();
-		move();
+	
+		checkConditions();
 		lowerBoundCheck();
+		updateCounters();
+		
+		collisionWithGoal((int)x,(int)y);
+		collisionWithBlackHole((int)x,(int)y);
+		collisionWithBossFightStart((int)x, (int)y);
+		
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
+		
+		handler.setPlayerScore(this.score);
+		handler.setPlayerHealth(health);
+		
+		move();
+	}
+	
+	/**
+	 * Updates counters
+	 */
+	private void updateCounters(){
 		if(!readyFire)
 			counter++;
 		
@@ -113,16 +127,45 @@ public class Player extends Creature {
 			powerDown();
 		}
 		
-		collisionWithGoal((int)x,(int)y);
-		collisionWithBlackHole((int)x,(int)y);
-		
-		//handler.getGameCamera().centerOnEntity(this);
-		handler.getGameCamera().staticCamera(this);
-		
-		handler.setPlayerScore(this.score);
-		handler.setPlayerHealth(health);
+		if(isSpdUp){
+			speedUp = 2;
+		}else{
+			speedUp =0;
+		}
 	}
 	
+	/**
+	 * Any condition or attribute that must be checked each tick.
+	 */
+	private void checkConditions(){
+		//Movement
+		if(!isBeingMoved)
+			getInput();
+		else
+			moveToCenter();
+		
+		//check for slow conditions
+		if(collisionWithSlowVortex((int)x, (int)y)){
+			underSlowEffect = true;
+		}else{
+			underSlowEffect = false;
+		}
+		
+		//Check if boss fight is over.
+		if(isBossDead)
+			fightingBoss = false;
+	}
+	
+	private void collisionWithBossFightStart(int x, int y) {
+		int ty = (int)(y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int)(x + bounds.x) / Tile.TILEWIDTH;
+		if(handler.getWorld().getTile(tx, ty).isBFight()){
+			isBeingMoved = true;
+		}
+		
+		//System.out.println(" Ty: " + ty + " tx: " + tx + " this.x: " + this.x + " this.y " + this.y);
+	}
+
 	/**
 	 * Sets the players y position to the bottom of the game camera 
 	 * if the player moves below the screen
@@ -140,13 +183,26 @@ public class Player extends Creature {
 	private void getInput(){
 		xMove = 0;
 		//yMove = -2;
-		yMove = -(handler.getGameCamera().getCamSpeed());
+		if(underSlowEffect){
+			yMove = 0;
+		}else if(fightingBoss){
+			yMove = 0;
+		}else if(isBossDead){
+			yMove = -2;
+		}else{
+			yMove = -(handler.getGameCamera().getCamSpeed());
+		}
+		
+		int bottomBounds = handler.getHeight() - 100;
+		
+		if(fightingBoss)
+			bottomBounds = handler.getHeight()/2 + 100;
 		
 		if(handler.getKeyManager().up)
 		{
 			if (y >= (((handler.getGameCamera().getyOffset() + 1))))
 			{
-				yMove += -speed;
+				yMove += -speed - speedUp;
 			}
 			else
 				yMove += 0;
@@ -154,9 +210,9 @@ public class Player extends Creature {
 		
 		if(handler.getKeyManager().down)
 		{
-			if (y < (((handler.getGameCamera().getyOffset() + 650))))
+			if (y < (((handler.getGameCamera().getyOffset() + bottomBounds))))
 			{	
-			yMove += speed;
+			yMove += speed + 2 + speedUp;
 			}
 			else{
 				yMove += 0;
@@ -166,12 +222,13 @@ public class Player extends Creature {
 		
 		if(handler.getKeyManager().left)
 		{
-			xMove = -speed;
+			xMove = -speed -1 - speedUp;
 		}
-			if(handler.getKeyManager().right)
-			{
-				xMove = speed;
-			}		
+		
+		if(handler.getKeyManager().right)
+		{
+			xMove = speed + 1 + speedUp;
+		}		
 		// A player is only allowed to fire a projectile whenever readyFire is true 
 		// and they hit the fire key.
 		if(handler.getKeyManager().fire && readyFire){
@@ -193,6 +250,39 @@ public class Player extends Creature {
 	}
 	
 	/**
+	 * Moves the player to the center of the screen.
+	 */
+	public void moveToCenter(){
+		xMove = 0;
+		yMove = -2;
+		int camY = (int)handler.getGameCamera().getyOffset();
+		int camX = (int)handler.getGameCamera().getxOffset();
+		
+		//System.out.println("y " + y + ", camY: "+ (camY + handler.getHeight()/2) + ", x " + x + ", camX " + camX);
+		if (y + height + 5 >= (((handler.getHeight()/2 + (yMove + speed))))){
+			yMove += -speed;
+		}else
+			yMove += 0;
+		
+		if(x >= (handler.getWidth()/2 + speed)){
+			xMove += -speed;
+		}else{
+			xMove += 0;
+		}
+		
+		if(x <= (handler.getWidth()/2 - speed)){
+			xMove += speed;
+		}else{
+			xMove += 0;
+		}
+		
+		if(y + height + 1 <= handler.getHeight()/2 + 100 ){
+			isBeingMoved = false;
+			fightingBoss = true;
+		}
+	}
+	
+	/**
 	 * Checks if the player is colliding with a Goal Tile.
 	 * 
 	 * @param x the x position of the Tile
@@ -207,7 +297,6 @@ public class Player extends Creature {
 			handler.setPlayerScore(score);
 			lvlCounter++;
 			handler.getGameCamera().resetCamera();
-			System.out.println(isBossDead);
 			if (lvlCounter > numLevels){
 				//State.setState(handler.getGame().GameOverState);
 				this.die();
@@ -356,6 +445,10 @@ public class Player extends Creature {
 		return isSplitShot;
 	}
 	
+	public boolean getFightingBoss(){
+		return fightingBoss;
+	}
+	
 	public void setIsSplitShot(boolean b){
 		isSplitShot = b;
 	}
@@ -382,7 +475,7 @@ public class Player extends Creature {
 		powerUpCounter = 0;
 	}
 	
-	public boolean getIsInvinc() {
+	public boolean getIsInvinc(){
 		return isInvinc;
 	}
 	

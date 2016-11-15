@@ -27,7 +27,7 @@ public class Projectile extends Creature{
 	public Projectile(Handler handler, Entity e, int orient, int offset) {
 		super(handler, e.getX(), e.getY(), DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
 		orientation = orient;
-		speed = 4.0f;
+		speed = handler.getGameCamera().getCamSpeed() + 5.0f;
 		health = 1;
 		creator = e;
 		Sound.lazer.execute();//New jon edit
