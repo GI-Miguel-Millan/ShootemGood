@@ -33,7 +33,7 @@ public class Player extends Creature {
 	private int hurtCounter = 0;
 	private int powerUpCounter = 0;
 	private Rectangle playerBounds = new Rectangle(16,22,32,12);
-	private static int numLevels = 4;
+	private static int numLevels = 1;
 	private boolean isBossDead = false,
 					isHurt = false,
 					isInvinc = false, 
@@ -210,8 +210,7 @@ public class Player extends Creature {
 			System.out.println(isBossDead);
 			if (lvlCounter > numLevels){
 				//State.setState(handler.getGame().GameOverState);
-				handler.checkAndSetHighScore(score);
-				handler.getGame().getGameOverState().displayState();
+				this.die();
 			}else
 				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
 		}
@@ -298,7 +297,7 @@ public class Player extends Creature {
 		handler.checkAndSetHighScore(score);
 		handler.writeHighScore();
 		handler.getGame().getGameOverState().displayState();
-		
+		active =false;
 	}
 	
 	
