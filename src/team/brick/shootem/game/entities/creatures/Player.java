@@ -100,6 +100,15 @@ public class Player extends Creature {
 	}
 	
 	/**
+	 * A player goes crashing through space, it should not stop before it 
+	 * collides with another entity.
+	 */
+	public void move(){
+			moveX();
+			moveY();
+	}
+	
+	/**
 	 * Updates counters
 	 */
 	private void updateCounters(){
@@ -172,7 +181,7 @@ public class Player extends Creature {
 	 */
 	private void lowerBoundCheck(){
 		if(y > (((handler.getGameCamera().getyOffset() + 700)))){
-			this.die();
+			this.y = handler.getGameCamera().getyOffset() + 700;
 		}
 	}
 	
@@ -255,8 +264,6 @@ public class Player extends Creature {
 	public void moveToCenter(){
 		xMove = 0;
 		yMove = -2;
-		int camY = (int)handler.getGameCamera().getyOffset();
-		int camX = (int)handler.getGameCamera().getxOffset();
 		
 		//System.out.println("y " + y + ", camY: "+ (camY + handler.getHeight()/2) + ", x " + x + ", camX " + camX);
 		if (y + height + 5 >= (((handler.getHeight()/2 + (yMove + speed))))){
@@ -316,9 +323,8 @@ public class Player extends Creature {
 	protected void collisionWithBlackHole(int x, int y){
 		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
-		if(handler.getWorld().getTile(tx, ty).isBlackHole()){
-			handler.getGameCamera().resetCamera();
-			handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
+		if(handler.getWorld().getTile(tx, ty).isBlackHole() && !isHurt){
+			this.hurt(5);
 		}
 	}
 	
@@ -389,7 +395,6 @@ public class Player extends Creature {
 		active =false;
 	}
 	
-	
 	/**
 	 * The hurt method of the Player must be overridden so that 
 	 * every time the player takes damage, the handler can update 
@@ -399,15 +404,15 @@ public class Player extends Creature {
 	public void hurt(int amt){
 		if(!isInvinc){
 			health -= amt;
+			isHurt = true;
 		}
 		
-		isHurt = true;
+		
 		if(health <= 0){
 			active = false;
 			die();
 		}
 	}
-
 	
 	/**
 	 * Add integer to the players score.

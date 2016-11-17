@@ -61,8 +61,8 @@ public class Interceptor extends Enemy{
 	
 	public void attack(){
 		if(intersectWithPlayer()){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			this.hurt(3);
+			handler.getWorld().getEntityManager().getPlayer().hurt(5);
+			this.hurt(this.health);
 		}
 	}
 	

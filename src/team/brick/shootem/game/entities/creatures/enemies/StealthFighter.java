@@ -125,6 +125,8 @@ public class StealthFighter extends Enemy{
 			
 		}
 		counter += Utils.randomNum(0, 3);
+		
+		collisionWithPlayer();
 	}
 	
 	public void attack(){
@@ -133,19 +135,12 @@ public class StealthFighter extends Enemy{
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, 
 					this, getProjectileOrientation(),0));
 		}
-		
-		if(intersectWithPlayer() && ready){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			ready = false;
-		}
-		
-		if (!ready){
-			readyCount++;
-		}
-		
-		if(readyCount >= 5){
-			ready = true;
-			readyCount =0;
+	}
+	
+	public void collisionWithPlayer(){
+		if(intersectWithPlayer()){
+			handler.getPlayer().hurt(10);
+			this.hurt(this.health);
 		}
 	}
 	

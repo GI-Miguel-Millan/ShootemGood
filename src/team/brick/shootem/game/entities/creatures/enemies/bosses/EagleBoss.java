@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Creature;
+import team.brick.shootem.game.entities.creatures.projectiles.DarkLaser;
 import team.brick.shootem.game.entities.creatures.projectiles.FireBall;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
@@ -151,24 +152,10 @@ public class EagleBoss extends Boss{
 	public void attack(){
 		int randAttack = Utils.randomNum(0, 25);
 		if(randAttack == 0){
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, getProjectileOrientation(),0));
+			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler, this, getProjectileOrientation(),0));
 		}
 		
-		//Deals damage to the player if they intersect this Enemy
-		if(intersectWithPlayer() && ready){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			ready = false;
-		}
-		
-		if (!ready){
-			readyCount++;
-		}
-		
-		if(readyCount >= 5){
-			ready = true;
-			readyCount =0;
-		}
-		
+		collisionWithPlayer();
 	}
 	
 }

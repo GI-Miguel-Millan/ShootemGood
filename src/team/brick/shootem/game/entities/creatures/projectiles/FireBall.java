@@ -19,7 +19,7 @@ public class FireBall extends Projectile {
 
 	public FireBall(Handler handler, Entity e, int orient, int offset) {
 		super(handler, e, orient, offset);
-		speed = 2.0f;
+		speed = 3.0f;
 		width = 20;
 		height = 20;
 		bounds.width = this.width;

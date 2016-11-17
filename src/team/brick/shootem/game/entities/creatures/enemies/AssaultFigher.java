@@ -47,6 +47,14 @@ public class AssaultFigher extends Enemy{
 		}
 		counter += Utils.randomNum(1, 2);
 	}
+	
+	public void collisionWithPlayer(){
+		
+		if(intersectWithPlayer()){
+			handler.getWorld().getEntityManager().getPlayer().hurt(10);
+			this.hurt(this.health);
+		}
+}
 
 	@Override
 	public void die() {

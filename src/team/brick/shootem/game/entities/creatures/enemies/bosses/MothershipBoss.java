@@ -86,19 +86,6 @@ public class MothershipBoss extends Boss{
 			readySpawn = true;
 		}
 		
-		//Deals damage to the player if they intersect this Enemy
-		if(intersectWithPlayer() && ready){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			ready = false;
-		}
-		
-		if (!ready){
-			readyCount++;
-		}
-		
-		if(readyCount >= 5){
-			ready = true;
-			readyCount =0;
-		}
+		collisionWithPlayer();
 	}
 }
