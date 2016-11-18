@@ -3,6 +3,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 
 import resources.ResourceLoader;
+import team.brick.shootem.game.Game;
 import team.brick.shootem.game.gfx.Assets;
 
 public class Sound {
@@ -28,29 +29,33 @@ public class Sound {
 	
 	public void play()
 	{
-		
-		try{
-			new Thread(){
-				public void run(){
-					clip.loop();
-				}
-			}.start();			
-		}catch(Exception ex){
-			ex.printStackTrace();
-			
+		if(!Game.MUTED){
+			try{
+				new Thread(){
+					public void run(){
+						clip.loop();
+					}
+				}.start();			
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
 		}
 	}
 	public void execute()
 	{
-		try{
+		if(!Game.MUTED){
+			try{
 			new Thread(){
 				public void run(){
 					clip.play();
-				}
-			}.start();			
-		}catch(Exception ex){
-			ex.printStackTrace();
-			
+					}
+				}.start();			
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
 		}
+		
 	}
 }

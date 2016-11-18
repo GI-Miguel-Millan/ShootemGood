@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 	
 	private boolean[] keys;
-	public boolean up, down, left, right, fire, paused, wasReleased = true;
+	public boolean up, down, left, right, fire, paused, wasReleased = true, ctrl, mute;
 	
 	public KeyManager(){
 		keys = new boolean[256];
@@ -29,6 +29,8 @@ public class KeyManager implements KeyListener {
 		left = keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_D];
 		fire = keys[KeyEvent.VK_SPACE];
+		ctrl = keys[KeyEvent.VK_CONTROL];
+		mute = keys[KeyEvent.VK_M];
 		
 		paused = keys[KeyEvent.VK_P];	
 	}
