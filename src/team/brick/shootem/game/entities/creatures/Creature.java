@@ -16,12 +16,13 @@ import team.brick.shootem.game.tiles.Tile;
  */
 public abstract class Creature extends Entity {
 
-	public static final float DEFAULT_SPEED = 5.0f;
+	public static final float DEFAULT_SPEED = 2.0f;
 	public static final int DEFAULT_CREATURE_WIDTH = 64,
 							DEFAULT_CREATURE_HEIGHT = 64;
 
 	protected float speed;
 	protected float xMove, yMove;
+	protected boolean drawHealthBars = false;
 
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -95,13 +96,13 @@ public abstract class Creature extends Entity {
 	}
 	
 	public void drawHealthBar(int x, int y, int width, int height , int maxHealth, int health, int offset, int scale, Graphics g){
-		g.setColor(Color.red);
-//		g.fillRect(x - offset, y + height + offset, ((width + (2*offset))/maxHealth) * maxHealth, 5);
-//		g.setColor(Color.green);
-//		g.fillRect(x - offset, y + height + offset, ((width + (2*offset))/maxHealth) * health, 5);
-		g.fillRect(x - offset, y - offset, (((width + (2*offset))/maxHealth) * maxHealth)/scale, 5);
-		g.setColor(Color.green);
-		g.fillRect(x - offset, y - offset, (((width + (2*offset))/maxHealth) * health)/scale, 5);
+		if(drawHealthBars){
+			g.setColor(Color.red);
+			g.fillRect(x - offset, y - offset, (((width + (2*offset))/maxHealth) * maxHealth)/scale, 5);
+			g.setColor(Color.green);
+			g.fillRect(x - offset, y - offset, (((width + (2*offset))/maxHealth) * health)/scale, 5);
+		}
+		
 	}
 	
 	/**
@@ -114,6 +115,20 @@ public abstract class Creature extends Entity {
 	 */
 	protected boolean collisionWithTile(int x, int y){
 		return handler.getWorld().getTile(x, y).isSolid();
+	}
+	
+	public boolean isLegalSpawn(){
+		int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+		int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
+		
+		if(!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, ty) &&
+			!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty) &&
+			!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
+			!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)){
+			return true;
+		}else
+			return false;
+			
 	}
 	
 	//GETTERS SETTERS

@@ -17,7 +17,7 @@ import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
  */
 public abstract class Entity {
 
-	public static final int DEFAULT_HEALTH = 2;
+	public static final int DEFAULT_HEALTH = 1;
 	
 	protected int health;
 	protected Handler handler;

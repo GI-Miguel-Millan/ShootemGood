@@ -20,6 +20,8 @@ public abstract class Boss extends Enemy {
 		this.bounds.height = this.height;
 		
 		this.health = DEFAULT_BOSS_HEALTH;
+		
+		drawHealthBars = true;
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ public class DarkLaser extends Projectile {
 
 	public DarkLaser(Handler handler, Entity e, int orient, int offset) {
 		super(handler, e, orient, offset);
-		speed = 6.0f;
+		speed = 8.0f + handler.getGameCamera().getCamSpeed();
 	}
 	
 	@Override

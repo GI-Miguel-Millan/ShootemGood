@@ -205,7 +205,7 @@ public class Player extends Creature {
 		int bottomBounds = handler.getHeight() - 100;
 		
 		if(fightingBoss)
-			bottomBounds = handler.getHeight()/2 + 100;
+			bottomBounds = handler.getHeight() - 100;
 		
 		if(handler.getKeyManager().up)
 		{

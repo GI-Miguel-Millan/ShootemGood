@@ -17,6 +17,7 @@ public class EagleBoss extends Boss{
 	private int holdDistance = 100;
 	private boolean canMove =false;
 	private int reverseCounter =0;
+	private int shootInterval = 0;
 	
 	public EagleBoss(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -124,7 +125,7 @@ public class EagleBoss extends Boss{
 	
 	public void moveDownRight(){
 		xMove = speed;
-		if(y < (((handler.getGameCamera().getyOffset() + 650))))
+		if(y < (((handler.getHeight()))))
 			yMove = speed;
 		else
 			yMove =0;
@@ -133,7 +134,7 @@ public class EagleBoss extends Boss{
 	public void moveDownLeft(){
 		xMove = -speed;
 		yMove = speed;
-		if(y < (((handler.getGameCamera().getyOffset() + 600))))
+		if(y < (((handler.getHeight()))))
 			yMove = speed;
 		else
 			yMove = 0;
@@ -150,9 +151,14 @@ public class EagleBoss extends Boss{
 	
 	@Override
 	public void attack(){
-		int randAttack = Utils.randomNum(0, 25);
-		if(randAttack == 0){
+		shootInterval++;
+		if(shootInterval % 15 == 0){
 			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler, this, getProjectileOrientation(),0));
+		}
+		
+		if(shootInterval % 60 == 0){
+			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler, this, getProjectileOrientation(), width/2));
+			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler,this, getProjectileOrientation(), -width/2));
 		}
 		
 		collisionWithPlayer();

@@ -42,17 +42,17 @@ public class Interceptor extends Enemy{
 	
 	public void AIMove(){
 		if(handler.getWorld().getEntityManager().getPlayer().getX() > x){
-			xMove = 2;
+			xMove = speed;
 		}else if (handler.getWorld().getEntityManager().getPlayer().getX() < x){
-			xMove = -2;
+			xMove = -speed;
 		}else {
 			xMove =0;
 		}
 		
 		if(handler.getWorld().getEntityManager().getPlayer().getY() > y){
-			yMove = 1;
+			yMove = speed;
 		}else if (handler.getWorld().getEntityManager().getPlayer().getY() < y){
-			yMove = -2;
+			yMove = -speed;
 		}else {
 			yMove =0;
 		}

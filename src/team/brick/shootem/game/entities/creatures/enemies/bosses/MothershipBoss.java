@@ -43,6 +43,7 @@ public class MothershipBoss extends Boss{
 			counter = 0;
 		}
 		counter += 1;
+		
 	}
 	
 	@Override
@@ -69,7 +70,7 @@ public class MothershipBoss extends Boss{
 			
 		}
 		
-		if(randAttack >= 50 && readySpawn){
+		if(randAttack >= 75 && readySpawn){
 			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + width - 10), (int)(y + height + 10), 5);
 			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + 10), (int)(y + height + 10), 5);
 			handler.getWorld().getEntityManager().spawnEnemy(handler, (int)(x + width + 10), (int)(y + height/2), 5);
