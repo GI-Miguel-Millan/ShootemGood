@@ -16,8 +16,10 @@ public class EagleBoss extends Boss{
 	private static final int EAGLE_HEIGHT = 64;
 	private int holdDistance = 100;
 	private boolean canMove =false;
+	private boolean waitHalfSec = false;
 	private int reverseCounter =0;
 	private int shootInterval = 0;
+	private int waitTimer =0;
 	
 	public EagleBoss(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -56,7 +58,15 @@ public class EagleBoss extends Boss{
 			move();
 			
 			//Attack of the enemy
-			attack();
+			if(!waitHalfSec)
+				attack();
+			else
+				waitTimer++;
+			
+			if(waitTimer == 15){
+				waitHalfSec = false;
+				waitTimer =0;
+			}
 		}
 		
 		
@@ -159,6 +169,7 @@ public class EagleBoss extends Boss{
 		if(shootInterval % 60 == 0){
 			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler, this, getProjectileOrientation(), width/2));
 			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler,this, getProjectileOrientation(), -width/2));
+			waitHalfSec = true;
 		}
 		
 		collisionWithPlayer();
