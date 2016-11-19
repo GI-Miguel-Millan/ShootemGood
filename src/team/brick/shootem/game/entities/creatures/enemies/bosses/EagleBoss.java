@@ -20,6 +20,7 @@ public class EagleBoss extends Boss{
 	private int reverseCounter =0;
 	private int shootInterval = 0;
 	private int waitTimer =0;
+	private int dir = 0;
 	
 	public EagleBoss(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -79,55 +80,49 @@ public class EagleBoss extends Boss{
 		int centeredX = (int)(x + width/2);
 		int centeredY = (int)(y + height/2);
 		
-		System.out.println("xMove: " + xMove + ", yMove: " + yMove);
-		if(reverseCounter <= 400){
-				//down right
-			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
-				moveDownRight();
-				
-				//down left
-			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
-				moveDownLeft();
-				
-				//up left
-			}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
-				moveUpLeft();
-				
-				//up right
-			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
-				moveUpRight();
-			}
-		}else if(reverseCounter <= 800){
-			if(centeredPlayerX <= centeredX && centeredPlayerY <= centeredY + holdDistance){
-				moveUpRight();
-				
-			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY >= centeredY){
-				moveUpLeft();
-				
-			}else if( centeredPlayerX >= centeredX && centeredPlayerY >= centeredY - holdDistance){
-				moveDownLeft();
-				
-			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY <= centeredY){
-				moveDownRight();
-			}
-		}else{
-			reverseCounter =0;
-		}
 		
-//		if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
-//			moveDownRight();
-//			
-//			//down left
-//		}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
-//			moveDownLeft();
-//			
-//			//up left
-//		}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
-//			moveUpLeft();
-//			
-//			//up right
-//		}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
-//			moveUpRight();
+		
+		if(dir == 0)
+			moveDownRight();
+		else if(dir == 1)
+			moveDownLeft();
+		else if(dir == 2)
+			moveUpLeft();
+		else if(dir == 3)
+			moveUpRight();
+		
+//		if(reverseCounter <= 400){
+//				//down right
+//			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
+//				moveDownRight();
+//				
+//				//down left
+//			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
+//				moveDownLeft();
+//				
+//				//up left
+//			}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
+//				moveUpLeft();
+//				
+//				//up right
+//			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
+//				moveUpRight();
+//			}
+//		}else if(reverseCounter <= 800){
+//			if(centeredPlayerX <= centeredX && centeredPlayerY <= centeredY + holdDistance){
+//				moveUpRight();
+//				
+//			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY >= centeredY){
+//				moveUpLeft();
+//				
+//			}else if( centeredPlayerX >= centeredX && centeredPlayerY >= centeredY - holdDistance){
+//				moveDownLeft();
+//				
+//			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY <= centeredY){
+//				moveDownRight();
+//			}
+//		}else{
+//			reverseCounter =0;
 //		}
 		
 		reverseCounter++;

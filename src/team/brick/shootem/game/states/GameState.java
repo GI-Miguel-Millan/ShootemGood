@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Player;
+import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.worlds.World;
 
@@ -18,25 +19,50 @@ import team.brick.shootem.game.worlds.World;
 public class GameState extends State {
 	
 	private World world;
+	private Animation transIn, transOut;
+	private boolean tIn = false, tOut = false, stillTransitioning = false;
+	
 	public GameState(Handler handler){
 		super(handler);
 		displayState();
+		
+		transIn = new Animation(50, Assets.explosion);
+		transOut = new Animation(50, Assets.explosion);
 	}
 	
 	@Override
 	public void tick() {
+		if(tIn)
+			transIn.tick();
+		if(tOut)
+			transOut.tick();
+		
 		if (world != handler.getWorld())
 			world = handler.getWorld();
-		world.tick();
+		
+//		if(handler.getKeyManager().mute){
+//			handler.setIsTransitioning(true);
+//			
+//		}
+		if(!handler.IsTransitioning())
+			world.tick();
+		else
+			checkTransition();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
+		
+		if(tIn)
+			g.drawImage(Assets.paused, 0, 0, handler.getWidth(), handler.getHeight(), null);
+		if(tOut)
+			g.drawImage(Assets.paused, 0, 0, handler.getWidth(), handler.getHeight(), null);
+		
 		String tmpScore = "SCORE: " + handler.getPlayerScore();
 		String tmpHealth = "Health: " + handler.getPlayerHealth();
 		String tmpHighScore = "HighScore: " + handler.getHighScore();
-		String level = "Level: " + handler.getPlayer().getLvlCounter();
+		String level = "Level: " + handler.getLvlCounter();
 		
 		//UI placeholders
 //		g.setColor(Color.black);
@@ -52,6 +78,39 @@ public class GameState extends State {
 		}
 		
 	}
+	
+	public void checkTransition(){
+		if(!stillTransitioning){
+			tOut = true;
+			transitionOut();
+		}else{
+			tIn = true;
+			transitionIn();
+		}
+	}
+	
+	public void transitionIn(){
+		world.tick();
+		if(transIn.onLastFrame()){
+			stillTransitioning = false;
+			handler.setIsTransitioning(false);
+			tIn = false;
+		}
+			
+	}
+	
+	public void transitionOut(){
+		if(transOut.onLastFrame()){
+			stillTransitioning = true;
+			tIn = true;
+			tOut = false;
+			handler.changeWorld();
+			handler.getGameCamera().resetCamera();
+			transOut = new Animation(50, Assets.explosion);
+		}
+		
+	}
+	
 	/**
 	 * Sets the state to the game state 
 	 * and starts the game over at level 1

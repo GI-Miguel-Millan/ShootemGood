@@ -30,12 +30,10 @@ public class Player extends Creature {
 	private boolean readyFire;
 	private int counter;
 	private int score = 1000;
-	private int lvlCounter = 1;
 	private int hurtCounter = 0;
 	private int powerUpCounter = 0;
 	private int speedUp =0;
 	private Rectangle playerBounds = new Rectangle(16,22,32,12);
-	private static int numLevels = 4;
 	private boolean isBossDead = false,
 					isHurt = false,
 					isInvinc = false, 
@@ -91,8 +89,8 @@ public class Player extends Creature {
 		if(!fightingBoss)
 			collisionWithBossFightStart((int)x, (int)y);
 		
-		handler.getGameCamera().centerOnEntity(this);
-		//handler.getGameCamera().staticCamera(this);
+		//handler.getGameCamera().centerOnEntity(this);
+		handler.getGameCamera().staticCamera(this);
 		
 		handler.setPlayerScore(this.score);
 		handler.setPlayerHealth(health);
@@ -303,15 +301,14 @@ public class Player extends Creature {
 		int tx = (int) (x + bounds.x) / Tile.TILEWIDTH;
 		if(handler.getWorld().getTile(tx, ty).isGoal() && isBossDead){
 			handler.setPlayerScore(score);
-			lvlCounter++;
-			handler.getGameCamera().resetCamera();
-			if (lvlCounter > numLevels){
-				//State.setState(handler.getGame().GameOverState);
+			handler.setLvlCounter(handler.getLvlCounter() + 1);
+			if (handler.getLvlCounter() > handler.getNumLevels()){
 				this.die();
 			}else
-				handler.setWorld(new World(handler, Assets.fileNames[lvlCounter]));
+				handler.setIsTransitioning(true);
 		}
 	}
+	
 	
 	/**
 	 * Checks if the player is colliding with a Black Hole Tile.
@@ -429,10 +426,6 @@ public class Player extends Creature {
 	 */
 	public int getScore(){
 		return score;
-	}
-	
-	public int getLvlCounter(){
-		return lvlCounter;
 	}
 	
 	public void setIsBossDead(boolean bool){
