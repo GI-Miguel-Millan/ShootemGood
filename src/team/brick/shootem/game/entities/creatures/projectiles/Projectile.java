@@ -38,7 +38,7 @@ public class Projectile extends Creature{
 			yMove = speed;
 		}else if(orientation == 1){
 			x += e.getWidth()/2 - width/2 + offset;
-			y += e.getHeight() + 10;
+			y += e.getHeight() + 15;
 			yMove = -speed;
 		}else if(orientation == 2){
 			x += e.getWidth() + 10;

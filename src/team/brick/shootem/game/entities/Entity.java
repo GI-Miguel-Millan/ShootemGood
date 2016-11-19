@@ -75,7 +75,7 @@ public abstract class Entity {
 			
 			// Skip this entity, no need to check for self collision, also ignore Projectiles since
 			// they have their own method to check for collision with other entities.
-			if(e.equals(this) || e.getClass().equals(Projectile.class))
+			if(e.equals(this) || e.isProjectile())
 				continue;
 			
 			// Compare the collision bounds of the other entity, with the collision bounds of this entity.

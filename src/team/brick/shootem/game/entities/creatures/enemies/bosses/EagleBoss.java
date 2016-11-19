@@ -9,6 +9,7 @@ import team.brick.shootem.game.entities.creatures.projectiles.DarkLaser;
 import team.brick.shootem.game.entities.creatures.projectiles.FireBall;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.tiles.Tile;
 import team.brick.shootem.game.utils.Utils;
 
 public class EagleBoss extends Boss{
@@ -52,17 +53,19 @@ public class EagleBoss extends Boss{
 			playerX = (int)handler.getWorld().getEntityManager().getPlayer().getX();
 			playerY = (int)handler.getWorld().getEntityManager().getPlayer().getY();
 			
+			//Attack of the enemy
+			if(!waitHalfSec)
+				attack();
+			else
+				waitTimer++;
+			
 			//Set x and y movement values
 			AIMove();
 			
 			//Movement of the enemy
 			move();
 			
-			//Attack of the enemy
-			if(!waitHalfSec)
-				attack();
-			else
-				waitTimer++;
+			
 			
 			if(waitTimer == 15){
 				waitHalfSec = false;
@@ -75,13 +78,6 @@ public class EagleBoss extends Boss{
 	
 	@Override
 	public void AIMove(){
-		int centeredPlayerX = (int)(playerX + handler.getPlayer().getWidth()/2);
-		int centeredPlayerY = (int)(playerY + handler.getPlayer().getHeight()/2);
-		int centeredX = (int)(x + width/2);
-		int centeredY = (int)(y + height/2);
-		
-		
-		
 		if(dir == 0)
 			moveDownRight();
 		else if(dir == 1)
@@ -91,6 +87,21 @@ public class EagleBoss extends Boss{
 		else if(dir == 3)
 			moveUpRight();
 		
+		if(reverseCounter < 130)
+			dir = 0;
+		else if(reverseCounter < 180)
+			dir = 1;
+		else if(reverseCounter < 310)
+			dir = 2;
+		else if(reverseCounter < 360)
+			dir = 3;
+		else 
+			reverseCounter =0;
+		
+//		int centeredPlayerX = (int)(playerX + handler.getPlayer().getWidth()/2);
+//		int centeredPlayerY = (int)(playerY + handler.getPlayer().getHeight()/2);
+//		int centeredX = (int)(x + width/2);
+//		int centeredY = (int)(y + height/2);
 //		if(reverseCounter <= 400){
 //				//down right
 //			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
