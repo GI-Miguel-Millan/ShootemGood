@@ -192,7 +192,7 @@ public class Player extends Creature {
 		xMove = 0;
 		//yMove = -2;
 		if(underSlowEffect){
-			yMove = 0;
+			yMove = -(handler.getGameCamera().getCamSpeed()) + 2;
 		}else if(fightingBoss){
 			yMove = 0;
 		}else if(isBossDead){
@@ -203,8 +203,8 @@ public class Player extends Creature {
 		
 		int bottomBounds = handler.getHeight() - 100;
 		
-		if(fightingBoss)
-			bottomBounds = handler.getHeight() - 100;
+//		if(fightingBoss)
+//			bottomBounds = handler.getHeight() - 100;
 		
 		if(handler.getKeyManager().up)
 		{
