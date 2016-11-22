@@ -36,7 +36,7 @@ public class Player extends Creature {
 	private Rectangle playerBounds = new Rectangle(16,22,32,12);
 	private boolean isBossDead = false,
 					isHurt = false,
-					isInvinc = false, 
+					isInvinc = false,
 					isSpdUp = false,
 					isSplitShot = false,
 					fightingBoss = false,
@@ -390,6 +390,7 @@ public class Player extends Creature {
 		handler.writeHighScore();
 		handler.getGame().getGameState().setLastTrans(true);
 		handler.setIsTransitioning(true);
+//		handler.getGame().getGameOverState().displayState();
 		active =false;
 	}
 	

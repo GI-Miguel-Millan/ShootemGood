@@ -99,10 +99,11 @@ public class GameState extends State {
 			stillTransitioning = false;
 			handler.setIsTransitioning(false);
 			tIn = false;
-			lastTrans = false;
 			if(lastTrans){
 				handler.getGame().getGameOverState().displayState();
 			}
+			
+			lastTrans = false;
 		}
 	}
 
@@ -115,9 +116,6 @@ public class GameState extends State {
 			handler.getGameCamera().resetCamera();
 			transOut = new Animation(200, Assets.transOut);
 			firstTrans = false;
-			if(lastTrans){
-				handler.getGameCamera().resetCamera();
-			}
 		}
 		
 	}
