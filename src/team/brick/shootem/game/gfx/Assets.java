@@ -27,6 +27,7 @@ public class Assets {
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
 	public static BufferedImage[] explosion;
 	public static BufferedImage[] btn_start;
+	public static BufferedImage[] transIn, transOut;
 	
 	
 	
@@ -45,6 +46,7 @@ public class Assets {
 										// [11] = "world0.txt"
 										// [12] = "menu_graphic.png"
 										// [13] = "PAUSED.png"
+										// [14] = "Transition.png"
 
 	/**
 	 *  Loads all assets into the game. This should only be called once.
@@ -60,6 +62,7 @@ public class Assets {
 		//System.out.println("/resources/sounds/" + ResourceLoader.loadSounds(fileNames[6]));
 		
 		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
+		SpriteSheet sheet2 = new SpriteSheet(ResourceLoader.loadImage(fileNames[14]));
 		menu = ResourceLoader.loadImage(fileNames[12]);
 		paused = ResourceLoader.loadImage(fileNames[13]);
 		
@@ -104,6 +107,32 @@ public class Assets {
 		explosion[5] = sheet.crop(width * 5, height * 3, width, height);
 		explosion[6] = sheet.crop(width * 6, height * 3, width, height);
 		explosion[7] = sheet.crop(width * 7, height * 3, width, height);
+		
+		transIn = new BufferedImage[10];
+		
+		transIn[9] = sheet2.crop(0, 0, width, height);
+		transIn[8] = sheet2.crop(width, 0, width, height);
+		transIn[7] = sheet2.crop(width * 2, 0, width, height);
+		transIn[6] = sheet2.crop(width * 3, 0, width, height);
+		transIn[5] = sheet2.crop(width * 4, 0, width, height);
+		transIn[4] = sheet2.crop(width * 5, 0, width, height);
+		transIn[3] = sheet2.crop(width * 6, 0, width, height);
+		transIn[2] = sheet2.crop(width * 7, 0, width, height);
+		transIn[1] = sheet2.crop(width * 8, 0, width, height);
+		transIn[0] = sheet2.crop(width * 9, 0, width, height);
+		
+		transOut = new BufferedImage[10];
+		
+		transOut[0] = sheet2.crop(0, 0, width, height);
+		transOut[1] = sheet2.crop(width, 0, width, height);
+		transOut[2] = sheet2.crop(width * 2, 0, width, height);
+		transOut[3] = sheet2.crop(width * 3, 0, width, height);
+		transOut[4] = sheet2.crop(width * 4, 0, width, height);
+		transOut[5] = sheet2.crop(width * 5, 0, width, height);
+		transOut[6] = sheet2.crop(width * 6, 0, width, height);
+		transOut[7] = sheet2.crop(width * 7, 0, width, height);
+		transOut[8] = sheet2.crop(width * 8, 0, width, height);
+		transOut[9] = sheet2.crop(width * 9, 0, width, height);
 		
 		space = sheet.crop(width, 0, width, height);
 		space2 = sheet.crop(width * 2, 0, width, height);

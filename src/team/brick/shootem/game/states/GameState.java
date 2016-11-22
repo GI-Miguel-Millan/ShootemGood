@@ -26,8 +26,8 @@ public class GameState extends State {
 		super(handler);
 		displayState();
 		
-		transIn = new Animation(50, Assets.explosion);
-		transOut = new Animation(50, Assets.explosion);
+		transIn = new Animation(100, Assets.transIn);
+		transOut = new Animation(200, Assets.transOut);
 	}
 	
 	@Override
@@ -40,10 +40,10 @@ public class GameState extends State {
 		if (world != handler.getWorld())
 			world = handler.getWorld();
 		
-//		if(handler.getKeyManager().mute){
-//			handler.setIsTransitioning(true);
-//			
-//		}
+		if(handler.getKeyManager().mute){
+			handler.setIsTransitioning(true);
+			
+		}
 		if(!handler.IsTransitioning())
 			world.tick();
 		else
@@ -55,9 +55,9 @@ public class GameState extends State {
 		world.render(g);
 		
 		if(tIn)
-			g.drawImage(Assets.paused, 0, 0, handler.getWidth(), handler.getHeight(), null);
+			g.drawImage(transIn.getCurrentFrame(), 0, 0, handler.getWidth(), handler.getHeight(), null);
 		if(tOut)
-			g.drawImage(Assets.paused, 0, 0, handler.getWidth(), handler.getHeight(), null);
+			g.drawImage(transOut.getCurrentFrame(), 0, 0, handler.getWidth(), handler.getHeight(), null);
 		
 		String tmpScore = "SCORE: " + handler.getPlayerScore();
 		String tmpHealth = "Health: " + handler.getPlayerHealth();
@@ -96,9 +96,8 @@ public class GameState extends State {
 			handler.setIsTransitioning(false);
 			tIn = false;
 		}
-			
 	}
-	
+
 	public void transitionOut(){
 		if(transOut.onLastFrame()){
 			stillTransitioning = true;
@@ -106,7 +105,7 @@ public class GameState extends State {
 			tOut = false;
 			handler.changeWorld();
 			handler.getGameCamera().resetCamera();
-			transOut = new Animation(50, Assets.explosion);
+			transOut = new Animation(200, Assets.transOut);
 		}
 		
 	}
@@ -118,8 +117,8 @@ public class GameState extends State {
 	public void displayState(){
 		State.setState(handler.getGame().getGameState());
 		handler.setPlayer(new Player(handler, 100, 100));
+		handler.setLvlCounter(1);
 		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
-		
 		handler.setWorld(world);
 	}
 }

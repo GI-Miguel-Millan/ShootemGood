@@ -12,3 +12,4 @@ victory.au
 world0.txt
 menu_graphic.png
 PAUSED.png
+Transition.png
