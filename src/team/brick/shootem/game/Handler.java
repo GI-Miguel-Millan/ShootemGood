@@ -28,6 +28,10 @@ public class Handler {
 	private int playerScore;
 	private int playerHealth;
 	private Player player;
+	private double healthBar;
+	private double hbValue;
+	private final int MAX_HEALTH = 50;
+	private final int HB_MAX_LENGTH = 100;
 
 	private int highScore;
 	
@@ -124,6 +128,12 @@ public class Handler {
 	 */
 	public int getPlayerHealth(){
 		return playerHealth;
+	}
+	
+	public double getHealthBar(){
+		hbValue = getPlayerHealth() / MAX_HEALTH;
+		healthBar = HB_MAX_LENGTH * hbValue;
+		return healthBar;
 	}
 
 	public Player getPlayer() {

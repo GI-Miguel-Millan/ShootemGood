@@ -1,6 +1,7 @@
 package team.brick.shootem.game.states;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
@@ -37,15 +38,19 @@ public class GameState extends State {
 		String tmpHealth = "Health: " + handler.getPlayerHealth();
 		String tmpHighScore = "HighScore: " + handler.getHighScore();
 		String level = "Level: " + handler.getPlayer().getLvlCounter();
-		
+		Font stringFont = new Font("Sans Serif", Font.PLAIN, 18);
+
 		//UI placeholders
 //		g.setColor(Color.black);
 //		g.drawRect(0, 0, 500, 30);
 		g.setColor(Color.red);
+		g.setFont(stringFont);
 		g.drawString(tmpScore , 260, 20);	//Score placeholder
-		g.drawString(tmpHealth, 410, 20);	//Lives placeholder
-		g.drawString(level, 25, 20);		//Level number placeholder
+		g.drawString(level, 25, 20);	//Level number placeholder
 		g.drawString(tmpHighScore, 120, 20);
+		g.fillRect(410, 20, 50, 20); //Healthbar background
+		g.setColor(Color.green);
+		g.fillRect(410, 20, handler.getPlayerHealth(), 20);
 		
 		if(handler.getGame().getPAUSED()){
 			g.drawImage(Assets.paused, 0, 0, null);
