@@ -20,7 +20,11 @@ public class GameState extends State {
 	
 	private World world;
 	private Animation transIn, transOut;
-	private boolean tIn = false, tOut = false, stillTransitioning = false;
+	private boolean tIn = false, 
+			tOut = false,
+			stillTransitioning = false,
+			firstTrans = false,
+			lastTrans = false;
 	
 	public GameState(Handler handler){
 		super(handler);
@@ -91,21 +95,29 @@ public class GameState extends State {
 	
 	public void transitionIn(){
 		world.tick();
-		if(transIn.onLastFrame()){
+		if(transIn.onLastFrame() || lastTrans){
 			stillTransitioning = false;
 			handler.setIsTransitioning(false);
 			tIn = false;
+			lastTrans = false;
+			if(lastTrans){
+				handler.getGame().getGameOverState().displayState();
+			}
 		}
 	}
 
 	public void transitionOut(){
-		if(transOut.onLastFrame()){
+		if(transOut.onLastFrame() || firstTrans){
 			stillTransitioning = true;
 			tIn = true;
 			tOut = false;
 			handler.changeWorld();
 			handler.getGameCamera().resetCamera();
 			transOut = new Animation(200, Assets.transOut);
+			firstTrans = false;
+			if(lastTrans){
+				handler.getGameCamera().resetCamera();
+			}
 		}
 		
 	}
@@ -120,5 +132,11 @@ public class GameState extends State {
 		handler.setLvlCounter(1);
 		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
 		handler.setWorld(world);
+		handler.setIsTransitioning(true);
+		firstTrans = true;
+	}
+	
+	public void setLastTrans(boolean b){
+		this.lastTrans = b;
 	}
 }

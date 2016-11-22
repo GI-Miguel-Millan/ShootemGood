@@ -30,7 +30,7 @@ public class Handler {
 	private int playerHealth;
 	private Player player;
 	private int lvlCounter = 1;
-	private static final int NUMBER_LEVELS = 4;
+	private static final int NUMBER_LEVELS = 1;
 	private boolean isTransitioning = false;
 
 	private int highScore;
