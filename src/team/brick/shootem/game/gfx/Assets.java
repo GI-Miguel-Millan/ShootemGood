@@ -21,7 +21,8 @@ public class Assets {
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, 
 								projectile, interceptor, assault, stealthed, giantHead,
 								motherShip,darkTumorRang, dt_left, dt_right, fireBall, eagle, darkLaser,
-								boost, shield, heart, star, splitshot, menu, blackHole, slowVortex, paused;
+								boost, shield, heart, star, splitshot, menu, blackHole, slowVortex, paused,
+								boosted, invincible;
 
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
@@ -159,6 +160,8 @@ public class Assets {
 		splitshot = sheet.crop(width * 4, height * 7, width, height);
 		blackHole = sheet.crop(width * 2, height * 4, width, height);
 		slowVortex = sheet.crop(width * 3, height * 4, width, height);
+		boosted = sheet.crop(width * 5, height * 7, width, height);
+		invincible = sheet.crop(width * 6, height *7, width, height);
 		//test comment
 		
 	}
