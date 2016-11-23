@@ -350,6 +350,10 @@ public class Player extends Creature {
 		posX = (int)(x - handler.getGameCamera().getxOffset());
 		posY = (int) (y - handler.getGameCamera().getyOffset());
 		g.drawImage(getCurrentAnimationFrame(), posX, posY, width, height, null);
+		if (isSpdUp)
+			g.drawImage(Assets.boosted,posX,posY,width,height,null);
+		if (isInvinc)
+			g.drawImage(Assets.invincible, posX, posY, width, height, null);
 		
 		//g.drawRect(posX, posY, width, height);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),

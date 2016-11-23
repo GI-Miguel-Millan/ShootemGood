@@ -13,13 +13,14 @@ public class DeadEntity extends StaticEntity{
 	public static ArrayList<DeadEntity> deadEntities = new ArrayList<DeadEntity>();
 	
 	private Entity entity;
-	private Animation explosion, BExp1, BExp2, BExp3, BExp4;
+	private Animation explosion, BExp1, BExp2, BExp3, BExp4, BExp5;
 	private int counter;
 	private int BossCounter =0;
 	private boolean canDraw1 = false;
 	private boolean canDraw2 = false;
 	private boolean canDraw3 = false;
 	private boolean canDraw4 = false;
+	private boolean canDraw5 = false;
 	
 	public DeadEntity(Handler handler, Entity e) {
 		super(handler, e.getX(), e.getY(), e.getWidth(), e.getHeight());
@@ -30,6 +31,7 @@ public class DeadEntity extends StaticEntity{
 		BExp2 = new Animation(50, Assets.explosion);
 		BExp3 = new Animation(50, Assets.explosion);
 		BExp4 = new Animation(50, Assets.explosion);
+		BExp5 = new Animation(50, Assets.explosion);
 	}
 
 	public static void addDeadEntity(Handler handler, Entity e){
@@ -46,6 +48,8 @@ public class DeadEntity extends StaticEntity{
 			BExp3.tick();
 		if(canDraw4)
 			BExp4.tick();
+		if(canDraw5)
+			BExp5.tick();
 		
 		explosion.tick();
 		
@@ -55,7 +59,7 @@ public class DeadEntity extends StaticEntity{
 		
 		if(!entity.isBoss() && explosion.onLastFrame())
 			die();
-		else if(entity.isBoss() && BExp4.onLastFrame())
+		else if(entity.isBoss() && BExp5.onLastFrame())
 			die();
 		
 	}
@@ -80,10 +84,14 @@ public class DeadEntity extends StaticEntity{
 		
 		if(BossCounter == 1)
 			canDraw1 = true;
-		else if(BossCounter == 10)
-			canDraw2 = true;
 		else if(BossCounter == 20)
-			canDraw3 =true;
+			canDraw2 = true;
+		else if(BossCounter == 40)
+			canDraw3 = true;
+		else if(BossCounter == 60)
+			canDraw4 = true;
+		else if(BossCounter == 80)
+			canDraw5 = true;
 		
 		if(canDraw1){
 			g.drawImage(BExp1.getCurrentFrame(), posX, posY, 64, 64, null);
@@ -98,15 +106,19 @@ public class DeadEntity extends StaticEntity{
 		}
 		if(canDraw3){
 			g.drawImage(BExp3.getCurrentFrame(), posX, posY + 16, 64, 64, null);
-			if(BExp2.onLastFrame()){
+			if(BExp3.onLastFrame()){
 				canDraw3 = false;
-				canDraw4 = true;
-			}
-				
+			}		
+		}
+		if(canDraw4){
+			g.drawImage(BExp4.getCurrentFrame(), posX+16, posY, 64, 64, null);
+			if(BExp4.onLastFrame()){
+				canDraw4 = false;
+			}		
 		}
 		
-		if(canDraw4)
-			g.drawImage(BExp4.getCurrentFrame(), posX-(64-width/2), posY-(64-height/2) , 128, 128, null);
+		if(canDraw5)
+			g.drawImage(BExp5.getCurrentFrame(), posX-(64-width/2), posY-(64-height/2) , 128, 128, null);
 	}
 
 	@Override
