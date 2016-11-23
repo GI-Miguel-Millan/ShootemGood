@@ -13,6 +13,7 @@ import team.brick.shootem.game.gfx.Assets;
  */
 public class GoalTile extends Tile {
 
+	private boolean solid = true;
 	public GoalTile(int id) {
 		super(Assets.stone, id);
 		// TODO Auto-generated constructor stub
@@ -24,10 +25,16 @@ public class GoalTile extends Tile {
 	
 	public void showGoal(){
 		texture = Assets.spaceBound;
+		solid = false;
 	}
 	
 	public void hideGoal(){
 		texture = Assets.stone;
+		solid = true;
+	}
+	
+	public boolean isSolid(){
+		return solid;
 	}
 
 }

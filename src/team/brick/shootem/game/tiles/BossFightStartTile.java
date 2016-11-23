@@ -14,7 +14,7 @@ import team.brick.shootem.game.gfx.Assets;
 public class BossFightStartTile extends Tile{
 
 	public BossFightStartTile(int id) {
-		super(Assets.boost, id);
+		super(Assets.space2, id);
 		// TODO Auto-generated constructor stub
 	}
 

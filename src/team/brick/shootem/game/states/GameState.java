@@ -68,6 +68,9 @@ public class GameState extends State {
 		String tmpHighScore = "HighScore: " + handler.getHighScore();
 		Font stringFont = new Font("Sans Serif", Font.PLAIN, 18);
 		
+		g.setColor(Color.getHSBColor(.747222f, .91f, .13f));
+		g.fillRect(0, 0, handler.getWidth(), 50);
+		
 		g.setColor(Color.red);
 		g.setFont(stringFont);
 		g.drawString(tmpScore , 260, 20);	//Score placeholder

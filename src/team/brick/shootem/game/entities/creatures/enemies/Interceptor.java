@@ -17,7 +17,7 @@ import team.brick.shootem.game.sound.Sound;
  *	@since version 1.0
  */
 public class Interceptor extends Enemy{
-
+	
 	public Interceptor(Handler handler, float x, float y) {
 		
 		super(handler, x, y);
@@ -41,17 +41,17 @@ public class Interceptor extends Enemy{
 	}
 	
 	public void AIMove(){
-		if(handler.getWorld().getEntityManager().getPlayer().getX() > x){
-			xMove = speed;
-		}else if (handler.getWorld().getEntityManager().getPlayer().getX() < x){
-			xMove = -speed;
+		if(handler.getPlayer().getX() - speed > x){
+			xMove = speed/2;
+		}else if (handler.getPlayer().getX()+speed < x){
+			xMove = -speed/2;
 		}else {
 			xMove =0;
 		}
 		
-		if(handler.getWorld().getEntityManager().getPlayer().getY() > y){
+		if(handler.getPlayer().getY() - speed > y){
 			yMove = speed;
-		}else if (handler.getWorld().getEntityManager().getPlayer().getY() < y){
+		}else if (handler.getPlayer().getY() + speed < y){
 			yMove = -speed;
 		}else {
 			yMove =0;

@@ -102,22 +102,20 @@ public class StealthFighter extends Enemy{
 			xMove = 0;
 			yMove = 0;
 		}else{
-			if(counter % 2 == 0){
-				if(handler.getWorld().getEntityManager().getPlayer().getX() > x){
-				xMove = 1;
-				}else if (handler.getWorld().getEntityManager().getPlayer().getX() < x){
-					xMove = -1;
-				}else {
-					xMove =0;
-				}
-				
-				if(handler.getWorld().getEntityManager().getPlayer().getY() > y){
-					yMove = 1;
-				}else if (handler.getWorld().getEntityManager().getPlayer().getY() < y){
-					yMove = -2;
-				}else {
-					yMove =0;
-				}
+			if(handler.getPlayer().getX() - speed > x){
+				xMove = speed/2;
+			}else if (handler.getPlayer().getX()+speed < x){
+				xMove = -speed/2;
+			}else {
+				xMove =0;
+			}
+			
+			if(handler.getPlayer().getY() - speed > y){
+				yMove = speed;
+			}else if (handler.getPlayer().getY() + speed < y){
+				yMove = -speed;
+			}else {
+				yMove =0;
 			}
 			
 				
