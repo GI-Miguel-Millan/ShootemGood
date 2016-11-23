@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import team.brick.shootem.game.entities.creatures.Player;
+import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.gfx.GameCamera;
 import team.brick.shootem.game.input.KeyManager;
 import team.brick.shootem.game.input.MouseManager;
@@ -28,10 +29,9 @@ public class Handler {
 	private int playerScore;
 	private int playerHealth;
 	private Player player;
-	private double healthBar;
-	private double hbValue;
-	private final int MAX_HEALTH = 50;
-	private final int HB_MAX_LENGTH = 100;
+	private int lvlCounter = 1;
+	private static final int NUMBER_LEVELS = 4;
+	private boolean isTransitioning = false;
 
 	private int highScore;
 	
@@ -87,7 +87,7 @@ public class Handler {
 	public void setGame(Game game) {
 		this.game = game;
 	}
-
+	
 	/**
 	 * @return the current world
 	 */
@@ -100,6 +100,18 @@ public class Handler {
 	 */
 	public void setWorld(World world) {
 		this.world = world;
+	}
+	
+	public void changeWorld(){
+		setWorld(new World(this, Assets.fileNames[lvlCounter]));
+	}
+	
+	public void setLvlCounter(int lvl){
+		lvlCounter = lvl;
+	}
+	
+	public int getLvlCounter(){
+		return lvlCounter;
 	}
 	
 	/**
@@ -129,12 +141,6 @@ public class Handler {
 	public int getPlayerHealth(){
 		return playerHealth;
 	}
-	
-	public double getHealthBar(){
-		hbValue = getPlayerHealth() / MAX_HEALTH;
-		healthBar = HB_MAX_LENGTH * hbValue;
-		return healthBar;
-	}
 
 	public Player getPlayer() {
 		return player;
@@ -142,6 +148,18 @@ public class Handler {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	
+	public void setIsTransitioning(boolean b){
+		isTransitioning = b;
+	}
+	
+	public int getNumLevels(){
+		return this.NUMBER_LEVELS;
+	}
+	
+	public boolean IsTransitioning(){
+		return isTransitioning;
 	}
 	
 	//Checks the current score against the high score. If higher, update the high score

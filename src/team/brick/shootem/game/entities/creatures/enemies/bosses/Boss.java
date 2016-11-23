@@ -20,6 +20,8 @@ public abstract class Boss extends Enemy {
 		this.bounds.height = this.height;
 		
 		this.health = DEFAULT_BOSS_HEALTH;
+		
+		drawHealthBars = true;
 	}
 	
 	@Override
@@ -77,20 +79,7 @@ public abstract class Boss extends Enemy {
 			
 		}
 		
-		//Deals damage to the player if they intersect this Enemy
-				if(intersectWithPlayer() && ready){
-					handler.getWorld().getEntityManager().getPlayer().hurt(1);
-					ready = false;
-				}
-				
-				if (!ready){
-					readyCount++;
-				}
-				
-				if(readyCount >= 5){
-					ready = true;
-					readyCount =0;
-				}
+		collisionWithPlayer();
 	}
 
 	@Override
@@ -102,7 +91,8 @@ public abstract class Boss extends Enemy {
 	@Override
 	public boolean isOnScreen(){
 		if (y >= (((handler.getGameCamera().getyOffset() - height))) 
-				&& y < (((handler.getGameCamera().getyOffset() + handler.getGame().getHeight())))){
+				&& y < (((handler.getGameCamera().getyOffset() + handler.getGame().getHeight())))
+				&& handler.getPlayer().getFightingBoss()){
 			handler.getWorld().getEntityManager().removeLesserEnemies();
 			return true;
 		}else{

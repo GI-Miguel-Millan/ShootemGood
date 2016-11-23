@@ -65,20 +65,25 @@ public abstract class Enemy extends Creature{
 			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, getProjectileOrientation(),0));
 		}
 		
-		//Deals damage to the player if they intersect this Enemy
-		if(intersectWithPlayer() && ready){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			ready = false;
-		}
+		collisionWithPlayer();
+	}
+	
+	//Deals damage to the player if they intersect this Enemy, destroys enemy.
+	public void collisionWithPlayer(){
 		
-		if (!ready){
-			readyCount++;
-		}
-		
-		if(readyCount >= 5){
-			ready = true;
-			readyCount =0;
-		}
+				if(intersectWithPlayer() && ready){
+					handler.getWorld().getEntityManager().getPlayer().hurt(1);
+					ready = false;
+				}
+				
+				if (!ready){
+					readyCount++;
+				}
+				
+				if(readyCount >= 5){
+					ready = true;
+					readyCount =0;
+				}
 	}
 	
 	public boolean isOnScreen(){

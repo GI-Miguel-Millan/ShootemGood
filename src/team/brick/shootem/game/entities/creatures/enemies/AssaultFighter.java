@@ -16,9 +16,9 @@ import team.brick.shootem.game.utils.Utils;
  *	@version 1.0
  *	@since version 1.0
  */
-public class AssaultFigher extends Enemy{
+public class AssaultFighter extends Enemy{
 
-	public AssaultFigher(Handler handler, float x, float y) {
+	public AssaultFighter(Handler handler, float x, float y) {
 		super(handler, x, y);
 		// TODO Auto-generated constructor stub
 	}
@@ -47,6 +47,14 @@ public class AssaultFigher extends Enemy{
 		}
 		counter += Utils.randomNum(1, 2);
 	}
+	
+	public void collisionWithPlayer(){
+		
+		if(intersectWithPlayer()){
+			handler.getWorld().getEntityManager().getPlayer().hurt(10);
+			this.hurt(this.health);
+		}
+}
 
 	@Override
 	public void die() {

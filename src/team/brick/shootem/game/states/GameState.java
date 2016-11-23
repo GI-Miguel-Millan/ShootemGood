@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Player;
+import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
 import team.brick.shootem.game.worlds.World;
 
@@ -19,44 +20,110 @@ import team.brick.shootem.game.worlds.World;
 public class GameState extends State {
 	
 	private World world;
+	private Animation transIn, transOut;
+	private boolean tIn = false, 
+			tOut = false,
+			stillTransitioning = false,
+			firstTrans = false,
+			lastTrans = false;
+	
 	public GameState(Handler handler){
 		super(handler);
 		displayState();
+		
+		transIn = new Animation(100, Assets.transIn);
+		transOut = new Animation(200, Assets.transOut);
 	}
 	
 	@Override
 	public void tick() {
+		if(tIn)
+			transIn.tick();
+		if(tOut)
+			transOut.tick();
+		
 		if (world != handler.getWorld())
 			world = handler.getWorld();
-		world.tick();
+		
+		if(handler.getKeyManager().mute){
+			handler.setIsTransitioning(true);
+			
+		}
+		if(!handler.IsTransitioning())
+			world.tick();
+		else
+			checkTransition();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
+		
+		if(tIn)
+			g.drawImage(transIn.getCurrentFrame(), 0, 0, handler.getWidth(), handler.getHeight(), null);
+		if(tOut)
+			g.drawImage(transOut.getCurrentFrame(), 0, 0, handler.getWidth(), handler.getHeight(), null);
+		
 		String tmpScore = "SCORE: " + handler.getPlayerScore();
-		String tmpHealth = "Health: " + handler.getPlayerHealth();
 		String tmpHighScore = "HighScore: " + handler.getHighScore();
-		String level = "Level: " + handler.getPlayer().getLvlCounter();
 		Font stringFont = new Font("Sans Serif", Font.PLAIN, 18);
-
-		//UI placeholders
-//		g.setColor(Color.black);
-//		g.drawRect(0, 0, 500, 30);
+		
 		g.setColor(Color.red);
 		g.setFont(stringFont);
 		g.drawString(tmpScore , 260, 20);	//Score placeholder
-		g.drawString(level, 25, 20);	//Level number placeholder
-		g.drawString(tmpHighScore, 120, 20);
-		g.fillRect(410, 20, 50, 20); //Healthbar background
+		g.drawString("Health: ", 35, 45);	//Level number placeholder
+		g.drawString(tmpHighScore, 35, 20);
+		g.fillRect(100, 35, (350/50) * 50, 10); //Healthbar background
 		g.setColor(Color.green);
-		g.fillRect(410, 20, handler.getPlayerHealth(), 20);
+		g.fillRect(100, 35, (350/50) * handler.getPlayerHealth(), 10);
+		
+		g.setColor(Color.black);
+		for(int i = 100 + (350/50); i < 100 + 350; i+=(350/50))
+			g.fillRect(i,35, 1, 10);
 		
 		if(handler.getGame().getPAUSED()){
 			g.drawImage(Assets.paused, 0, 0, null);
 		}
 		
 	}
+	
+	public void checkTransition(){
+		if(!stillTransitioning){
+			tOut = true;
+			transitionOut();
+		}else{
+			tIn = true;
+			transitionIn();
+		}
+	}
+	
+	public void transitionIn(){
+		world.tick();
+		if(transIn.onLastFrame() || lastTrans){
+			stillTransitioning = false;
+			handler.setIsTransitioning(false);
+			tIn = false;
+			if(lastTrans){
+				handler.getGame().getGameOverState().displayState();
+			}
+			
+			lastTrans = false;
+		}
+	}
+
+	public void transitionOut(){
+		if(transOut.onLastFrame() || firstTrans){
+			stillTransitioning = true;
+			tIn = true;
+			tOut = false;
+			handler.changeWorld();
+			handler.getGameCamera().resetCamera();
+			transOut = new Animation(200, Assets.transOut);
+			firstTrans = false;
+		}
+		
+	}
+	
 	/**
 	 * Sets the state to the game state 
 	 * and starts the game over at level 1
@@ -64,8 +131,14 @@ public class GameState extends State {
 	public void displayState(){
 		State.setState(handler.getGame().getGameState());
 		handler.setPlayer(new Player(handler, 100, 100));
+		handler.setLvlCounter(1);
 		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
-		
 		handler.setWorld(world);
+		handler.setIsTransitioning(true);
+		firstTrans = true;
+	}
+	
+	public void setLastTrans(boolean b){
+		this.lastTrans = b;
 	}
 }

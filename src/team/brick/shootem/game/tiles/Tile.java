@@ -24,6 +24,7 @@ public class Tile {
 	public static Tile bossSpawnTile = new BossSpawnTile(6);
 	public static Tile blackHoleTile = new BlackHoleTile(7);
 	public static Tile slowVortexTile = new SlowVortexTile(8);
+	public static Tile bossFightStartTile = new BossFightStartTile(9);
 	
 	
 	//CLASS
@@ -56,6 +57,15 @@ public class Tile {
 	 * @return false means it is not solid
 	 */
 	public boolean isSolid(){
+		return false;
+	}
+	
+	/**
+	 * Override this method and return true if the tile is 
+	 * a bossFightStartTile.
+	 * @return false means it is not a bossFightStartTile.
+	 */
+	public boolean isBFight(){
 		return false;
 	}
 	
@@ -139,6 +149,12 @@ public class Tile {
 			return true;
 		else
 			return false;
+	}
+	
+	public void showGoal(){
+	}
+	
+	public void hideGoal(){
 	}
 	
 }

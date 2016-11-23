@@ -23,6 +23,8 @@ import team.brick.shootem.game.sound.Sound;//New jon edit
  */
 public class Game implements Runnable {
 
+	public static boolean MUTED = false;
+	
 	private Display display;
 	private int width, height;
 	public String title;
@@ -30,8 +32,6 @@ public class Game implements Runnable {
 	private boolean running = false;
 	private Thread thread;
 	private boolean PAUSED = false;
-	private boolean ready = true;
-	private int pauseCounter=0;
 	
 	private BufferStrategy bs;
 	private Graphics g;
@@ -89,6 +89,11 @@ public class Game implements Runnable {
 	 */
 	private void tick(){
 		keyManager.tick();
+		
+		if(keyManager.ctrl && keyManager.mute && keyManager.wasReleased){
+			Game.MUTED = !Game.MUTED;
+			keyManager.wasReleased = false;
+		}
 		
 		if(State.getState() != null && !getPAUSED())
 			State.getState().tick();

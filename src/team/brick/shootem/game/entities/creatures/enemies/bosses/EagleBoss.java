@@ -5,9 +5,11 @@ import java.awt.Graphics;
 
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Creature;
+import team.brick.shootem.game.entities.creatures.projectiles.DarkLaser;
 import team.brick.shootem.game.entities.creatures.projectiles.FireBall;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.tiles.Tile;
 import team.brick.shootem.game.utils.Utils;
 
 public class EagleBoss extends Boss{
@@ -15,7 +17,11 @@ public class EagleBoss extends Boss{
 	private static final int EAGLE_HEIGHT = 64;
 	private int holdDistance = 100;
 	private boolean canMove =false;
+	private boolean waitHalfSec = false;
 	private int reverseCounter =0;
+	private int shootInterval = 0;
+	private int waitTimer =0;
+	private int dir = 0;
 	
 	public EagleBoss(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -47,14 +53,24 @@ public class EagleBoss extends Boss{
 			playerX = (int)handler.getWorld().getEntityManager().getPlayer().getX();
 			playerY = (int)handler.getWorld().getEntityManager().getPlayer().getY();
 			
+			//Attack of the enemy
+			if(!waitHalfSec)
+				attack();
+			else
+				waitTimer++;
+			
 			//Set x and y movement values
 			AIMove();
 			
 			//Movement of the enemy
 			move();
 			
-			//Attack of the enemy
-			attack();
+			
+			
+			if(waitTimer == 15){
+				waitHalfSec = false;
+				waitTimer =0;
+			}
 		}
 		
 		
@@ -62,60 +78,62 @@ public class EagleBoss extends Boss{
 	
 	@Override
 	public void AIMove(){
-		int centeredPlayerX = (int)(playerX + handler.getPlayer().getWidth()/2);
-		int centeredPlayerY = (int)(playerY + handler.getPlayer().getHeight()/2);
-		int centeredX = (int)(x + width/2);
-		int centeredY = (int)(y + height/2);
+		if(dir == 0)
+			moveDownRight();
+		else if(dir == 1)
+			moveDownLeft();
+		else if(dir == 2)
+			moveUpLeft();
+		else if(dir == 3)
+			moveUpRight();
 		
-		System.out.println("xMove: " + xMove + ", yMove: " + yMove);
-		if(reverseCounter <= 400){
-				//down right
-			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
-				moveDownRight();
-				
-				//down left
-			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
-				moveDownLeft();
-				
-				//up left
-			}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
-				moveUpLeft();
-				
-				//up right
-			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
-				moveUpRight();
-			}
-		}else if(reverseCounter <= 800){
-			if(centeredPlayerX <= centeredX && centeredPlayerY <= centeredY + holdDistance){
-				moveUpRight();
-				
-			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY >= centeredY){
-				moveUpLeft();
-				
-			}else if( centeredPlayerX >= centeredX && centeredPlayerY >= centeredY - holdDistance){
-				moveDownLeft();
-				
-			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY <= centeredY){
-				moveDownRight();
-			}
-		}else{
+		if(reverseCounter < 130)
+			dir = 0;
+		else if(reverseCounter < 180)
+			dir = 1;
+		else if(reverseCounter < 310)
+			dir = 2;
+		else if(reverseCounter < 360)
+			dir = 3;
+		else 
 			reverseCounter =0;
-		}
 		
-//		if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
-//			moveDownRight();
-//			
-//			//down left
-//		}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
-//			moveDownLeft();
-//			
-//			//up left
-//		}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
-//			moveUpLeft();
-//			
-//			//up right
-//		}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
-//			moveUpRight();
+//		int centeredPlayerX = (int)(playerX + handler.getPlayer().getWidth()/2);
+//		int centeredPlayerY = (int)(playerY + handler.getPlayer().getHeight()/2);
+//		int centeredX = (int)(x + width/2);
+//		int centeredY = (int)(y + height/2);
+//		if(reverseCounter <= 400){
+//				//down right
+//			if(centeredPlayerX <= centeredX && centeredPlayerY >= centeredY + holdDistance){
+//				moveDownRight();
+//				
+//				//down left
+//			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY <= centeredY){
+//				moveDownLeft();
+//				
+//				//up left
+//			}else if( centeredPlayerX >= centeredX && centeredPlayerY <= centeredY - holdDistance){
+//				moveUpLeft();
+//				
+//				//up right
+//			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY >= centeredY){
+//				moveUpRight();
+//			}
+//		}else if(reverseCounter <= 800){
+//			if(centeredPlayerX <= centeredX && centeredPlayerY <= centeredY + holdDistance){
+//				moveUpRight();
+//				
+//			}else if( centeredPlayerX <= centeredX - holdDistance && centeredPlayerY >= centeredY){
+//				moveUpLeft();
+//				
+//			}else if( centeredPlayerX >= centeredX && centeredPlayerY >= centeredY - holdDistance){
+//				moveDownLeft();
+//				
+//			}else if( centeredPlayerX >= centeredX + holdDistance && centeredPlayerY <= centeredY){
+//				moveDownRight();
+//			}
+//		}else{
+//			reverseCounter =0;
 //		}
 		
 		reverseCounter++;
@@ -123,7 +141,7 @@ public class EagleBoss extends Boss{
 	
 	public void moveDownRight(){
 		xMove = speed;
-		if(y < (((handler.getGameCamera().getyOffset() + 650))))
+		if(y < (((handler.getHeight()))))
 			yMove = speed;
 		else
 			yMove =0;
@@ -132,7 +150,7 @@ public class EagleBoss extends Boss{
 	public void moveDownLeft(){
 		xMove = -speed;
 		yMove = speed;
-		if(y < (((handler.getGameCamera().getyOffset() + 600))))
+		if(y < (((handler.getHeight()))))
 			yMove = speed;
 		else
 			yMove = 0;
@@ -149,26 +167,18 @@ public class EagleBoss extends Boss{
 	
 	@Override
 	public void attack(){
-		int randAttack = Utils.randomNum(0, 25);
-		if(randAttack == 0){
-			handler.getWorld().getEntityManager().addEntity(new Projectile(handler, this, getProjectileOrientation(),0));
+		shootInterval++;
+		if(shootInterval % 15 == 0){
+			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler, this, getProjectileOrientation(),0));
 		}
 		
-		//Deals damage to the player if they intersect this Enemy
-		if(intersectWithPlayer() && ready){
-			handler.getWorld().getEntityManager().getPlayer().hurt(1);
-			ready = false;
+		if(shootInterval % 60 == 0){
+			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler, this, getProjectileOrientation(), width/2));
+			handler.getWorld().getEntityManager().addEntity(new DarkLaser(handler,this, getProjectileOrientation(), -width/2));
+			waitHalfSec = true;
 		}
 		
-		if (!ready){
-			readyCount++;
-		}
-		
-		if(readyCount >= 5){
-			ready = true;
-			readyCount =0;
-		}
-		
+		collisionWithPlayer();
 	}
 	
 }

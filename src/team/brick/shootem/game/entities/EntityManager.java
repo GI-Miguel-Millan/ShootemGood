@@ -108,13 +108,23 @@ public class EntityManager {
 	 */
 	public void spawnEnemy(Handler handler, int x, int y, int type){
 		if(type == 1){
-			this.addEntity(new Interceptor(handler, x, y));
+			Interceptor enemy = new Interceptor(handler, x, y);
+				this.addEntity(enemy);
 		}else if(type == 2){
-			this.addEntity(new AssaultFigher(handler, x, y));
+			AssaultFighter enemy = new AssaultFighter(handler, x, y);
+				this.addEntity(enemy);
 		}else if(type == 3){
-			this.addEntity(new StealthFighter(handler, x, y));
+			StealthFighter enemy = new StealthFighter(handler, x, y);
+				this.addEntity(enemy);
 		}else{
-			this.addEntity(new LesserInterceptor(handler, x, y));
+			try{
+				GreaterInterceptor enemy = new GreaterInterceptor(handler, x, y);
+				if(!enemy.checkEntityCollisions(0, 0) && enemy.isLegalSpawn())
+					this.addEntity(enemy);
+			}catch(Exception e){
+				System.out.println("You tried to spawn a lesserInterceptor before the game finished loading");
+			}
+			
 		}
 	}
 	
@@ -126,7 +136,7 @@ public class EntityManager {
 	 * @param e the Entity to add to entities.
 	 */
 	public void addEntity(Entity e){
-		entities.add(e);
+			entities.add(e);
 	}
 	
 	/**
@@ -221,7 +231,7 @@ public class EntityManager {
 
 	public void removeLesserEnemies() {
 		for(Entity e: entities){
-			if(!e.isBoss() && !e.getClass().equals(Player.class) && !e.isProjectile() && !e.getClass().equals(LesserInterceptor.class)){
+			if(!e.isBoss() && !e.getClass().equals(Player.class) && !e.isProjectile() && !e.getClass().equals(GreaterInterceptor.class)){
 				e.setActive(false);
 			}
 		}	

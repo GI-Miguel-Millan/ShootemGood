@@ -52,20 +52,7 @@ public class GiantHeadBoss extends Boss{
 			handler.getWorld().getEntityManager().addEntity(new FireBall(handler, this, 1,0));
 		}
 		
-		//Deals damage to the player if they intersect this Enemy
-				if(intersectWithPlayer() && ready){
-					handler.getWorld().getEntityManager().getPlayer().hurt(1);
-					ready = false;
-				}
-				
-				if (!ready){
-					readyCount++;
-				}
-				
-				if(readyCount >= 5){
-					ready = true;
-					readyCount =0;
-				}
+		collisionWithPlayer();
 		
 	}
 	
