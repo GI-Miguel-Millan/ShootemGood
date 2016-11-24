@@ -31,7 +31,7 @@ public class Sound {
 	public static final Sound Mars = new Sound(ResourceLoader.loadSounds(Assets.fileNames[23]), -15);
 	public static final Sound Mercury = new Sound(ResourceLoader.loadSounds(Assets.fileNames[24]), -15);
 	public static final Sound failure = new Sound(ResourceLoader.loadSounds(Assets.fileNames[26]), -15);
-	public static final Sound victorious = new Sound(ResourceLoader.loadSounds(Assets.fileNames[25]), -15);
+	public static final Sound victorious = new Sound(ResourceLoader.loadSounds(Assets.fileNames[25]), -5);
 	
 	public static final Sound lazer = new Sound(ResourceLoader.loadSounds(Assets.fileNames[9]), -30);
 	public static final Sound explosion = new Sound(ResourceLoader.loadSounds(Assets.fileNames[7]), -10);
