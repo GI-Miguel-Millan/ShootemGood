@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.ui.ClickListener;
 import team.brick.shootem.game.ui.UIImageButton;
 import team.brick.shootem.game.ui.UIManager;
@@ -54,6 +55,9 @@ public class MenuState extends State {
 	 * @Override
 	 */
 	public void displayState() {
+		Sound.stopAll();
+		Sound.resetAll();
+		Sound.Just_Move.play();
 		State.setState(handler.getGame().getMenuState());
 		handler.getMouseManager().setUIManager(uiManager);
 	}

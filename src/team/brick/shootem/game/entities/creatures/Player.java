@@ -160,8 +160,10 @@ public class Player extends Creature {
 		}
 		
 		//Check if boss fight is over.
-		if(isBossDead)
+		if(isBossDead){
 			fightingBoss = false;
+			Sound.stopAll();
+		}
 	}
 	
 	private void collisionWithBossFightStart(int x, int y) {
@@ -304,8 +306,11 @@ public class Player extends Creature {
 			handler.setLvlCounter(handler.getLvlCounter() + 1);
 			if (handler.getLvlCounter() > handler.getNumLevels()){
 				this.die();
-			}else
+			}else{
+				handler.setVictorious(true);
 				handler.setIsTransitioning(true);
+			}
+				
 		}
 	}
 	

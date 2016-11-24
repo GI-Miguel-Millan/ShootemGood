@@ -13,3 +13,15 @@ world0.txt
 menu_graphic.png
 PAUSED.png
 Transition.png
+Venus.wav
+bgm_action_4.wav
+bgm_action_3.wav
+bgm_action_5.wav
+BossMain.wav
+fight_looped.wav
+introjingle.wav
+Just_Move.wav
+Mars.wav
+Mercury.wav
+victorious.wav
+failure.wav

@@ -54,8 +54,14 @@ public class GameOverState extends State
 	 */
 	public void displayState(){
 		State.setState(handler.getGame().getGameOverState());
+		
+		Sound.stopAll();
+		if(handler.isVictorious())
+			Sound.victorious.play();
+		else
+			Sound.failure.play();
+		
 		handler.getMouseManager().setUIManager(uiManager);
-		Sound.victory.execute();//New jon edit
 		uiManager.removeObject(lblHighScore);
 		uiManager.removeObject(lblScore);
 		lblScore = new UILabel(150, 200, 10, 20, "SCORE: " + handler.getPlayerScore(), null);

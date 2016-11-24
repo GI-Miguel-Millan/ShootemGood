@@ -8,6 +8,7 @@ import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.Player;
 import team.brick.shootem.game.gfx.Animation;
 import team.brick.shootem.game.gfx.Assets;
+import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.worlds.World;
 
 /**
@@ -111,7 +112,17 @@ public class GameState extends State {
 			}
 			
 			lastTrans = false;
+			
+			
 		}
+		if(handler.getLvlCounter() == 1){
+			Sound.bgm4.play();
+		}else if(handler.getLvlCounter() == 2)
+			Sound.venus.play();
+		else if(handler.getLvlCounter() == 3)
+			Sound.BossMain.play();
+		else if(handler.getLvlCounter() == 4)
+			Sound.fight_looped.play();
 	}
 
 	public void transitionOut(){
@@ -132,6 +143,7 @@ public class GameState extends State {
 	 * and starts the game over at level 1
 	 */
 	public void displayState(){
+		Sound.stopAll();
 		State.setState(handler.getGame().getGameState());
 		handler.setPlayer(new Player(handler, 100, 100));
 		handler.setLvlCounter(1);

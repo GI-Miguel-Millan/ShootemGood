@@ -3,6 +3,7 @@ package team.brick.shootem.game.entities.creatures.enemies.bosses;
 import team.brick.shootem.game.Handler;
 import team.brick.shootem.game.entities.creatures.enemies.Enemy;
 import team.brick.shootem.game.entities.creatures.projectiles.Projectile;
+import team.brick.shootem.game.sound.Sound;
 import team.brick.shootem.game.utils.Utils;
 
 public abstract class Boss extends Enemy {
@@ -86,6 +87,8 @@ public abstract class Boss extends Enemy {
 	public void die() {
 		handler.getPlayer().setIsBossDead(true);
 		handler.getPlayer().addScore(1000);
+		
+		Sound.introjingle.execute();
 	}
 	
 	@Override

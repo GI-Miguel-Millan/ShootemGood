@@ -48,7 +48,18 @@ public class Assets {
 										// [12] = "menu_graphic.png"
 										// [13] = "PAUSED.png"
 										// [14] = "Transition.png"
-
+										// [15] = "Venus.wav"
+										// [16] = "bgm_action_4.wav"
+										// [17] = "bgm_action_3.wav"
+										// [18] = "bgm_action_5.wav"
+										// [19] = "BossMain.wav"
+										// [20] = "fight_looped.wav"
+										// [21] = "introjingle.wav"
+										// [22] = "Just_Move.wav"
+										// [23] = "Mars.wav"
+										// [24] = "Mercury.wav"
+										// [25] = "victorious.wav"
+										// [26] = "failure.wav"
 	/**
 	 *  Loads all assets into the game. This should only be called once.
 	 */

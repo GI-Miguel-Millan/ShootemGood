@@ -32,6 +32,7 @@ public class Handler {
 	private int lvlCounter = 1;
 	private static final int NUMBER_LEVELS = 4;
 	private boolean isTransitioning = false;
+	private boolean isVictorious = false;
 
 	private int highScore;
 	
@@ -160,6 +161,14 @@ public class Handler {
 	
 	public boolean IsTransitioning(){
 		return isTransitioning;
+	}
+	
+	public boolean isVictorious(){
+		return isVictorious;
+	}
+	
+	public void setVictorious(boolean b){
+		this.isVictorious = b;
 	}
 	
 	//Checks the current score against the high score. If higher, update the high score

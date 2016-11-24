@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -78,8 +79,8 @@ public class ResourceLoader {
 		return builder.toString();
 	}
 	
-	public static String loadSounds(String fileName){
+	public static URL loadSounds(String fileName){
 		
-		return "/resources/sounds/" + fileName;
+		return rl.getClass().getResource("/resources/sounds/" + fileName);
 	}
 }
