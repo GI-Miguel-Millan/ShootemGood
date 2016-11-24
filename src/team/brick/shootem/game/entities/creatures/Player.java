@@ -306,8 +306,8 @@ public class Player extends Creature {
 			handler.setLvlCounter(handler.getLvlCounter() + 1);
 			if (handler.getLvlCounter() > handler.getNumLevels()){
 				this.die();
-			}else{
 				handler.setVictorious(true);
+			}else{
 				handler.setIsTransitioning(true);
 			}
 				
