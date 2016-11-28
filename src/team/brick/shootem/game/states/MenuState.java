@@ -28,7 +28,7 @@ public class MenuState extends State {
 		handler.getMouseManager().setUIManager(uiManager);
 
 		// adds a button that switches the current state to the gamestate when pressed.
-		uiManager.addObject(new UIImageButton(100, 50, 275, 225, Assets.btn_start, new ClickListener() {
+		uiManager.addObject(new UIImageButton(136, 623, 229, 64, Assets.btn_start, new ClickListener() {
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
@@ -44,9 +44,9 @@ public class MenuState extends State {
 
 	@Override
 	public void render(Graphics g) {
-		
-		uiManager.render(g);
 		g.drawImage(Assets.menu, 0, 0, handler.getWidth(), handler.getHeight(), null);
+		uiManager.render(g);
+		
 	}
 	
 	/**

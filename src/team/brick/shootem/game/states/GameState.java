@@ -46,10 +46,6 @@ public class GameState extends State {
 		if (world != handler.getWorld())
 			world = handler.getWorld();
 		
-		if(handler.getKeyManager().mute){
-			handler.setIsTransitioning(true);
-			
-		}
 		if(!handler.IsTransitioning())
 			world.tick();
 		else
@@ -147,7 +143,7 @@ public class GameState extends State {
 		State.setState(handler.getGame().getGameState());
 		handler.setPlayer(new Player(handler, 100, 100));
 		handler.setLvlCounter(1);
-		world = new World(handler, Assets.fileNames[1]); // fileNames[1] = world1.txt
+		world = new World(handler, Assets.fileNames[handler.getLvlCounter()]); // fileNames[1] = world1.txt
 		handler.setWorld(world);
 		handler.setIsTransitioning(true);
 		firstTrans = true;

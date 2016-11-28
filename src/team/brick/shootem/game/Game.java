@@ -90,10 +90,10 @@ public class Game implements Runnable {
 	private void tick(){
 		keyManager.tick();
 		
-		if(keyManager.ctrl && keyManager.mute && keyManager.wasReleased){
-			Game.MUTED = !Game.MUTED;
-			keyManager.wasReleased = false;
-		}
+//		if(keyManager.ctrl && keyManager.mute && keyManager.wasReleased){
+//			Game.MUTED = !Game.MUTED;
+//			keyManager.wasReleased = false;
+//		}
 		
 		if(State.getState() != null && !getPAUSED())
 			State.getState().tick();

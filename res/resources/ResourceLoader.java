@@ -1,7 +1,10 @@
 package resources;
 
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -29,6 +32,20 @@ public class ResourceLoader {
 		}
 		return null;
 	}
+	
+//	public static void loadFont(String fileName){
+//		
+//		
+//		try {
+//		     GraphicsEnvironment ge = 
+//		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+//		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rl.getClass().getResource("files/" + fileName).toString())));
+//		     
+//		     System.out.println(rl.getClass().getResource("files/" + fileName).toString());
+//		} catch (Exception e) {
+//		     //Handle exception
+//		}
+//	}
 	
 	/**
 	 * Loads the specified world file in as a string. This file needs to be a text file.

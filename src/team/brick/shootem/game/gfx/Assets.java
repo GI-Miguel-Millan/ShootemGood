@@ -1,5 +1,6 @@
 package team.brick.shootem.game.gfx;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
@@ -21,17 +22,16 @@ public class Assets {
 	public static BufferedImage space, space2, stone, tree, spaceBound, stealth, 
 								projectile, interceptor, assault, stealthed, giantHead,
 								motherShip,darkTumorRang, dt_left, dt_right, fireBall, eagle, darkLaser,
-								boost, shield, heart, star, splitshot, menu, blackHole, slowVortex, paused,
-								boosted, invincible;
+								boost, shield, heart, star, splitshot, menu, menu2, blackHole, slowVortex, paused,
+								boosted, invincible, gameOver;
 
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] hurt_down, hurt_up, hurt_left, hurt_right;
 	public static BufferedImage[] explosion;
 	public static BufferedImage[] btn_start;
+	public static BufferedImage[] btn_restart;
 	public static BufferedImage[] transIn, transOut;
-	
-	
-	
+//	public static Font gameFont;
 	//Array of names stored in the Paths.txt of the files we want to load
 	public static String[] fileNames; 	// [0] = "sheets.png" 
 								      	// [1] = "world1.txt"
@@ -60,6 +60,13 @@ public class Assets {
 										// [24] = "Mercury.wav"
 										// [25] = "victorious.wav"
 										// [26] = "failure.wav"
+										// [27] = "MenuState.png"
+										// [28] = "MenuState2.png"
+										// [29] = "engage.png"
+										// [30] = "engage2.png"
+										// [31] = "GameOver.png"
+										// [32] = "GameOver2.png"
+										// [33] = "GameOverScreen.png"
 	/**
 	 *  Loads all assets into the game. This should only be called once.
 	 */
@@ -75,12 +82,20 @@ public class Assets {
 		
 		SpriteSheet sheet = new SpriteSheet(ResourceLoader.loadImage(fileNames[0]));
 		SpriteSheet sheet2 = new SpriteSheet(ResourceLoader.loadImage(fileNames[14]));
-		menu = ResourceLoader.loadImage(fileNames[12]);
+		menu = ResourceLoader.loadImage(fileNames[27]);
+		menu2 = ResourceLoader.loadImage(fileNames[28]);
 		paused = ResourceLoader.loadImage(fileNames[13]);
+		gameOver = ResourceLoader.loadImage(fileNames[33]);
+		
+//		ResourceLoader.loadFont(fileNames[34]);
+//		gameFont = new Font("ARCADECLASSIC.TTF", Font.PLAIN, 72);
 		
 		btn_start = new BufferedImage[2];
-		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
-		btn_start[1] = sheet.crop(width * 6, height * 5, width * 2, height);
+		btn_start[1] = ResourceLoader.loadImage(fileNames[29]);
+		btn_start[0] = ResourceLoader.loadImage(fileNames[30]);
+		btn_restart = new BufferedImage[2];
+		btn_restart[1] = ResourceLoader.loadImage(fileNames[31]);
+		btn_restart[0] = ResourceLoader.loadImage(fileNames[32]);
 		
 		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];

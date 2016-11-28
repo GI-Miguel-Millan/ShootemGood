@@ -51,13 +51,13 @@ public class PowerUp extends StaticEntity{
 		
 		if(rndInt < 25){
 			powerUps.add(new BonusPointsPowerUp(handler, x, y));
-		}else if(rndInt >= 25 && rndInt < 40){
+		}else if(rndInt >= 25 && rndInt < 45){
 			powerUps.add(new SplitShotPowerUp(handler, x, y));
-		}else if(rndInt >= 40 && rndInt < 45){
+		}else if(rndInt >= 45 && rndInt < 50){
 			powerUps.add(new InvincibilityPowerUp(handler, x ,y));
-		}else if(rndInt >= 45 && rndInt < 60){
+		}else if(rndInt >= 50 && rndInt < 60){
 			powerUps.add(new SpdUpPowerUp(handler, x, y));
-		}else if(rndInt >= 60 && rndInt < 70){
+		}else if(rndInt >= 60 && rndInt < 90){
 			powerUps.add(new HpUpPowerUp(handler, x, y));
 		}
 	}

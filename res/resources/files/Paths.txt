@@ -25,3 +25,11 @@ Mars.wav
 Mercury.wav
 victorious.wav
 failure.wav
+MenuState.png
+MenuState2.png
+engage.png
+engage2.png
+GameOver.png
+GameOver2.png
+GameOverScreen.png
+ARCADECLASSIC.TTF
